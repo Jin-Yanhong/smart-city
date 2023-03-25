@@ -1,0 +1,21 @@
+{
+	"semi": true,
+	"tabWidth": 4,
+	"printWidth": 360,
+	"useTabs": true,
+	"quoteProps": "as-needed",
+	"bracketSpacing": true,
+	"singleQuote": false,
+	"bracketSameLine": false,
+	"endOfLine": "auto",
+	"arrowParens": "avoid",
+	"overrides": [
+		{
+			"files": ["*.yml", "*.yaml"],
+			"options": {
+				"tabWidth": 2,
+				"useTabs": false
+			}
+		}
+	]
+}

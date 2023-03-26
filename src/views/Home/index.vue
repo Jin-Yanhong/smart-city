@@ -4,7 +4,6 @@
 			<p>use State by pinia</p>
 			<ElButton type="primary" @click="AppStore.switchTheme()"> Click me! {{ theme }} </ElButton>
 		</div>
-
 		<div>
 			<p>use http request</p>
 			<ElImage v-for="img in data.imageList" :key="img" :src="img" style="width: 200px" />
@@ -26,8 +25,8 @@ const data = reactive({
 const theme = computed(() => AppStore.getTheme);
 
 onMounted(() => {
-	loadImage((res: any) => {
-		data.imageList = res;
+	loadImage(res => {
+		data.imageList = res.data;
 	});
 });
 </script>

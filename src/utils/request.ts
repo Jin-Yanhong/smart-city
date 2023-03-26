@@ -1,7 +1,7 @@
 import axios, { type AxiosRequestHeaders, type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { ElMessage, ElMessageBox, ElNotification } from "element-plus";
 import { requestCode } from "./constant";
-import { responseData } from "@/types/index";
+import { responseData, requestIdleCallback } from "@/types/index";
 
 const service = axios.create({
 	baseURL: window.location.origin,
@@ -59,10 +59,15 @@ service.interceptors.response.use(
 /**
  *
  */
-function request(requestData: Partial<AxiosRequestConfig>, successCallback: Function, errorCallback?: Function) {
+function request(
+	requestData: Partial<AxiosRequestConfig>,
+	successCallback: requestIdleCallback,
+	errorCallback?: requestIdleCallback
+) {
 	service({ ...requestData })
 		.then((res: AxiosResponse<any, any>) => {
-			successCallback(res.data.data);
+			const data: responseData = res.data;
+			successCallback(data);
 		})
 		.catch((err: responseData) => {
 			if (errorCallback) {

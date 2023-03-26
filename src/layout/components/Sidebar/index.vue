@@ -1,5 +1,13 @@
 <template>
 	<div class="sidebar">
+		<div class="flex-end">
+			<el-button type="default" size="small" @click="isCollapse = !isCollapse">
+				<el-icon>
+					<component :is="isCollapse ? 'DArrowRight' : 'DArrowLeft'" />
+				</el-icon>
+			</el-button>
+		</div>
+
 		<ElMenu
 			:default-active="activeMenu"
 			:unique-opened="menuConfig.uniqueOpened"
@@ -21,10 +29,12 @@ import settings from "@/settings";
 import { defineComponent, ref } from "vue";
 import SidebarItem from "./SidebarItem.vue";
 import { RouteRecordRaw } from "vue-router";
+
+import { DArrowRight, DArrowLeft } from "@element-plus/icons-vue";
 export default defineComponent({
 	setup() {
 		const menuConfig = ref(settings.menuConfig);
-		const isCollapse = ref<boolean>(false);
+		const isCollapse = ref<boolean>(true);
 		const routerList = ref<Array<RouteRecordRaw>>(routes);
 
 		return {
@@ -36,6 +46,8 @@ export default defineComponent({
 	name: "Side_bar",
 	components: {
 		SidebarItem,
+		DArrowRight,
+		DArrowLeft,
 	},
 	computed: {
 		activeMenu(): string {

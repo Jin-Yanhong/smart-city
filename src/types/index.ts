@@ -8,3 +8,5 @@ export type responseData = {
 	data: Array<any> | any;
 	message: string;
 };
+
+export type requestIdleCallback = (res: responseData) => void;

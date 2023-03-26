@@ -5,6 +5,7 @@ import { ElMessage } from "element-plus";
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 import "nprogress/nprogress.css";
 import { system } from "./module/System";
+import { temp } from "./module/temp";
 
 const whiteList = ["/login"];
 
@@ -46,6 +47,7 @@ export const routes: Array<RouteRecordRaw> = [
 	},
 
 	...system,
+	...temp,
 
 	{
 		path: "/redirect",

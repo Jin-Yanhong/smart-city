@@ -2,14 +2,14 @@ import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 
-const port = 3000;
+const port = 5000;
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
 	const config = loadEnv(mode, "./");
 
 	return defineConfig({
-		base: mode == "production" ? "Learing-Threejs" : "/",
+		base: mode == "production" ? "/threejs-project" : "/",
 		plugins: [vue()],
 		resolve: {
 			alias: {
@@ -17,13 +17,14 @@ export default ({ mode }) => {
 			},
 		},
 		server: {
-			port: port,
+			hmr: true,
 			open: true,
+			port: port,
 			proxy: {
-				"/api/.*": {
+				"/api": {
 					target: config.VITE_BASE_API,
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/fallback/, "api"),
+					rewrite: path => path.replace(/^\/api/, "/api"),
 				},
 			},
 		},

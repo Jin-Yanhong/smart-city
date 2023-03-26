@@ -1,7 +1,5 @@
 # learning-threejs
 
----
-
 This project use `vue3`,`pinia`,`less`,`TypeScript`
 
 ## Environment require

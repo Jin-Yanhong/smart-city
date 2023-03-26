@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 import NProgress from "nprogress";
 import { ElMessage } from "element-plus";
-import Home from "../views/Home.vue";
+import Home from "@/views/Home.vue";
 
 import "nprogress/nprogress.css";
 
@@ -52,7 +52,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 
 router.afterEach((to: RouteLocationNormalized) => {
 	NProgress.done();
-	document.title = "BMS" + " | " + to.meta?.title;
+	document.title = `智慧城市 - ${to.meta?.title}`;
 });
 
 export default router;

@@ -8,7 +8,7 @@ export const system: Array<RouteRecordRaw> = [
 		redirect: "/system/index",
 		component: Layout,
 		meta: {
-			title: "系统",
+			title: "系统管理",
 			icon: "Odometer",
 			cache: true,
 			show: true,
@@ -18,7 +18,7 @@ export const system: Array<RouteRecordRaw> = [
 				path: "index",
 				name: "SystemIndex",
 				meta: {
-					title: "总览",
+					title: "系统总览",
 					icon: "PieChart",
 					cache: true,
 					show: true,
@@ -29,7 +29,7 @@ export const system: Array<RouteRecordRaw> = [
 				path: "dicts",
 				name: "SystemDicts",
 				meta: {
-					title: "字典",
+					title: "系统字典",
 					icon: "PieChart",
 					cache: true,
 					show: true,

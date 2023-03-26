@@ -3,7 +3,7 @@
 		<div class="flex-end">
 			<el-button type="default" size="small" @click="isCollapse = !isCollapse">
 				<el-icon>
-					<component :is="isCollapse ? 'DArrowRight' : 'DArrowLeft'" />
+					<component :is="isCollapse ? 'DArrowLeft' : 'DArrowRight'" />
 				</el-icon>
 			</el-button>
 		</div>
@@ -34,7 +34,7 @@ import { DArrowRight, DArrowLeft } from "@element-plus/icons-vue";
 export default defineComponent({
 	setup() {
 		const menuConfig = ref(settings.menuConfig);
-		const isCollapse = ref<boolean>(true);
+		const isCollapse = ref<boolean>(false);
 		const routerList = ref<Array<RouteRecordRaw>>(routes);
 
 		return {

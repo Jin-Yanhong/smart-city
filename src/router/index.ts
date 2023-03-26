@@ -5,7 +5,6 @@ import { ElMessage } from "element-plus";
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 import "nprogress/nprogress.css";
 import { system } from "./module/System";
-import { temp } from "./module/temp";
 
 const whiteList = ["/login"];
 
@@ -26,7 +25,7 @@ export const routes: Array<RouteRecordRaw> = [
 		redirect: "/dashboard",
 		component: Layout,
 		meta: {
-			title: "总览",
+			title: "数据总览",
 			icon: "PieChart",
 			cache: true,
 			show: true,
@@ -36,7 +35,7 @@ export const routes: Array<RouteRecordRaw> = [
 				path: "dashboard",
 				name: "dashboardIndex",
 				meta: {
-					title: "总览",
+					title: "图表",
 					icon: "PieChart",
 					cache: true,
 					show: true,
@@ -47,7 +46,6 @@ export const routes: Array<RouteRecordRaw> = [
 	},
 
 	...system,
-	...temp,
 
 	{
 		path: "/redirect",

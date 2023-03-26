@@ -3,19 +3,18 @@
 		<ElSubMenu :index="basePath">
 			<template #title>
 				<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
-				<span>
-					{{ item.meta?.title }}
-				</span>
+				<span> {{ item.meta?.title }}</span>
 			</template>
 			<SidebarItem v-for="child in item.children" v-bind:key="child.path" :item="child" :basePath="basePath" />
 		</ElSubMenu>
 	</template>
 	<template v-else>
-		<ElMenuItem v-show="item.meta?.show" :index="resolvePath([basePath, '/', item.path])">
+		<ElMenuItem v-show="item.meta?.show" :index="item.path">
 			<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
 			<template #title>
-				<router-link :to="resolvePath([basePath, '/', item.path])"> </router-link>
-				<span> {{ item.meta?.title }} </span>
+				<router-link :to="resolvePath([basePath, '/', item.path])">
+					<span> {{ item.meta?.title }} </span>
+				</router-link>
 			</template>
 		</ElMenuItem>
 	</template>
@@ -47,9 +46,9 @@ export default defineComponent({
 		...registerIcon(),
 	},
 	methods: {
-		resolvePath(paths: string[]) {
+		resolvePath(paths: string[]): string {
 			const pathNode: string[] = paths.join("").replace(/\//g, " ").split(" ");
-			const result: string = Array.from(new Set(pathNode)).join("/");
+			const result: string = Array.from(new Set(pathNode)).join("/") || "/";
 			return result;
 		},
 	},

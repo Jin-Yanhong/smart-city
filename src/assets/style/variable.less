@@ -1,0 +1,56 @@
+@layout-gap: 10px;
+
+@during-link: 0.3s;
+
+@color-light: #f5f6fa;
+@color-dark: #2f3640;
+@color-hover: #dcdde1;
+@color-shadow: #7f8fa6;
+@color-menu-bg: #7f8fa6;
+@color-menu-bg-active: #7f8fa6;
+@color-layout-bg-navbar: #273c75;
+@color-layout-bg-sidebar: #273c75;
+
+.mix-in-flex() {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.color() {
+	.text() {
+		.light() {
+			color: @color-light;
+		}
+		.dark() {
+			color: @color-dark;
+		}
+	}
+	.link() {
+		.normal() {
+			color: @color-light;
+		}
+		.hover() {
+			color: @color-hover;
+		}
+		.visited() {
+			color: @color-light;
+		}
+		.active() {
+			color: @color-light;
+		}
+	}
+}
+
+.flex() {
+	.mix-in-flex();
+	.center() {
+		.mix-in-flex();
+		justify-content: center;
+		align-items: center;
+	}
+	.start() {
+		.mix-in-flex();
+		justify-content: center;
+		align-items: center;
+	}
+}

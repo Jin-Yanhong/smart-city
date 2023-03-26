@@ -1,12 +1,14 @@
 <template>
-	<div>
-		<p>use State by pinia</p>
-		<ElButton type="primary" @click="AppStore.switchTheme()"> Click me! {{ theme }} </ElButton>
-	</div>
+	<div class="view">
+		<div>
+			<p>use State by pinia</p>
+			<ElButton type="primary" @click="AppStore.switchTheme()"> Click me! {{ theme }} </ElButton>
+		</div>
 
-	<div>
-		<p>use http request</p>
-		<ElImage v-for="img in data.imageList" :key="img" :src="img" style="width: 200px" />
+		<div>
+			<p>use http request</p>
+			<ElImage v-for="img in data.imageList" :key="img" :src="img" style="width: 200px" />
+		</div>
 	</div>
 </template>
 

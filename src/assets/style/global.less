@@ -1,0 +1,20 @@
+@import "./variable.less";
+
+.layout {
+	padding: 0;
+}
+
+.view {
+	padding: @layout-gap;
+	height: calc(100% - @layout-gap * 2);
+}
+
+.flex {
+	.flex();
+	&-center {
+		.flex.center();
+	}
+	&-start {
+		.flex.start();
+	}
+}

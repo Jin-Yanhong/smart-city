@@ -1,10 +1,7 @@
 import { clearStorage, getStorage, setStorage } from "@/utils/index";
 import { defineStore } from "pinia";
 
-interface loginFormType {
-	userName: string;
-	passWord: string;
-}
+import { loginFormType } from "@/types";
 
 const useUserStore = defineStore({
 	id: "user",
@@ -19,7 +16,7 @@ const useUserStore = defineStore({
 	actions: {
 		async handleLogin(loginArgs: loginFormType) {
 			try {
-				const accessToken = "";
+				const accessToken = "abc123";
 				setStorage("token", accessToken);
 				this.$patch({
 					token: accessToken,

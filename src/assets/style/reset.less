@@ -1,0 +1,11 @@
+@import "./variable.less";
+
+a {
+	color: @color-light;
+	text-decoration: none;
+
+	&:hover {
+		transition: @during-link;
+		.color.link.hover();
+	}
+}

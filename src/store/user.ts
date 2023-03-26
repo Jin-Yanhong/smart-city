@@ -1,6 +1,5 @@
 import { clearStorage, getStorage, setStorage } from "@/utils/index";
 import { defineStore } from "pinia";
-
 import { loginFormType } from "@/types";
 
 const useUserStore = defineStore({
@@ -14,19 +13,24 @@ const useUserStore = defineStore({
 		},
 	},
 	actions: {
-		async handleLogin(loginArgs: loginFormType) {
-			try {
-				const accessToken = "abc123";
-				setStorage("token", accessToken);
-				this.$patch({
-					token: accessToken,
+		handleLogin(loginArgs: loginFormType) {
+			return new Promise((resolve, reject) => {
+				const str = JSON.stringify(loginArgs);
+				resolve(str);
+			})
+				.then(res => {
+					const accessToken = res as string;
+					setStorage("token", accessToken);
+					this.$patch({
+						token: accessToken,
+					});
+				})
+				.catch(err => {
+					this.$patch({
+						token: "",
+					});
+					clearStorage();
 				});
-			} catch (error: any) {
-				this.$patch({
-					token: "",
-				});
-				clearStorage();
-			}
 		},
 		async handleLogout() {
 			this.$patch({

@@ -24,12 +24,13 @@
 </template>
 
 <script lang="ts" setup>
-import route from "@/router";
-import useUserStore from "@/store/user";
-import { loginFormType } from "@/types";
 import settings from "@/settings";
-import type { FormInstance, FormRules } from "element-plus";
+import router from "@/router/index";
+import { loginFormType } from "@/types";
+import useUserStore from "@/store/user";
 import { onMounted, reactive, ref } from "vue";
+import type { FormInstance, FormRules } from "element-plus";
+import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from "vue-router";
 
 const form = reactive<loginFormType>({ userName: "admin", passWord: "admin" });
 const AppName = ref<string>("");
@@ -53,14 +54,26 @@ const rules = reactive<FormRules>({
 	],
 });
 
-async function onSubmit(formEl: FormInstance | undefined) {
+const currentRoute: RouteLocationNormalizedLoaded = useRoute();
+
+function onSubmit(formEl: FormInstance | undefined) {
 	if (!formEl) return;
-	await formEl.validate(valid => {
+	formEl.validate(async valid => {
 		if (valid) {
-			user.handleLogin(form);
-			setTimeout(() => {
-				route.replace("/");
-			}, 200);
+			user.handleLogin(form).then(() => {
+				setTimeout(() => {
+					const path: LocationQuery = currentRoute.query;
+
+					if (path.redirect) {
+						router.replace({
+							path: "/redirect",
+							query: path,
+						});
+					} else {
+						router.replace("/dashboard");
+					}
+				}, 200);
+			});
 		}
 	});
 }

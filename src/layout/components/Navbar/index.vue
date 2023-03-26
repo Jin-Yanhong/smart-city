@@ -3,10 +3,10 @@
 		<div class="flex-between-column">
 			<div style="flex-grow: 2">
 				<el-breadcrumb v-if="current.path === '/dashboard'">
-					<el-breadcrumb-item :to="{ path: '/' }"> 首页 </el-breadcrumb-item>
+					<el-breadcrumb-item :to="{ path: '/dashboard' }"> 首页 </el-breadcrumb-item>
 				</el-breadcrumb>
 				<el-breadcrumb v-else separator="/">
-					<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+					<el-breadcrumb-item :to="{ path: '/dashboard' }">首页</el-breadcrumb-item>
 					<el-breadcrumb-item
 						v-for="(item, index) in breadcrumbList"
 						:key="item.path + index"

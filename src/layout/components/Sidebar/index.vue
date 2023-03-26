@@ -1,6 +1,6 @@
 <template>
 	<div class="sidebar">
-		<el-menu
+		<ElMenu
 			:default-active="activeMenu"
 			:unique-opened="menuConfig.uniqueOpened"
 			:collapse-transition="menuConfig.collapseTransition"
@@ -11,7 +11,7 @@
 			mode="vertical"
 		>
 			<SidebarItem v-for="route in routerList" :key="route.path" :item="route" :basePath="route.path" />
-		</el-menu>
+		</ElMenu>
 	</div>
 </template>
 
@@ -20,11 +20,13 @@ import { routes } from "@/router";
 import settings from "@/settings";
 import { defineComponent, ref } from "vue";
 import SidebarItem from "./SidebarItem.vue";
+import { RouteRecordRaw } from "vue-router";
 export default defineComponent({
 	setup() {
 		const menuConfig = ref(settings.menuConfig);
 		const isCollapse = ref<boolean>(false);
-		const routerList = routes;
+		const routerList = ref<Array<RouteRecordRaw>>(routes);
+
 		return {
 			menuConfig,
 			isCollapse,

@@ -1,12 +1,7 @@
-<template>
-	{{ props.msg }}
-</template>
+<template>404</template>
 
 <script lang="ts" setup>
 import { defineProps } from "vue";
-const props = defineProps({
-	msg: String,
-});
 </script>
 
 <style lang="less"></style>

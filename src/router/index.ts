@@ -4,6 +4,7 @@ import NProgress from "nprogress";
 import { ElMessage } from "element-plus";
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 import "nprogress/nprogress.css";
+import { system } from "./module/System";
 
 const whiteList = ["/login"];
 
@@ -11,28 +12,28 @@ export const routes: Array<RouteRecordRaw> = [
 	{
 		path: "/login",
 		name: "login",
-		component: () => import("@/views/Login/index.vue"),
 		meta: {
 			title: "登录",
 			cache: true,
 			show: false,
 		},
+		component: () => import("@/views/Login/index.vue"),
 	},
 	{
 		path: "/",
+		name: "dashboard",
 		redirect: "/dashboard",
-		name: "root",
 		component: Layout,
 		meta: {
-			title: "系统概要",
-			icon: "Odometer",
+			title: "总览",
+			icon: "PieChart",
 			cache: true,
 			show: true,
 		},
 		children: [
 			{
 				path: "dashboard",
-				name: "dashboard",
+				name: "dashboardIndex",
 				meta: {
 					title: "总览",
 					icon: "PieChart",
@@ -44,29 +45,11 @@ export const routes: Array<RouteRecordRaw> = [
 		],
 	},
 
+	...system,
+
 	{
-		path: "/home",
-		name: "View",
-		component: Layout,
-		meta: {
-			title: "首页",
-			icon: "Odometer",
-			cache: true,
-			show: true,
-		},
-		children: [
-			{
-				path: "",
-				name: "Home",
-				meta: {
-					title: "总览",
-					icon: "PieChart",
-					cache: true,
-					show: true,
-				},
-				component: () => import("@/views/Home/index.vue"),
-			},
-		],
+		path: "/redirect",
+		component: () => import("@/views/Redirect/index.vue"),
 	},
 	{
 		path: "/404",
@@ -94,7 +77,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 				next();
 			} catch (err: any) {
 				useUserStore().handleLogout();
-				ElMessage.error(err.message || "Has Error");
+				ElMessage.error(err.message);
 				next("/login");
 				NProgress.done();
 			}
@@ -103,7 +86,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 		if (whiteList.indexOf(to.path) !== -1) {
 			next();
 		} else {
-			next("/login");
+			next(`/login?redirect=${to.path}`);
 			NProgress.done();
 		}
 	}

@@ -2,7 +2,7 @@
 	<div class="app-container">
 		<Navbar class="navbar" />
 		<div class="flex-nowrap">
-			<Sidebar :class="[isCollapse ? 'noCollapse' : 'yesCollapse']" @on-switch-collapse="onSwitchCollapse" />
+			<Sidebar />
 			<AppMain class="appMain" style="flex-grow: 1" />
 		</div>
 	</div>

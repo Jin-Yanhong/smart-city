@@ -9,7 +9,6 @@
 		/>
 
 		<ElMenu
-			class="el-menu-vertical-demo"
 			:default-active="activeMenu"
 			:default-openeds="defaultOpened"
 			:unique-opened="menuConfig.uniqueOpened"
@@ -35,21 +34,18 @@ import settings from "@/settings";
 import { menuConfigType } from "@/types";
 
 const emit = defineEmits(["onSwitchCollapse"]);
-
 const currentRoute = useRoute();
-
 const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
 const isCollapse = ref<boolean>(false);
 const routerList = ref<Array<RouteRecordRaw>>(routes);
-
 const activeMenu = computed(() => currentRoute.path);
-
-console.log(activeMenu.value);
-
+const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
 const defaultOpened = ["/system", "index"];
 
 function switchCollapse() {
 	isCollapse.value = !isCollapse.value;
+	// TODO:
+	sidebarWidth.value = isCollapse.value ? "64px" : settings.appConfig.layOut.menuWidth;
 	emit("onSwitchCollapse", isCollapse.value as boolean);
 }
 </script>
@@ -58,11 +54,6 @@ function switchCollapse() {
 .sidebarCom {
 	position: relative;
 	background-color: @color-layout-bg-navbar;
-	transition-delay: 0;
-	transition-duration: 0.3s;
-	transition-property: width;
-	transition-timing-function: ease-in-out;
-
 	:deep(.el-menu) {
 		border: none;
 	}
@@ -71,6 +62,12 @@ function switchCollapse() {
 		top: 50%;
 		right: 0;
 		z-index: 1;
+	}
+
+	[role="menubar"] {
+		transition: all 0.3s !important;
+		// TODO:
+		// min-width: v-bind(sidebarWidth);
 	}
 }
 </style>

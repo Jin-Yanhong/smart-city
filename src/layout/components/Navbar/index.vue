@@ -52,25 +52,49 @@
 					<el-dropdown-menu>
 						<!-- <el-dropdown-item divided></el-dropdown-item> -->
 						<el-dropdown-item @click="handleLogout">
-							<el-icon class="el-icon--right">
+							<el-icon>
 								<SwitchButton />
 							</el-icon>
 							Logout
+						</el-dropdown-item>
+						<el-dropdown-item @click="drawer = true">
+							<el-icon><Setting /></el-icon>
+							打开设置
 						</el-dropdown-item>
 					</el-dropdown-menu>
 				</template>
 			</el-dropdown>
 		</div>
+
+		<el-drawer v-model="drawer" title="系统设置" direction="rtl" :close-on-click-modal="false">
+			<div class="flex-between">
+				<span> 系统主题色 </span>
+
+				<span>
+					<el-color-picker v-model="themeColor" />
+					<span>{{ themeColor }} </span>
+				</span>
+			</div>
+
+			<ElDivider />
+			<div class="flex-between">
+				<span> 菜单布局 </span>
+				<el-radio-group v-model="menuLayout">
+					<el-radio-button label="horizontal" />
+					<el-radio-button label="vertical" />
+				</el-radio-group>
+			</div>
+		</el-drawer>
 	</div>
 </template>
 <script lang="ts">
 import { routes } from "@/router";
 import useUserStore from "@/store/user";
-import { ArrowDown, SwitchButton } from "@element-plus/icons-vue";
+import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
 import { ElMessageBox } from "element-plus";
 import { defineComponent, ref } from "vue";
 import { RouteLocationMatched, useRoute } from "vue-router";
-
+import { enumMenuLayout } from "@/enum";
 interface tagViewsType {
 	title: string;
 	path: string;
@@ -78,24 +102,31 @@ interface tagViewsType {
 }
 
 export default defineComponent({
-	name: "nav_Bar",
+	name: "navBar",
 	setup() {
 		const routerList = routes;
 		const user = useUserStore();
 		const current = useRoute();
+		const drawer = ref<boolean>(false);
+		const themeColor = ref<string>("#409EFF");
+		const menuLayout = ref<enumMenuLayout>(enumMenuLayout.horizontal);
 		const breadcrumbList = ref<Array<RouteLocationMatched>>(current.matched);
 		const tagViews = ref<Array<tagViewsType>>([]);
 		return {
-			routerList,
 			user,
+			drawer,
 			current,
-			breadcrumbList,
 			tagViews,
+			routerList,
+			themeColor,
+			menuLayout,
+			breadcrumbList,
 		};
 	},
 	components: {
 		ArrowDown,
 		SwitchButton,
+		Setting,
 	},
 	watch: {
 		$route: function (nVal, oVal) {
@@ -137,7 +168,7 @@ export default defineComponent({
 		},
 	},
 	methods: {
-		handleLogout(): any {
+		handleLogout(): void {
 			ElMessageBox.confirm("Are you confirm to logout ?", "Warning", {
 				confirmButtonText: "I conform",
 				cancelButtonText: "Cancle",

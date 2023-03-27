@@ -1,5 +1,5 @@
 <template>
-	<div class="view flex-center">
+	<div class="page flex-center">
 		<div class="loginForm">
 			<el-card shadow="never">
 				<template #header>
@@ -85,7 +85,7 @@ onMounted(() => {
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
 
-.view {
+.page {
 	height: 100vh;
 	background: #1abc9c;
 

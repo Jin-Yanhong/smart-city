@@ -1,1 +1,3 @@
-<template>系统 - Index</template>
+<template>
+	<div class="view">系统 - Index</div>
+</template>

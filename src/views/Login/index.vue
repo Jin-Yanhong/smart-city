@@ -79,7 +79,7 @@ function onSubmit(formEl: FormInstance | undefined) {
 }
 
 onMounted(() => {
-	AppName.value = settings.appName as string;
+	AppName.value = settings.appConfig.name as string;
 });
 </script>
 <style lang="less" scoped>

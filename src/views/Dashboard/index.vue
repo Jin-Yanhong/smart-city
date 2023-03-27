@@ -1,29 +1,20 @@
 <template>
 	<div class="view">
 		<div class="box">
-			<div class="one"><BarChart /></div>
-			<div class="two"><LineChart /></div>
-			<div class="three"><MixedChart /></div>
-			<div class="four"><PieChart /></div>
+			<div class="one"></div>
+			<div class="two"></div>
+			<div class="three"></div>
+			<div class="four"></div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import BarChart from "@/components/Charts/BarChart.vue";
-import LineChart from "@/components/Charts/LineChart.vue";
-import MixedChart from "@/components/Charts/MixedChart.vue";
-import PieChart from "@/components/Charts/PieChart.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
 	name: "view_dashboard",
-	components: {
-		BarChart,
-		LineChart,
-		MixedChart,
-		PieChart,
-	},
+	components: {},
 	methods: {},
 });
 </script>

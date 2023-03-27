@@ -1,11 +1,19 @@
+const themeColor = "#2c2c54";
+
 const settings = {
-	appName: "智慧城市",
+	appConfig: {
+		name: "智慧城市",
+		themeColor: themeColor,
+		layOut: {
+			menuWidth: "200px",
+		},
+	},
 	menuConfig: {
 		uniqueOpened: false,
 		collapseTransition: true,
-		backgroundColor: "#273c75",
-		activeTextColor: "#ffd04b",
-		textColor: "#f5f6fa",
+		backgroundColor: themeColor,
+		activeTextColor: "#ffb142",
+		textColor: "#ffb142",
 	},
 };
 

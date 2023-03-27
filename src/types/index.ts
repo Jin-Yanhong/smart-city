@@ -8,5 +8,12 @@ export type responseData = {
 	data: Array<any> | any;
 	message: string;
 };
+export type menuConfigType = {
+	uniqueOpened: boolean;
+	collapseTransition: boolean;
+	backgroundColor: string;
+	activeTextColor: string;
+	textColor: string;
+};
 
 export type requestIdleCallback = (res: responseData) => void;

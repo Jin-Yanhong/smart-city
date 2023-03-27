@@ -1,19 +1,28 @@
 <template>
 	<div class="app-container">
-		<Sidebar class="sidebar" />
 		<Navbar class="navbar" />
-		<AppMain class="appMain" />
+		<div class="flex-nowrap">
+			<Sidebar :class="[isCollapse ? 'noCollapse' : 'yesCollapse']" @on-switch-collapse="onSwitchCollapse" />
+			<AppMain class="appMain" style="flex-grow: 1" />
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import AppMain from "./components/AppMain.vue";
 import Navbar from "./components/Navbar/index.vue";
 import Sidebar from "./components/Sidebar/index.vue";
+import settings from "@/settings";
 export default defineComponent({
 	setup() {
-		return {};
+		const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
+		const isCollapse = ref<boolean>(false);
+
+		return {
+			sidebarWidth,
+			isCollapse,
+		};
 	},
 	name: "Layout",
 	components: {
@@ -21,32 +30,26 @@ export default defineComponent({
 		Navbar,
 		AppMain,
 	},
+
+	methods: {
+		onSwitchCollapse(isCollapse: boolean) {
+			this.isCollapse = isCollapse;
+		},
+	},
 });
 </script>
 <style lang="less" scoped>
 .app-container {
 	height: 100vh;
-	display: grid;
-	grid-template-rows: [r1] 58px [r2] calc(100vh - 58px) [r3];
-	grid-template-columns: [r1] 300px [r2] calc(100vw - 300px) [r3];
-
-	.sidebar {
-		grid-row-start: 2;
-		grid-row-end: 3;
-		grid-column-start: 1;
-		grid-column-end: 2;
-	}
-	.navbar {
-		grid-row-start: 1;
-		grid-row-end: 2;
-		grid-column-start: 1;
-		grid-column-end: 3;
-	}
 	.appMain {
-		grid-row-start: 2;
-		grid-row-end: 3;
-		grid-column-start: 2;
-		grid-column-end: 2;
+		height: calc(100vh - 58px);
+	}
+
+	.noCollapse {
+		width: 64px;
+	}
+	.yesCollapse {
+		width: v-bind(sidebarWidth);
 	}
 }
 </style>

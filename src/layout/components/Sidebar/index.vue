@@ -1,15 +1,17 @@
 <template>
-	<div class="sidebar">
-		<div class="flex-end">
-			<el-button type="default" size="small" @click="isCollapse = !isCollapse">
-				<el-icon>
-					<component :is="isCollapse ? 'DArrowLeft' : 'DArrowRight'" />
-				</el-icon>
-			</el-button>
-		</div>
+	<div class="sidebarCom">
+		<el-button
+			class="btn"
+			type="default"
+			size="small"
+			@click="switchCollapse"
+			:icon="isCollapse ? DArrowRight : DArrowLeft"
+		/>
 
 		<ElMenu
+			class="el-menu-vertical-demo"
 			:default-active="activeMenu"
+			:default-openeds="defaultOpened"
 			:unique-opened="menuConfig.uniqueOpened"
 			:collapse-transition="menuConfig.collapseTransition"
 			:collapse="isCollapse"
@@ -23,46 +25,52 @@
 	</div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { routes } from "@/router";
-import settings from "@/settings";
-import { defineComponent, ref } from "vue";
+import { ref, computed, defineEmits, reactive } from "vue";
 import SidebarItem from "./SidebarItem.vue";
-import { RouteRecordRaw } from "vue-router";
-
+import { RouteRecordRaw, useRoute } from "vue-router";
 import { DArrowRight, DArrowLeft } from "@element-plus/icons-vue";
-export default defineComponent({
-	setup() {
-		const menuConfig = ref(settings.menuConfig);
-		const isCollapse = ref<boolean>(false);
-		const routerList = ref<Array<RouteRecordRaw>>(routes);
+import settings from "@/settings";
+import { menuConfigType } from "@/types";
 
-		return {
-			menuConfig,
-			isCollapse,
-			routerList,
-		};
-	},
-	name: "Side_bar",
-	components: {
-		SidebarItem,
-		DArrowRight,
-		DArrowLeft,
-	},
-	computed: {
-		activeMenu(): string {
-			return this.$route.path;
-		},
-	},
-});
+const emit = defineEmits(["onSwitchCollapse"]);
+
+const currentRoute = useRoute();
+
+const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
+const isCollapse = ref<boolean>(false);
+const routerList = ref<Array<RouteRecordRaw>>(routes);
+
+const activeMenu = computed(() => currentRoute.path);
+
+console.log(activeMenu.value);
+
+const defaultOpened = ["/system", "index"];
+
+function switchCollapse() {
+	isCollapse.value = !isCollapse.value;
+	emit("onSwitchCollapse", isCollapse.value as boolean);
+}
 </script>
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
-
-.sidebar {
+.sidebarCom {
+	position: relative;
 	background-color: @color-layout-bg-navbar;
+	transition-delay: 0;
+	transition-duration: 0.3s;
+	transition-property: width;
+	transition-timing-function: ease-in-out;
+
 	:deep(.el-menu) {
 		border: none;
+	}
+	.btn {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		z-index: 1;
 	}
 }
 </style>

@@ -2,14 +2,17 @@
 
 @during-link: 0.3s;
 
+@color-theme: #40407a;
+@color-theme-active: #2c2c54;
+
 @color-light: #f5f6fa;
 @color-dark: #2f3640;
 @color-hover: #dcdde1;
 @color-shadow: #7f8fa6;
-@color-menu-bg: #7f8fa6;
-@color-menu-bg-active: #7f8fa6;
-@color-layout-bg-navbar: #273c75;
-@color-layout-bg-sidebar: #273c75;
+@color-menu-bg: color-theme;
+@color-menu-bg-active: @color-theme-active;
+@color-layout-bg-navbar: @color-theme;
+@color-layout-bg-sidebar: @color-theme;
 
 .mix-in-flex() {
 	display: flex;
@@ -62,5 +65,9 @@
 		.mix-in-flex();
 		justify-content: space-between;
 		align-items: center;
+	}
+	.nowrap() {
+		.mix-in-flex();
+		flex-wrap: nowrap;
 	}
 }

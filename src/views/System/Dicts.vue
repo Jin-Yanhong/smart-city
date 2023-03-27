@@ -1,1 +1,3 @@
-<template>字典</template>
+<template>
+	<div class="view">字典</div>
+</template>

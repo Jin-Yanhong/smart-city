@@ -1,14 +1,14 @@
 import Layout from "@/layout/index.vue";
 import { RouteRecordRaw } from "vue-router";
 
-const system: Array<RouteRecordRaw> = [
+export const spaceModel: Array<RouteRecordRaw> = [
 	{
-		path: "/system",
-		name: "System",
-		redirect: "/system/index",
+		path: "/space-model",
+		name: "SpaceModel",
+		redirect: "/space-model/index",
 		component: () => import("@/layout/index.vue"),
 		meta: {
-			title: "系统管理",
+			title: "空间模型",
 			icon: "Odometer",
 			cache: true,
 			show: true,
@@ -16,9 +16,9 @@ const system: Array<RouteRecordRaw> = [
 		children: [
 			{
 				path: "index",
-				name: "SystemIndex",
+				name: "SpaceModel1",
 				meta: {
-					title: "系统总览",
+					title: "空间模型 - 1",
 					icon: "PieChart",
 					cache: true,
 					show: true,
@@ -27,9 +27,9 @@ const system: Array<RouteRecordRaw> = [
 			},
 			{
 				path: "dicts",
-				name: "SystemDicts",
+				name: "SpaceModel2",
 				meta: {
-					title: "系统字典",
+					title: "空间模型 - 2",
 					icon: "PieChart",
 					cache: true,
 					show: true,
@@ -39,5 +39,3 @@ const system: Array<RouteRecordRaw> = [
 		],
 	},
 ];
-
-export { system };

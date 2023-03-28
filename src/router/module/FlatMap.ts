@@ -1,14 +1,14 @@
 import Layout from "@/layout/index.vue";
 import { RouteRecordRaw } from "vue-router";
 
-const system: Array<RouteRecordRaw> = [
+export const flatMap: Array<RouteRecordRaw> = [
 	{
-		path: "/system",
-		name: "System",
-		redirect: "/system/index",
+		path: "/flat-map",
+		name: "FlatMap",
+		redirect: "/flat-map/index",
 		component: () => import("@/layout/index.vue"),
 		meta: {
-			title: "系统管理",
+			title: "平面地图",
 			icon: "Odometer",
 			cache: true,
 			show: true,
@@ -16,9 +16,9 @@ const system: Array<RouteRecordRaw> = [
 		children: [
 			{
 				path: "index",
-				name: "SystemIndex",
+				name: "FlatMap1",
 				meta: {
-					title: "系统总览",
+					title: "平面地图 - 1",
 					icon: "PieChart",
 					cache: true,
 					show: true,
@@ -27,9 +27,9 @@ const system: Array<RouteRecordRaw> = [
 			},
 			{
 				path: "dicts",
-				name: "SystemDicts",
+				name: "FlatMap2",
 				meta: {
-					title: "系统字典",
+					title: "平面地图 - 2",
 					icon: "PieChart",
 					cache: true,
 					show: true,
@@ -39,5 +39,3 @@ const system: Array<RouteRecordRaw> = [
 		],
 	},
 ];
-
-export { system };

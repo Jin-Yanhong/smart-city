@@ -1,19 +1,24 @@
+/**
+ * color from `src/assets/style/variable.less`
+ */
 const themeColor = "#487eb0";
+const colorActive = "#fbc531";
+const colorLight = "#f5f6fa";
 
 const settings = {
 	appConfig: {
 		name: "智慧城市",
 		themeColor: themeColor,
 		layOut: {
-			menuWidth: "200px",
+			menuWidth: "240px",
 		},
 	},
 	menuConfig: {
 		uniqueOpened: false,
 		collapseTransition: true,
 		backgroundColor: themeColor,
-		textColor: "#f5f6fa",
-		activeTextColor: "#dcdde1",
+		textColor: colorLight,
+		activeTextColor: colorActive,
 	},
 };
 

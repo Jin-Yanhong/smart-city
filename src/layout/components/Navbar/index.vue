@@ -1,5 +1,15 @@
 <template>
-	<div class="navbar">
+	<div class="navbar flex">
+		<div class="logo flex-center">
+			<span>logo </span>
+		</div>
+		<div class="contentNav">
+			<ul class="flex-start">
+				<li v-for="nav in contentNav" :key="nav.id" :class="currentPath == nav.path ? 'current' : ''" @click="switchNav(nav)">
+					{{ nav.label }}
+				</li>
+			</ul>
+		</div>
 		<div class="nav flex-end">
 			<el-dropdown trigger="click">
 				<span class="el-dropdown-link">
@@ -46,67 +56,83 @@
 		</el-drawer>
 	</div>
 </template>
-<script lang="ts">
-import useUserStore from "@/store/user";
-import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 import { ElMessageBox } from "element-plus";
-import { defineComponent, ref } from "vue";
-
+import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
+import useAppStore from "@/store/app";
+import useUserStore from "@/store/user";
+import { contentNavType } from "@/types";
 import { enumMenuLayout } from "@/enum";
-interface tagViewsType {
-	title: string;
-	path: string;
-	isActive: boolean;
+import settings from "@/settings";
+
+const app = useAppStore();
+const user = useUserStore();
+const drawer = ref<boolean>(false);
+const themeColor = ref<string>("#409EFF");
+const menuLayout = ref<enumMenuLayout>(enumMenuLayout.horizontal);
+const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
+const contentNav = ref<Array<contentNavType>>([
+	{ id: 1, label: "系统管理", path: "system" },
+	{ id: 2, label: "平面地图", path: "flatMap" },
+	{ id: 3, label: "三维地图", path: "reliefMap" },
+	{ id: 4, label: "空间模型", path: "spaceModel" },
+]);
+const currentPath = ref<string>(contentNav.value[0].path);
+
+app.changeCurrentPath(currentPath.value);
+function handleLogout(): void {
+	ElMessageBox.confirm("Are you confirm to logout ?", "Warning", {
+		confirmButtonText: "I conform",
+		cancelButtonText: "Cancle",
+		type: "warning",
+	}).then(() => {
+		user.handleLogout();
+		location.reload();
+	});
 }
 
-export default defineComponent({
-	name: "navBar",
-	setup() {
-		const user = useUserStore();
-		const drawer = ref<boolean>(false);
-		const themeColor = ref<string>("#409EFF");
-		const menuLayout = ref<enumMenuLayout>(enumMenuLayout.horizontal);
-		const tagViews = ref<Array<tagViewsType>>([]);
-		return {
-			user,
-			drawer,
-			tagViews,
-			themeColor,
-			menuLayout,
-		};
-	},
-	components: {
-		ArrowDown,
-		SwitchButton,
-		Setting,
-	},
-
-	methods: {
-		handleLogout(): void {
-			ElMessageBox.confirm("Are you confirm to logout ?", "Warning", {
-				confirmButtonText: "I conform",
-				cancelButtonText: "Cancle",
-				type: "warning",
-			}).then(() => {
-				this.user.handleLogout();
-				location.reload();
-			});
-		},
-	},
-});
+function switchNav(nav: contentNavType) {
+	currentPath.value = nav.path;
+	app.changeCurrentPath(nav.path);
+}
 </script>
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
 
 .navbar {
 	background-color: @color-layout-bg-navbar;
-	padding-left: 12px;
+	.logo {
+		width: v-bind(sidebarWidth);
+		color: #fff;
+	}
+	.contentNav {
+		ul {
+			padding-left: 2 * @layout-gap;
+			li {
+				text-align: center;
+				cursor: pointer;
+				box-sizing: border-box;
+				color: @color-light;
+				height: 58px;
+				line-height: 58px;
+				margin: 0 2 * @layout-gap;
+				border-bottom: 4px solid transparent;
+				transition: all 0.2s;
+			}
+			.current {
+				border-bottom: 4px solid #fbc531;
+				height: 58px;
+			}
+		}
+	}
 	.userCenter {
 		color: #fff;
 		line-height: 58px;
 		cursor: pointer;
 	}
 	.nav {
+		flex: 1;
 		padding: 0 @layout-gap;
 	}
 }

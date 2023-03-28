@@ -16,4 +16,12 @@ export type menuConfigType = {
 	textColor: string;
 };
 
+export type contentNavType = {
+	id: number;
+	label: string;
+	path: string;
+};
+
+export type RouterListKey = "routes" | "system" | "flatMap" | "reliefMap" | "spaceModel";
+
 export type requestIdleCallback = (res: responseData) => void;

@@ -1,4 +1,4 @@
-const themeColor = "#2c2c54";
+const themeColor = "#487eb0";
 
 const settings = {
 	appConfig: {
@@ -12,8 +12,8 @@ const settings = {
 		uniqueOpened: false,
 		collapseTransition: true,
 		backgroundColor: themeColor,
-		activeTextColor: "#ffb142",
-		textColor: "#ffb142",
+		textColor: "#f5f6fa",
+		activeTextColor: "#dcdde1",
 	},
 };
 

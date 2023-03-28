@@ -9,12 +9,11 @@
 		</ElSubMenu>
 	</template>
 	<template v-else>
-		<ElMenuItem v-show="item.meta?.show" :index="item.path">
+		<ElMenuItem v-show="item.meta?.show" :index="resolvePath([basePath, '/', item.path])">
 			<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
 			<template #title>
-				<router-link :to="resolvePath([basePath, '/', item.path])">
-					<span> {{ item.meta?.title }} </span>
-				</router-link>
+				<span> {{ item.meta?.title }} </span>
+				<!-- <router-link class="" :to="resolvePath([basePath, '/', item.path])"> </router-link> -->
 			</template>
 		</ElMenuItem>
 	</template>

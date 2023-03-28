@@ -17,6 +17,7 @@
 			:background-color="menuConfig.backgroundColor"
 			:active-text-color="menuConfig.activeTextColor"
 			:text-color="menuConfig.textColor"
+			:router="true"
 			mode="vertical"
 		>
 			<SidebarItem v-for="route in routerList" :key="route.path" :item="route" :basePath="route.path" />
@@ -26,7 +27,7 @@
 
 <script lang="ts" setup>
 import { routes } from "@/router";
-import { ref, computed, defineEmits, reactive } from "vue";
+import { ref, computed, reactive } from "vue";
 import SidebarItem from "./SidebarItem.vue";
 import { RouteRecordRaw, useRoute } from "vue-router";
 import { DArrowRight, DArrowLeft } from "@element-plus/icons-vue";

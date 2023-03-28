@@ -2,10 +2,9 @@
 	<div class="sidebarCom">
 		<el-button class="btn" type="default" size="small" @click="switchCollapse" :icon="isCollapse ? DArrowRight : DArrowLeft" />
 
-		<div>
+		<div class="scrollY" style="height: 100%">
 			<ElMenu
 				:default-active="activeMenu"
-				:default-openeds="defaultOpened"
 				:unique-opened="menuConfig.uniqueOpened"
 				:collapse-transition="menuConfig.collapseTransition"
 				:collapse="isCollapse"
@@ -22,7 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-import { routes } from "@/router";
 import { system } from "@/router/module/System";
 import { flatMap } from "@/router/module/FlatMap";
 import { reliefMap } from "@/router/module/ReliefMap";
@@ -31,7 +29,7 @@ import { DArrowRight, DArrowLeft } from "@element-plus/icons-vue";
 import { ref, computed, reactive, watch } from "vue";
 import { RouteRecordRaw, useRoute } from "vue-router";
 import SidebarItem from "./SidebarItem.vue";
-import { menuConfigType, RouterListKey } from "@/types";
+import { menuConfigType } from "@/types";
 import useAppStore from "@/store/app";
 import settings from "@/settings";
 
@@ -41,7 +39,7 @@ const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
 const isCollapse = ref<boolean>(false);
 const activeMenu = computed(() => currentRoute.path);
 const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
-const defaultOpened = ["/system", "index"];
+
 const path = computed(() => app.getCurrentPath);
 
 const emit = defineEmits(["onSwitchCollapse"]);
@@ -52,14 +50,10 @@ function switchCollapse() {
 	emit("onSwitchCollapse", isCollapse.value as boolean);
 }
 
-const routerList = ref<Array<RouteRecordRaw>>(routes);
+const routerList = ref<Array<RouteRecordRaw>>(system);
 
 watch(path, path => {
 	switch (path) {
-		case "routes":
-			routerList.value = routes;
-			break;
-
 		case "system":
 			routerList.value = system;
 			break;
@@ -77,7 +71,7 @@ watch(path, path => {
 			break;
 
 		default:
-			routerList.value = routes;
+			routerList.value = system;
 			break;
 	}
 });

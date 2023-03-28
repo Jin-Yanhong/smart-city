@@ -6,7 +6,7 @@ const system: Array<RouteRecordRaw> = [
 		path: "/system",
 		name: "System",
 		redirect: "/system/index",
-		component: () => import("@/layout/index.vue"),
+		component: Layout,
 		meta: {
 			title: "系统管理",
 			icon: "Odometer",
@@ -14,6 +14,17 @@ const system: Array<RouteRecordRaw> = [
 			show: true,
 		},
 		children: [
+			{
+				path: "dashboard",
+				name: "dashboardIndex",
+				meta: {
+					title: "图表",
+					icon: "PieChart",
+					cache: true,
+					show: true,
+				},
+				component: () => import("@/views/Dashboard/index.vue"),
+			},
 			{
 				path: "index",
 				name: "SystemIndex",

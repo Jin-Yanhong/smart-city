@@ -1,4 +1,3 @@
-import Layout from "@/layout/index.vue";
 import { RouteRecordRaw } from "vue-router";
 
 export const spaceModel: Array<RouteRecordRaw> = [

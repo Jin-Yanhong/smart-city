@@ -4,7 +4,7 @@ const useAppStore = defineStore({
 	id: "app",
 	state: () => ({
 		theme: "light",
-		currentPath: "",
+		currentPath: "system",
 	}),
 	getters: {
 		getTheme: state => {

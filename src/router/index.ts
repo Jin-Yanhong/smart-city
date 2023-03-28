@@ -1,4 +1,3 @@
-import Layout from "@/layout/index.vue";
 import useUserStore from "@/store/user";
 import NProgress from "nprogress";
 import { ElMessage } from "element-plus";
@@ -25,27 +24,7 @@ export const routes: Array<RouteRecordRaw> = [
 	{
 		path: "/",
 		name: "dashboard",
-		redirect: "/dashboard",
-		component: Layout,
-		meta: {
-			title: "数据总览",
-			icon: "PieChart",
-			cache: true,
-			show: true,
-		},
-		children: [
-			{
-				path: "dashboard",
-				name: "dashboardIndex",
-				meta: {
-					title: "图表",
-					icon: "PieChart",
-					cache: true,
-					show: true,
-				},
-				component: () => import("@/views/Dashboard/index.vue"),
-			},
-		],
+		redirect: "/system/dashboard",
 	},
 	...system,
 	...flatMap,

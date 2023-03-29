@@ -9,6 +9,7 @@ const settings = {
 	appConfig: {
 		name: "智慧城市",
 		themeColor: themeColor,
+		copyright: "@ xxx 团队 版权所有",
 		layOut: {
 			menuWidth: "240px",
 		},

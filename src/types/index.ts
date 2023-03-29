@@ -22,6 +22,12 @@ export type contentNavType = {
 	path: string;
 };
 
+export type tagViewsType = {
+	title: string;
+	path: string;
+	isActive: boolean;
+};
+
 export type RouterListKey = "routes" | "system" | "flatMap" | "reliefMap" | "spaceModel";
 
 export type requestIdleCallback = (res: responseData) => void;

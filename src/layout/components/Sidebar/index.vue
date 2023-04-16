@@ -32,6 +32,15 @@ import SidebarItem from "./SidebarItem.vue";
 import { menuConfigType } from "@/types";
 import useAppStore from "@/store/app";
 import settings from "@/settings";
+import { routeMapKeys } from "@/interface/index";
+import router from "@/router";
+
+const routesMap: Record<keyof routeMapKeys, RouteRecordRaw[]> = {
+	system: system,
+	flatMap: flatMap,
+	reliefMap: reliefMap,
+	spaceModel: spaceModel,
+};
 
 const app = useAppStore();
 const currentRoute = useRoute();
@@ -39,41 +48,19 @@ const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
 const isCollapse = ref<boolean>(false);
 const activeMenu = computed(() => currentRoute.path);
 const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
-
 const path = computed(() => app.getCurrentPath);
-
-const emit = defineEmits(["onSwitchCollapse"]);
+const pathStatic = app.getCurrentPath;
 
 function switchCollapse() {
 	isCollapse.value = !isCollapse.value;
 	sidebarWidth.value = isCollapse.value ? "64px" : settings.appConfig.layOut.menuWidth;
-	emit("onSwitchCollapse", isCollapse.value as boolean);
 }
 
-const routerList = ref<Array<RouteRecordRaw>>(system);
+const routerList = ref<Array<RouteRecordRaw>>(routesMap[pathStatic]);
 
 watch(path, path => {
-	switch (path) {
-		case "system":
-			routerList.value = system;
-			break;
-
-		case "flatMap":
-			routerList.value = flatMap;
-			break;
-
-		case "reliefMap":
-			routerList.value = reliefMap;
-			break;
-
-		case "spaceModel":
-			routerList.value = spaceModel;
-			break;
-
-		default:
-			routerList.value = system;
-			break;
-	}
+	router.push(`/${path}`);
+	routerList.value = routesMap[path];
 });
 </script>
 <style lang="less" scoped>

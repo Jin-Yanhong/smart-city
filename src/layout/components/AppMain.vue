@@ -1,8 +1,8 @@
 <template>
 	<div class="appMain">
 		<div class="tagsContainer">
-			<el-tag class="tagsView" size="large" :effect="current.path === '/dashboard' ? 'dark' : 'plain'">
-				<router-link :class="['noActive', current.path === '/dashboard' ? ' Active' : '']" :to="{ path: '/' }"> 首页 </router-link>
+			<el-tag class="tagsView" size="large" effect="plain">
+				<router-link class="noActive" :to="{ path: '/' }"> 首页 </router-link>
 			</el-tag>
 			<el-tag
 				class="tagsView"
@@ -19,7 +19,7 @@
 			</el-tag>
 		</div>
 		<router-view />
-		<div class="copyrightCOntainer">
+		<div class="copyrightContainer">
 			{{ copyright }}
 		</div>
 	</div>
@@ -83,7 +83,9 @@ export default defineComponent({
 
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
-
+.appMain {
+	position: relative;
+}
 .tagsContainer {
 	background: @color-theme;
 
@@ -99,11 +101,15 @@ export default defineComponent({
 	}
 }
 
-.copyrightCOntainer {
+.copyrightContainer {
+	position: absolute;
+	width: calc(100% - @layout-gap);
 	height: 32px;
-	color: @color-light;
+	padding-left: @layout-gap;
 	line-height: 32px;
 	background: @color-theme;
-	padding-left: @layout-gap;
+	color: @color-light;
+	bottom: 0;
+	right: 0;
 }
 </style>

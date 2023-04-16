@@ -2,9 +2,9 @@ import { RouteRecordRaw } from "vue-router";
 
 export const flatMap: Array<RouteRecordRaw> = [
 	{
-		path: "/flat-map",
+		path: "/FlatMap",
 		name: "FlatMap",
-		redirect: "/flat-map/index",
+		redirect: "/FlatMap/index",
 		component: () => import("@/layout/index.vue"),
 		meta: {
 			title: "平面地图",

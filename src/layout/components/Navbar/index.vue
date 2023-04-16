@@ -1,7 +1,10 @@
 <template>
 	<div class="navbar flex">
 		<div class="logo flex-center">
-			<span>logo </span>
+			<span class="img">logo </span>
+			<span class="name" @click="toHome">
+				{{ appName }}
+			</span>
 		</div>
 		<div class="contentNav">
 			<ul class="flex-start">
@@ -57,7 +60,7 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { ElMessageBox } from "element-plus";
 import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
 import useAppStore from "@/store/app";
@@ -65,6 +68,7 @@ import useUserStore from "@/store/user";
 import { contentNavType } from "@/types";
 import { enumMenuLayout } from "@/enum";
 import settings from "@/settings";
+import router from "@/router";
 
 const app = useAppStore();
 const user = useUserStore();
@@ -72,15 +76,16 @@ const drawer = ref<boolean>(false);
 const themeColor = ref<string>("#409EFF");
 const menuLayout = ref<enumMenuLayout>(enumMenuLayout.horizontal);
 const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
+const appName = ref<string>(settings.appConfig.name);
 const contentNav = ref<Array<contentNavType>>([
 	{ id: 1, label: "系统管理", path: "system" },
 	{ id: 2, label: "平面地图", path: "flatMap" },
 	{ id: 3, label: "三维地图", path: "reliefMap" },
 	{ id: 4, label: "空间模型", path: "spaceModel" },
 ]);
-const currentPath = ref<string>(contentNav.value[0].path);
 
-app.changeCurrentPath(currentPath.value);
+const currentPath = computed(() => app.getCurrentPath);
+
 function handleLogout(): void {
 	ElMessageBox.confirm("Are you confirm to logout ?", "Warning", {
 		confirmButtonText: "I conform",
@@ -93,8 +98,11 @@ function handleLogout(): void {
 }
 
 function switchNav(nav: contentNavType) {
-	currentPath.value = nav.path;
 	app.changeCurrentPath(nav.path);
+}
+
+function toHome() {
+	router.push("/");
 }
 </script>
 <style lang="less" scoped>
@@ -105,6 +113,16 @@ function switchNav(nav: contentNavType) {
 	.logo {
 		width: v-bind(sidebarWidth);
 		color: #fff;
+		user-select: none;
+		.img {
+			margin-right: @layout-gap;
+		}
+		.name {
+			cursor: pointer;
+			&:hover {
+				color: @color-active;
+			}
+		}
 	}
 	.contentNav {
 		ul {

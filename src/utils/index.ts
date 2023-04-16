@@ -1,61 +1,9 @@
-/**
- *
- * @param {string | number} timestamp 需要转化的时间戳
- * @param { string } timestamp 需要转化的时间戳
- * @returns
- */
-export function dateFormatter(time: any, pattern?: string): string {
-	const dateTime: string = new Date(time).toJSON();
-	new Date(+new Date(dateTime) + 8 * 3600 * 1000)
-		.toISOString()
-		.replace(/T/g, " ")
-		.replace(/\.[\d]{3}Z/, "");
-	if (arguments.length === 0 || !time) {
-		return "";
-	}
-	const format = pattern || "{y}-{m}-{d} {h}:{i}:{s}";
-	let date;
-	if (typeof time === "object") {
-		date = time;
-	} else {
-		if (typeof time === "string" && /^[0-9]+$/.test(time)) {
-			time = parseInt(time);
-		} else if (typeof time === "string") {
-			time = time.replace(new RegExp(/-/gm), "/");
-		}
-		if (typeof time === "number" && time.toString().length === 10) {
-			time = time * 1000;
-		}
-		date = new Date(time);
-	}
-	const formatObj = {
-		y: date.getFullYear(),
-		m: date.getMonth() + 1,
-		d: date.getDate(),
-		h: date.getHours(),
-		i: date.getMinutes(),
-		s: date.getSeconds(),
-		a: date.getDay(),
-	};
-	const timeStr = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key: keyof typeof formatObj) => {
-		let value = formatObj[key];
-		// Note: getDay() returns 0 on Sunday
-		if (key === "a") {
-			return ["日", "一", "二", "三", "四", "五", "六"][value];
-		}
-		if (result.length > 0 && value < 10) {
-			value = "0" + value;
-		}
-		return value || 0;
-	});
-	return timeStr;
-}
-
 export function getStorage(key: string): string {
-	const str: string = window.localStorage.getItem(key) ?? "";
+	const str: string = window.localStorage[key] ?? undefined;
 	try {
 		if (str) {
-			return JSON.parse(str)[key];
+			const storageString = window.localStorage.getItem(key) as string;
+			return JSON.parse(storageString)[key];
 		} else {
 			return "";
 		}

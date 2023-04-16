@@ -17,11 +17,8 @@ import settings from "@/settings";
 export default defineComponent({
 	setup() {
 		const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
-		const isCollapse = ref<boolean>(false);
-
 		return {
 			sidebarWidth,
-			isCollapse,
 		};
 	},
 	name: "Layout",
@@ -29,12 +26,6 @@ export default defineComponent({
 		Sidebar,
 		Navbar,
 		AppMain,
-	},
-
-	methods: {
-		onSwitchCollapse(isCollapse: boolean) {
-			this.isCollapse = isCollapse;
-		},
 	},
 });
 </script>

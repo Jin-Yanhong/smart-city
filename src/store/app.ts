@@ -1,10 +1,12 @@
 import { defineStore } from "pinia";
+import { getStorage, setStorage } from "@/utils";
 
+import { routeMapKeys } from "@/interface/index";
 const useAppStore = defineStore({
 	id: "app",
 	state: () => ({
-		theme: "light",
-		currentPath: "system",
+		theme: getStorage("theme") || "light",
+		currentPath: (getStorage("currentPath") || "system") as keyof routeMapKeys,
 	}),
 	getters: {
 		getTheme: state => {
@@ -17,9 +19,11 @@ const useAppStore = defineStore({
 	actions: {
 		switchTheme: function () {
 			this.theme = this.theme == "light" ? "dark" : "light";
+			setStorage("theme", this.theme);
 		},
 		changeCurrentPath: function (state: string) {
-			this.currentPath = state;
+			this.currentPath = state as keyof routeMapKeys;
+			setStorage("currentPath", this.currentPath);
 		},
 	},
 });

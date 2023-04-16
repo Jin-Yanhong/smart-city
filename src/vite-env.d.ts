@@ -2,11 +2,9 @@
 /// <reference types="element-plus/dist/locale/zh-cn.mjs" />
 
 declare module "*.vue" {
-	import type { DefineComponent } from "vue";
-
 	interface ComponentCustomProperties {
-		$dateFormatter: (time: string | any, pattern?: string) => string;
-		$getDate: (dateStr?: string) => { date: string; imageIndex: number };
+		$getStorage: (key: string) => any;
+		$setStorage: (key: string, value: any) => void;
 	}
 
 	const component: DefineComponent<{}, {}, any>;

@@ -2,9 +2,9 @@ import { RouteRecordRaw } from "vue-router";
 
 export const spaceModel: Array<RouteRecordRaw> = [
 	{
-		path: "/space-model",
+		path: "/SpaceModel",
 		name: "SpaceModel",
-		redirect: "/space-model/index",
+		redirect: "/SpaceModel/index",
 		component: () => import("@/layout/index.vue"),
 		meta: {
 			title: "空间模型",
@@ -22,18 +22,7 @@ export const spaceModel: Array<RouteRecordRaw> = [
 					cache: true,
 					show: true,
 				},
-				component: () => import("@/views/System/index.vue"),
-			},
-			{
-				path: "dicts",
-				name: "SpaceModel2",
-				meta: {
-					title: "空间模型 - 2",
-					icon: "PieChart",
-					cache: true,
-					show: true,
-				},
-				component: () => import("@/views/System/Dicts.vue"),
+				component: () => import("@/views/SpaceModel/index.vue"),
 			},
 		],
 	},

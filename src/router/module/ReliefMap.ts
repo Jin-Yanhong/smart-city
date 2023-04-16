@@ -2,9 +2,9 @@ import { RouteRecordRaw } from "vue-router";
 
 export const reliefMap: Array<RouteRecordRaw> = [
 	{
-		path: "/relief",
+		path: "/reliefMap",
 		name: "ReliefMap",
-		redirect: "/relief/index",
+		redirect: "/reliefMap/index",
 		component: () => import("@/layout/index.vue"),
 		meta: {
 			title: "三维地图",

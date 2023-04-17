@@ -37,17 +37,14 @@
 				</template>
 			</el-dropdown>
 		</div>
-
-		<el-drawer v-model="drawer" title="系统设置" direction="rtl" :close-on-click-modal="false">
+		<el-drawer v-model="drawer" title="系统设置" direction="rtl" size="400" :close-on-click-modal="false">
 			<div class="flex-between">
 				<span> 系统主题色 </span>
-
 				<span>
 					<el-color-picker v-model="themeColor" />
 					<span>{{ themeColor }} </span>
 				</span>
 			</div>
-
 			<ElDivider />
 			<div class="flex-between">
 				<span> 菜单布局 </span>
@@ -60,7 +57,9 @@
 	</div>
 </template>
 <script lang="ts" setup>
+import router from "@/router";
 import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
 import { ElMessageBox } from "element-plus";
 import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
 import useAppStore from "@/store/app";
@@ -68,23 +67,26 @@ import useUserStore from "@/store/user";
 import { contentNavType } from "@/types";
 import { enumMenuLayout } from "@/enum";
 import settings from "@/settings";
-import router from "@/router";
+import { routeMapKeys } from "@/interface";
 
 const app = useAppStore();
 const user = useUserStore();
+const currentRoute = useRoute();
 const drawer = ref<boolean>(false);
 const themeColor = ref<string>("#409EFF");
 const menuLayout = ref<enumMenuLayout>(enumMenuLayout.horizontal);
 const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
 const appName = ref<string>(settings.appConfig.name);
+
+let currentPath = computed(() => app.getCurrentPath);
+currentPath = computed(() => currentRoute.fullPath.split("/")[1] as keyof routeMapKeys);
+
 const contentNav = ref<Array<contentNavType>>([
 	{ id: 1, label: "系统管理", path: "system" },
 	{ id: 2, label: "平面地图", path: "flatMap" },
 	{ id: 3, label: "三维地图", path: "reliefMap" },
 	{ id: 4, label: "空间模型", path: "spaceModel" },
 ]);
-
-const currentPath = computed(() => app.getCurrentPath);
 
 function handleLogout(): void {
 	ElMessageBox.confirm("Are you confirm to logout ?", "Warning", {
@@ -110,6 +112,7 @@ function toHome() {
 
 .navbar {
 	background-color: @color-layout-bg-navbar;
+	min-width: 960px;
 	.logo {
 		width: v-bind(sidebarWidth);
 		color: #fff;

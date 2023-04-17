@@ -1,5 +1,5 @@
 <template>
-	<div class="view">三维地图</div>
+	<div class="view">概要</div>
 </template>
 
 <script lang="ts" setup>

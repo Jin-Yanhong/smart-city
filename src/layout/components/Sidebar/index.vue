@@ -11,7 +11,6 @@
 				:background-color="menuConfig.backgroundColor"
 				:active-text-color="menuConfig.activeTextColor"
 				:text-color="menuConfig.textColor"
-				:router="true"
 				mode="vertical"
 			>
 				<SidebarItem v-for="route in routerList" :key="route.path" :item="route" :basePath="route.path" />

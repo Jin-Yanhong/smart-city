@@ -1,6 +1,6 @@
 <template>
 	<template v-if="item?.children?.length as number > 1">
-		<ElSubMenu :index="basePath">
+		<ElSubMenu :index="basePath" :title="basePath">
 			<template #title>
 				<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
 				<span> {{ item.meta?.title }}</span>
@@ -9,17 +9,17 @@
 		</ElSubMenu>
 	</template>
 	<template v-else>
-		<ElMenuItem v-show="item.meta?.show" :index="resolvePath([basePath, '/', item.path])">
+		<ElMenuItem v-show="item.meta?.show" @click="menuClick(resolvePath([basePath, '/', item.path]))" :index="resolvePath([basePath, '/', item.path])">
 			<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
 			<template #title>
 				<span> {{ item.meta?.title }} </span>
-				<!-- <router-link class="" :to="resolvePath([basePath, '/', item.path])"> </router-link> -->
 			</template>
 		</ElMenuItem>
 	</template>
 </template>
 
 <script lang="ts">
+import router from "@/router/index";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import { ElMenuItem, ElSubMenu } from "element-plus";
 import { defineComponent, PropType } from "vue";
@@ -49,6 +49,9 @@ export default defineComponent({
 			const pathNode: string[] = paths.join("").replace(/\//g, " ").split(" ");
 			const result: string = Array.from(new Set(pathNode)).join("/") || "/";
 			return result;
+		},
+		menuClick(path: string) {
+			router.push(path);
 		},
 	},
 });

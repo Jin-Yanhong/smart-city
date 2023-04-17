@@ -1,5 +1,5 @@
 <template>
-	<div class="view">数据概览</div>
+	<div class="view">舆情管理</div>
 </template>
 
 <script lang="ts" setup></script>

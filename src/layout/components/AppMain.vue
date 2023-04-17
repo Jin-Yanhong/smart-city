@@ -31,16 +31,18 @@ import { useRoute } from "vue-router";
 import settings from "@/settings";
 export default defineComponent({
 	name: "App_Main",
-	setup(props, ctx) {
+	setup() {
 		const defaultRouter = ref("/");
 		const current = useRoute();
 		const tagViews = ref<Array<tagViewsType>>([]);
+		const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
 		const copyright = ref<string>(settings.appConfig.copyright);
 		return {
 			current,
-			defaultRouter,
 			tagViews,
 			copyright,
+			sidebarWidth,
+			defaultRouter,
 		};
 	},
 	watch: {
@@ -83,21 +85,46 @@ export default defineComponent({
 
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
+@menuwidth: v-bind(sidebarWidth);
+
 .appMain {
 	position: relative;
 }
 .tagsContainer {
+	display: flex;
+	flex-wrap: nowrap;
 	background: @color-theme;
+	width: calc(100vw - @menuwidth);
+	overflow-x: auto;
+	position: relative;
 
-	::v-deep(.el-tag) {
-		border-bottom-left-radius: 0 !important;
-		border-bottom-right-radius: 0 !important;
-	}
 	.noActive {
 		color: @color-dark;
 	}
 	.Active {
 		color: @color-light;
+	}
+
+	::v-deep(.el-tag) {
+		border-bottom-left-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+	}
+
+	&::-webkit-scrollbar {
+		position: absolute;
+		bottom: 10px;
+		width: 100%;
+		height: 10px;
+	}
+	&::-webkit-scrollbar-button {
+		display: none;
+	}
+	&::-webkit-scrollbar-track-piece {
+		background: #efefef;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #ccc;
+		border-radius: 10px;
 	}
 }
 

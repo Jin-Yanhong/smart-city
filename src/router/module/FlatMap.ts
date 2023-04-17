@@ -2,9 +2,9 @@ import { RouteRecordRaw } from "vue-router";
 
 export const flatMap: Array<RouteRecordRaw> = [
 	{
-		path: "/FlatMap",
+		path: "/flatMap",
 		name: "FlatMap",
-		redirect: "/FlatMap/index",
+		redirect: "/flatMap/index",
 		component: () => import("@/layout/index.vue"),
 		meta: {
 			title: "平面地图",
@@ -15,25 +15,25 @@ export const flatMap: Array<RouteRecordRaw> = [
 		children: [
 			{
 				path: "index",
-				name: "FlatMap1",
+				name: "DataSummary",
 				meta: {
-					title: "平面地图 - 1",
+					title: "数据概览",
 					icon: "PieChart",
 					cache: true,
 					show: true,
 				},
-				component: () => import("@/views/System/index.vue"),
+				component: () => import("@/views/FlatMap/index.vue"),
 			},
 			{
-				path: "dicts",
-				name: "FlatMap2",
+				path: "publicOpinion",
+				name: "PublicOpinion",
 				meta: {
-					title: "平面地图 - 2",
+					title: "舆情管理",
 					icon: "PieChart",
 					cache: true,
 					show: true,
 				},
-				component: () => import("@/views/System/Dicts.vue"),
+				component: () => import("@/views/FlatMap/PublicOpinion.vue"),
 			},
 		],
 	},

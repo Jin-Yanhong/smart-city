@@ -2,7 +2,7 @@
 	<div class="sidebarCom">
 		<el-button class="btn" type="default" size="small" @click="switchCollapse" :icon="isCollapse ? DArrowRight : DArrowLeft" />
 
-		<div class="scrollY" style="height: 100%">
+		<div class="scrollY">
 			<ElMenu
 				:default-active="activeMenu"
 				:unique-opened="menuConfig.uniqueOpened"
@@ -53,6 +53,7 @@ const pathStatic = app.getCurrentPath;
 function switchCollapse() {
 	isCollapse.value = !isCollapse.value;
 	sidebarWidth.value = isCollapse.value ? "64px" : settings.appConfig.layOut.menuWidth;
+	app.switchSideBarWidth(sidebarWidth.value);
 }
 
 const routerList = ref<Array<RouteRecordRaw>>(routesMap[pathStatic]);

@@ -26,23 +26,26 @@
 </template>
 <script lang="ts">
 import { tagViewsType } from "@/types/index";
+import useAppStore from "@/store/app";
 import { defineComponent, ref } from "vue";
 import { useRoute } from "vue-router";
 import settings from "@/settings";
 export default defineComponent({
 	name: "App_Main",
 	setup() {
+		const app = useAppStore();
 		const defaultRouter = ref("/");
 		const current = useRoute();
 		const tagViews = ref<Array<tagViewsType>>([]);
-		const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
 		const copyright = ref<string>(settings.appConfig.copyright);
+		let sidebarWidth;
 		return {
+			app,
 			current,
 			tagViews,
 			copyright,
-			sidebarWidth,
 			defaultRouter,
+			sidebarWidth,
 		};
 	},
 	watch: {
@@ -74,6 +77,11 @@ export default defineComponent({
 			}
 		},
 	},
+	computed: {
+		sideBarWidth: function () {
+			return this.app.getSideBarWidth;
+		},
+	},
 	methods: {
 		tagClose(tag: tagViewsType) {
 			const index = this.tagViews.indexOf(tag);
@@ -85,6 +93,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
+
 @menuwidth: v-bind(sidebarWidth);
 
 .appMain {

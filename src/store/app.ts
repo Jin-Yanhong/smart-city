@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
+import settings from "@/settings";
 import { getStorage, setStorage } from "@/utils";
+const sidebarWidth = settings.appConfig.layOut.menuWidth;
 
 import { routeMapKeys } from "@/interface/index";
 const useAppStore = defineStore({
@@ -7,6 +9,7 @@ const useAppStore = defineStore({
 	state: () => ({
 		theme: getStorage("theme") || "light",
 		currentPath: (getStorage("currentPath") || "system") as keyof routeMapKeys,
+		sideBarWidth: sidebarWidth,
 	}),
 	getters: {
 		getTheme: state => {
@@ -14,6 +17,9 @@ const useAppStore = defineStore({
 		},
 		getCurrentPath: state => {
 			return state.currentPath;
+		},
+		getSideBarWidth: state => {
+			return state.sideBarWidth;
 		},
 	},
 	actions: {
@@ -24,6 +30,10 @@ const useAppStore = defineStore({
 		changeCurrentPath: function (state: string) {
 			this.currentPath = state as keyof routeMapKeys;
 			setStorage("currentPath", this.currentPath);
+		},
+		switchSideBarWidth: function (state: string) {
+			this.sideBarWidth = state as string;
+			setStorage("sideBarWidth", this.sideBarWidth);
 		},
 	},
 });

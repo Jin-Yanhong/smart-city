@@ -93,8 +93,7 @@ watch(route, (current: RouteLocationNormalizedLoaded) => {
 	.tagsContainer {
 		display: flex;
 		flex-wrap: nowrap;
-		height: 32px;
-		padding-bottom: 10px;
+		height: 42px;
 		background: @color-theme;
 		overflow-x: auto;
 		position: relative;

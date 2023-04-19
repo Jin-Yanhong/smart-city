@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import settings from "@/settings";
 import { getStorage, setStorage } from "@/utils";
-const sidebarWidth = settings.appConfig.layOut.menuWidth;
+const sidebarWidth = settings.appConfig.layOut.maxWidth;
 
 import { routeMapKeys } from "@/interface/index";
 const useAppStore = defineStore({

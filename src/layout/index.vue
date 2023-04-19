@@ -1,9 +1,9 @@
 <template>
 	<div class="app-container">
 		<Navbar class="navbar" />
-		<div class="flex-nowrap">
+		<div class="flex-nowrap" style="flex-grow: 1">
 			<Sidebar />
-			<AppMain class="appMain" style="flex-grow: 1" />
+			<AppMain />
 		</div>
 	</div>
 </template>
@@ -16,12 +16,6 @@ import Sidebar from "./components/Sidebar/index.vue";
 <style lang="less" scoped>
 .app-container {
 	height: 100vh;
-	.appMain {
-		height: calc(100vh - 58px);
-	}
-
-	.noCollapse {
-		width: 64px;
-	}
+	// display: flex;
 }
 </style>

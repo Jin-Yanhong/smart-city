@@ -1,7 +1,9 @@
 <template>
 	<div class="navbar flex">
 		<div class="logo flex-center">
-			<span class="img">logo </span>
+			<span class="img">
+				<el-avatar :size="40" :src="avatarUrl" />
+			</span>
 			<span class="name" @click="toHome">
 				{{ appName }}
 			</span>
@@ -9,7 +11,8 @@
 		<div class="contentNav">
 			<ul class="flex-start">
 				<li v-for="nav in contentNav" :key="nav.id" :class="currentPath == nav.path ? 'current' : ''" @click="switchNav(nav)">
-					{{ nav.label }}
+					<span>{{ nav.label }}</span>
+					<i> </i>
 				</li>
 			</ul>
 		</div>
@@ -37,45 +40,48 @@
 				</template>
 			</el-dropdown>
 		</div>
-		<el-drawer v-model="drawer" title="系统设置" direction="rtl" size="400" :close-on-click-modal="false">
+		<el-drawer class="userDrawer" v-model="drawer" title="系统设置" direction="rtl" size="360" :close-on-click-modal="false">
 			<div class="flex-between">
 				<span> 系统主题色 </span>
-				<span>
-					<el-color-picker v-model="themeColor" />
-					<span>{{ themeColor }} </span>
+				<span class="flex-center">
+					<el-color-picker v-model="sysConfig.themeColor" />
+					<span class="marginL">{{ sysConfig.themeColor }} </span>
 				</span>
 			</div>
-			<ElDivider />
+			<div class="hr"></div>
 			<div class="flex-between">
-				<span> 菜单布局 </span>
-				<el-radio-group v-model="menuLayout">
-					<el-radio-button label="horizontal" />
-					<el-radio-button label="vertical" />
-				</el-radio-group>
+				<span> 系统高亮色 </span>
+				<span class="flex-center">
+					<el-color-picker v-model="sysConfig.activeColor" />
+					<span class="marginL">{{ sysConfig.activeColor }} </span>
+				</span>
 			</div>
+			<div class="hr"></div>
 		</el-drawer>
 	</div>
 </template>
 <script lang="ts" setup>
 import router from "@/router";
-import { ref, computed } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRoute } from "vue-router";
 import { ElMessageBox } from "element-plus";
 import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
 import useAppStore from "@/store/app";
 import useUserStore from "@/store/user";
 import { contentNavType } from "@/types";
-import { enumMenuLayout } from "@/enum";
 import settings from "@/settings";
 import { routeMapKeys } from "@/interface";
-
+const avatarUrl = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
 const app = useAppStore();
 const user = useUserStore();
 const currentRoute = useRoute();
 const drawer = ref<boolean>(false);
-const themeColor = ref<string>("#409EFF");
-const menuLayout = ref<enumMenuLayout>(enumMenuLayout.horizontal);
-const sidebarWidth = ref<string>(settings.appConfig.layOut.menuWidth);
+const sysConfig = reactive({
+	themeColor: settings.appConfig.themeColor,
+	activeColor: settings.appConfig.activeColor,
+});
+
+const sidebarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
 const appName = ref<string>(settings.appConfig.name);
 
 let currentPath = computed(() => app.getCurrentPath);
@@ -111,8 +117,11 @@ function toHome() {
 @import "@/assets/style/variable.less";
 
 .navbar {
+	min-width: 900px;
+	position: relative;
+	z-index: 3;
 	background-color: @color-layout-bg-navbar;
-	min-width: 960px;
+	box-shadow: var(@box-shadow);
 	.logo {
 		width: v-bind(sidebarWidth);
 		color: #fff;
@@ -140,6 +149,23 @@ function toHome() {
 				margin: 0 2 * @layout-gap;
 				border-bottom: 4px solid transparent;
 				transition: all 0.2s;
+				position: relative;
+
+				i {
+					position: absolute;
+					bottom: -4px;
+					left: -20%;
+					width: 0;
+					height: 4px;
+					background: #feca57;
+					transition: 0.3s all ease-in-out;
+				}
+				&:hover {
+					i {
+						width: 100%;
+						transform: translateX(20%);
+					}
+				}
 			}
 			.current {
 				border-bottom: 4px solid #fbc531;
@@ -155,6 +181,11 @@ function toHome() {
 	.nav {
 		flex: 1;
 		padding: 0 @layout-gap;
+	}
+
+	.marginL {
+		display: inline-block;
+		width: 80px;
 	}
 }
 </style>

@@ -6,7 +6,9 @@
 
 .view {
 	padding: @layout-gap;
-	height: calc(100% - @layout-gap * 2 - 64px);
+	margin: @layout-gap;
+	height: calc(100% - @layout-gap * 4 - 74px);
+	box-shadow: var(@box-shadow);
 }
 
 .flex {
@@ -40,4 +42,15 @@
 		width: 4px;
 		background: @color-shadow;
 	}
+}
+
+.hr {
+	margin: @layout-gap auto;
+	height: 1px;
+	display: block;
+	background: #dcdfe6;
+}
+
+.marginL {
+	margin-left: @layout-gap;
 }

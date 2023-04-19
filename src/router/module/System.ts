@@ -15,17 +15,6 @@ const system: Array<RouteRecordRaw> = [
 		},
 		children: [
 			{
-				path: "index",
-				name: "SystemIndex",
-				meta: {
-					title: "系统总览",
-					icon: "PieChart",
-					cache: true,
-					show: true,
-				},
-				component: () => import("@/views/System/index.vue"),
-			},
-			{
 				path: "dashboard",
 				name: "dashboardIndex",
 				meta: {
@@ -35,6 +24,17 @@ const system: Array<RouteRecordRaw> = [
 					show: true,
 				},
 				component: () => import("@/views/Dashboard/index.vue"),
+			},
+			{
+				path: "index",
+				name: "SystemIndex",
+				meta: {
+					title: "系统总览",
+					icon: "PieChart",
+					cache: true,
+					show: true,
+				},
+				component: () => import("@/views/System/index.vue"),
 			},
 			{
 				path: "dicts",

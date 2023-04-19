@@ -16,6 +16,9 @@
 @color-layout-bg-sidebar: @color-theme;
 @box-shadow: --el-box-shadow-light;
 
+@heightAuto: calc(100% - @layout-gap * 4); // 高度被内容撑开
+@heightfull: calc(100vh - 58px - 42px - @layout-gap * 4 - 32px); // 高度占满空间
+
 .mix-in-flex() {
 	display: flex;
 	flex-wrap: wrap;

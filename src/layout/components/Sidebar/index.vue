@@ -1,7 +1,10 @@
 <template>
 	<div class="sidebarCom">
 		<el-scrollbar>
-			<el-button class="btn" type="default" size="small" @click="switchCollapse" :icon="isCollapse ? DArrowRight : DArrowLeft" />
+			<div class="btn" @click="switchCollapse">
+				<el-icon><component :is="isCollapse ? Expand : Fold" /></el-icon>
+			</div>
+
 			<div class="scrollY">
 				<ElMenu
 					:default-active="activeMenu"
@@ -25,7 +28,7 @@ import { system } from "@/router/module/System";
 import { flatMap } from "@/router/module/FlatMap";
 import { reliefMap } from "@/router/module/ReliefMap";
 import { spaceModel } from "@/router/module/SpaceModel";
-import { DArrowRight, DArrowLeft } from "@element-plus/icons-vue";
+import { Fold, Expand } from "@element-plus/icons-vue";
 import { ref, computed, reactive, watch } from "vue";
 import { RouteRecordRaw, useRoute } from "vue-router";
 import SidebarItem from "./SidebarItem.vue";
@@ -79,9 +82,14 @@ watch(path, path => {
 	}
 	.btn {
 		position: absolute;
+		font-size: 24px;
 		top: 50%;
 		right: 0;
 		z-index: 1;
+		cursor: pointer;
+		:deep(.el-icon) {
+			color: #fff;
+		}
 	}
 
 	[role="menubar"] {

@@ -177,6 +177,10 @@ function toHome() {
 		color: #fff;
 		line-height: 58px;
 		cursor: pointer;
+		// 点亮右侧下拉箭头
+		& + .el-icon {
+			color: #fff;
+		}
 	}
 	.nav {
 		flex: 1;

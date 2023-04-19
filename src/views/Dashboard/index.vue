@@ -19,12 +19,13 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
+@import "@/assets/style/variable.less";
 .box {
 	display: grid;
 	grid-template-rows: repeat(2, calc(50% - 5px));
 	grid-template-columns: repeat(2, calc(50% - 5px));
 	gap: 10px;
-	height: 100%;
+	height: @heightfull;
 	background: #fff;
 	.one {
 		grid-row-start: 1;

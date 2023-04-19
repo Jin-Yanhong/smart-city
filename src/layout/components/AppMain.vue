@@ -20,7 +20,9 @@
 				</el-tag>
 			</div>
 		</el-scrollbar>
-		<router-view />
+		<el-scrollbar class="routerViewContainer">
+			<router-view />
+		</el-scrollbar>
 		<div class="copyrightContainer">
 			{{ copyright }}
 		</div>
@@ -126,7 +128,10 @@ watch(route, (current: RouteLocationNormalizedLoaded) => {
 			border-radius: 10px;
 		}
 	}
-
+	.routerViewContainer {
+		height: calc(100% - 74px);
+		width: 100%;
+	}
 	.copyrightContainer {
 		position: absolute;
 		width: calc(100% - @layout-gap);

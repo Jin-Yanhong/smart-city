@@ -18,6 +18,7 @@
         ],
         "baseUrl": ".",
         "types": [
+            "@types/d3",
             "@types/nprogress",
             "@vitejs/plugin-vue",
             "element-plus/global",

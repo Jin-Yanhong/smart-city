@@ -115,7 +115,6 @@ function toHome() {
 </script>
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
-
 .navbar {
 	min-width: 900px;
 	position: relative;
@@ -137,9 +136,13 @@ function toHome() {
 		}
 	}
 	.contentNav {
+		* {
+			user-select: none;
+		}
 		ul {
 			padding-left: 2 * @layout-gap;
 			li {
+				user-select: none;
 				text-align: center;
 				cursor: pointer;
 				box-sizing: border-box;

@@ -2,7 +2,7 @@
 	<div ref="mapContainer" class="mapContainer"></div>
 </template>
 <script lang="ts" setup>
-import { ref, defineEmits, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { initMap } from "./mapOperates";
 
 const mapContainer = ref<HTMLDivElement>();

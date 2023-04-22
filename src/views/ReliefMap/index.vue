@@ -1,9 +1,17 @@
 <template>
-	<div class="view">三维地图</div>
+	<div class="view">
+		<CesiumMap />
+	</div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import CesiumMap from "@/components/CesiumMap/index.vue";
+</script>
+
+<script lang="ts">
+export default {
+	name: "ReliefMap",
+};
 </script>
 
 <style></style>

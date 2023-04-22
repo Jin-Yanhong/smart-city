@@ -22,7 +22,11 @@ const onMapReady = (Ins: Map) => {
 	});
 };
 </script>
-
+<script lang="ts">
+export default {
+	name: "FlatMap",
+};
+</script>
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";
 

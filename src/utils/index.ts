@@ -1,3 +1,7 @@
+export function cesiumBaseUrl() {
+	(window as Window & any).CESIUM_BASE_URL = import.meta.env.MODE == "development" ? "/cesium" : "/threejs-project/cesium";
+}
+
 export function getStorage(key: string): string {
 	const str: string = window.localStorage[key] ?? undefined;
 	try {

@@ -1,6 +1,10 @@
 <template>
 	<el-config-provider :locale="locale">
-		<router-view></router-view>
+		<router-view v-slot="{ Component }">
+			<keep-alive :include="['FlatMap', 'ReliefMap']">
+				<component :is="Component" />
+			</keep-alive>
+		</router-view>
 	</el-config-provider>
 </template>
 <script lang="js">

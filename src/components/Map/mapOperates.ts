@@ -10,7 +10,7 @@ export function initMap(dom: HTMLElement): Map {
 		layers: [
 			new TileLayer({
 				source: new XYZ({
-					url: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
+					url: "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
 				}),
 			}),
 		],

@@ -6,3 +6,11 @@ export interface routeMapKeys {
 	reliefMap: RouteRecordRaw[];
 	spaceModel: RouteRecordRaw[];
 }
+
+export interface featureType {
+	id: number;
+	name: string;
+	LonLat: number[];
+	icon: string;
+	label: string;
+}

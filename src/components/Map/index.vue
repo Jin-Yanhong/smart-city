@@ -1,5 +1,8 @@
 <template>
-	<div ref="mapContainer" class="mapContainer"></div>
+	<div class="mapContainer">
+		<div ref="mapContainer" id="mapContainer"></div>
+		<slot></slot>
+	</div>
 </template>
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
@@ -19,8 +22,12 @@ onMounted(() => {
 <style lang="less">
 .mapContainer {
 	position: absolute;
-
-	width: calc(100% - 40px);
-	height: calc(100% - 40px);
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	#mapContainer {
+		width: 100%;
+		height: 100%;
+	}
 }
 </style>

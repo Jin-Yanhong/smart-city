@@ -81,7 +81,7 @@ const sysConfig = reactive({
 	activeColor: settings.appConfig.activeColor,
 });
 
-const sidebarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
+const sideBarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
 const appName = ref<string>(settings.appConfig.name);
 
 let currentPath = computed(() => app.getCurrentPath);
@@ -122,7 +122,7 @@ function toHome() {
 	background-color: @color-layout-bg-navbar;
 	box-shadow: var(@box-shadow);
 	.logo {
-		width: v-bind(sidebarWidth);
+		width: v-bind(sideBarWidth);
 		color: #fff;
 		user-select: none;
 		.img {

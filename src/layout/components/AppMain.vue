@@ -23,9 +23,7 @@
 		<el-scrollbar class="routerViewContainer">
 			<router-view />
 		</el-scrollbar>
-		<div class="copyrightContainer">
-			{{ copyright }}
-		</div>
+		<div class="copyrightContainer" v-html="copyright"></div>
 	</div>
 </template>
 <script lang="ts" setup>
@@ -35,20 +33,25 @@ import { computed, ref, watch } from "vue";
 import { useRoute, RouteLocationNormalizedLoaded } from "vue-router";
 import settings from "@/settings";
 
-const app = useAppStore();
+const maxSidebarWidth = settings.appConfig.layOut.maxWidth;
+const minSidebarWidth = settings.appConfig.layOut.minWidth;
 const homePath = "/system/dashboard";
+
+const app = useAppStore();
 const homePathActive = ref<boolean>(false);
 const tagViews = ref<Array<tagViewsType>>([]);
+const isMenuCollapse = computed(() => app.getMenuCollapse);
+const sideBarWidth = ref<string>(isMenuCollapse.value ? minSidebarWidth : maxSidebarWidth);
 const copyright = ref<string>(settings.appConfig.copyright);
 const route: RouteLocationNormalizedLoaded = useRoute();
-const sideBarWidth = computed(() => app.getSideBarWidth);
 
 function tagClose(tag: tagViewsType) {
 	const index = tagViews.value.indexOf(tag);
 	tagViews.value.splice(index, 1);
 }
 
-watch(route, (current: RouteLocationNormalizedLoaded) => {
+watch([route, isMenuCollapse], ([route, isMenuCollapse]) => {
+	const current = route as RouteLocationNormalizedLoaded;
 	const item: tagViewsType = {
 		title: current.meta?.title as string,
 		path: current.path,
@@ -77,6 +80,7 @@ watch(route, (current: RouteLocationNormalizedLoaded) => {
 			});
 		}
 	}
+	sideBarWidth.value = isMenuCollapse ? minSidebarWidth : maxSidebarWidth;
 });
 </script>
 

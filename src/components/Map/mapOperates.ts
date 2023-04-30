@@ -50,6 +50,7 @@ export function overlayIns(id: number, dom: HTMLDivElement, className: string[] 
 		position: [-27117702.709166624, 4852658.966904737],
 		autoPan: true,
 		className: [...className, "overlayIns"].join(" "),
+		offset: [-64, -56],
 	});
 	return Ins;
 }

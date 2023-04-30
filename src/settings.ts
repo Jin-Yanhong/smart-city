@@ -10,7 +10,7 @@ const settings = {
 		name: "智慧城市",
 		themeColor: themeColor,
 		activeColor: colorActive,
-		copyright: "@ xxx 团队 版权所有",
+		copyright: "<a href=mailto:jin-yanhong@outlook.com>@Jin-Yanhong</a>",
 		layOut: {
 			maxWidth: "200px",
 			minWidth: "64px",

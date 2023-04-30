@@ -48,16 +48,17 @@ const routesMap: Record<keyof routeMapKeys, RouteRecordRaw[]> = {
 const app = useAppStore();
 const currentRoute = useRoute();
 const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
-const isCollapse = ref<boolean>(false);
+const isCollapse = ref<boolean>(app.getMenuCollapse);
 const activeMenu = computed(() => currentRoute.path);
-const sidebarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
 const path = computed(() => app.getCurrentPath);
 const pathStatic = app.getCurrentPath;
 
+const sideBarWidth = ref<string>(isCollapse.value ? settings.appConfig.layOut.minWidth : settings.appConfig.layOut.maxWidth);
+
 function switchCollapse() {
 	isCollapse.value = !isCollapse.value;
-	sidebarWidth.value = isCollapse.value ? settings.appConfig.layOut.minWidth : settings.appConfig.layOut.maxWidth;
-	app.switchSideBarWidth(sidebarWidth.value);
+	sideBarWidth.value = isCollapse.value ? settings.appConfig.layOut.minWidth : settings.appConfig.layOut.maxWidth;
+	app.switchMenuCollapse(isCollapse.value);
 }
 
 const routerList = ref<Array<RouteRecordRaw>>(routesMap[pathStatic]);
@@ -94,8 +95,8 @@ watch(path, path => {
 
 	[role="menubar"] {
 		transition: all 0.3s;
-		max-width: v-bind(sidebarWidth);
-		min-width: v-bind(sidebarWidth);
+		max-width: v-bind(sideBarWidth);
+		min-width: v-bind(sideBarWidth);
 	}
 }
 </style>

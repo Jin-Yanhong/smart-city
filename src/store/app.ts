@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
-import settings from "@/settings";
 import { getStorage, setStorage } from "@/utils";
-const sidebarWidth = settings.appConfig.layOut.maxWidth;
+
+const isMenuCollapse = getStorage("isMenuCollapse");
 
 import { routeMapKeys } from "@/interface/index";
 const useAppStore = defineStore({
@@ -9,7 +9,7 @@ const useAppStore = defineStore({
 	state: () => ({
 		theme: getStorage("theme") || "light",
 		currentPath: (getStorage("currentPath") || "system") as keyof routeMapKeys,
-		sideBarWidth: sidebarWidth,
+		isMenuCollapse: typeof isMenuCollapse == "boolean" ? isMenuCollapse : false,
 	}),
 	getters: {
 		getTheme: state => {
@@ -18,8 +18,8 @@ const useAppStore = defineStore({
 		getCurrentPath: state => {
 			return state.currentPath;
 		},
-		getSideBarWidth: state => {
-			return state.sideBarWidth;
+		getMenuCollapse: state => {
+			return state.isMenuCollapse;
 		},
 	},
 	actions: {
@@ -31,9 +31,9 @@ const useAppStore = defineStore({
 			this.currentPath = state as keyof routeMapKeys;
 			setStorage("currentPath", this.currentPath);
 		},
-		switchSideBarWidth: function (state: string) {
-			this.sideBarWidth = state as string;
-			setStorage("sideBarWidth", this.sideBarWidth);
+		switchMenuCollapse: function (state: boolean) {
+			this.isMenuCollapse = !this.isMenuCollapse;
+			setStorage("isMenuCollapse", this.isMenuCollapse);
 		},
 	},
 });

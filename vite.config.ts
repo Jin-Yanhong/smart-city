@@ -9,7 +9,7 @@ export default ({ mode }) => {
 	const config = loadEnv(mode, "./");
 
 	return defineConfig({
-		base: mode == "production" ? "/threejs-project" : "/",
+		base: mode == "production" ? "/smart-city" : "/",
 		plugins: [vue()],
 		resolve: {
 			alias: {

@@ -16,9 +16,11 @@
 			</div>
 
 			<div class="flex-center center">
-				<el-tag v-for="item in items" :key="item.label" :type="item.type" class="mx-1" effect="dark">
-					{{ item.label }}
-				</el-tag>
+				<div class="notice">
+					<el-tag v-for="item in items" :key="item.label" :type="item.type" class="mx-1" effect="dark">
+						{{ item.label }}
+					</el-tag>
+				</div>
 			</div>
 			<div class="flex-end right">
 				<el-button type="" size="small" round> 当前任务 </el-button>
@@ -60,10 +62,10 @@ const mapIns = ref<Map>();
 const overlayContainer = ref<HTMLDivElement>();
 const items = ref<Array<Item>>([
 	{ type: "danger", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！" },
-	// { type: "success", label: "Tag 2" },
-	// { type: "info", label: "Tag 3" },
-	// { type: "danger", label: "Tag 4" },
-	// { type: "warning", label: "Tag 5" },
+	{ type: "success", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！" },
+	{ type: "info", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！" },
+	{ type: "danger", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！" },
+	{ type: "warning", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！" },
 ]);
 
 const onMapReady = (Ins: Map) => {
@@ -137,14 +139,24 @@ export default {
 
 		.center {
 			height: 100%;
-			flex-wrap: wrap;
 			overflow-y: hidden;
-			& > span {
-				line-height: 24px;
-				display: block;
-				text-align: center;
-				width: 100%;
-				flex-grow: 1;
+
+			.notice {
+				display: flex;
+				cursor: pointer;
+				width: auto;
+				height: 100%;
+				align-items: center;
+				flex-wrap: nowrap;
+
+				& > span {
+					line-height: 24px;
+					display: inline-block;
+					text-align: center;
+				}
+			}
+			&::-webkit-scrollbar {
+				display: none;
 			}
 		}
 	}

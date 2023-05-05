@@ -1,9 +1,9 @@
 <template>
 	<div class="view">
 		<div class="container">
-			<!-- <MapOl @onMapReady="onMapReady">
+			<MapOl @onMapReady="onMapReady">
 				<div ref="overlayContainer" class="overlay">Hello, I'm here</div>
-			</MapOl> -->
+			</MapOl>
 		</div>
 
 		<div class="flex-between topBtnGroup">

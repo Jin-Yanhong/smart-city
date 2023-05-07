@@ -1,6 +1,8 @@
 export function cesiumBaseUrl() {
+	const staticPath = "/cesium";
+
 	// Cesium 静态资源路径
-	(window as Window & any).CESIUM_BASE_URL = import.meta.env.MODE == "development" ? "/cesium" : "/smart-city/cesium";
+	(window as Window & any).CESIUM_BASE_URL = import.meta.env.MODE == "development" ? staticPath : import.meta.env.VITE_PUBLIC_PATH + staticPath;
 }
 
 export function getStorage(key: string): string {

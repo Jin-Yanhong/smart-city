@@ -9,7 +9,7 @@ export default ({ mode }) => {
 	const config = loadEnv(mode, "./");
 
 	return defineConfig({
-		base: mode == "production" ? "/smart-city" : "/",
+		base: config.VITE_PUBLIC_PATH,
 		plugins: [vue()],
 		resolve: {
 			alias: {

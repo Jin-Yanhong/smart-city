@@ -19,9 +19,14 @@
         "baseUrl": ".",
         "types": [
             "@types/d3",
+            "@types/three",
+            "@cesium/engine",
+            "@cesium/widgets",
             "@types/nprogress",
             "@vitejs/plugin-vue",
             "element-plus/global",
+            "pinia/dist/pinia.d.ts",
+            "@tweenjs/tween.js/dist/tween.d.ts",
         ],
         "paths": {
             "@/*": [
@@ -36,6 +41,7 @@
         "src/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
+        "src/components/Three/city/index.js",
     ],
     "references": [
         {

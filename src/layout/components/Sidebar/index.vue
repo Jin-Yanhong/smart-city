@@ -24,35 +24,21 @@
 </template>
 
 <script lang="ts" setup>
-import { system } from "@/router/module/System";
-import { flatMap } from "@/router/module/FlatMap";
-import { reliefMap } from "@/router/module/ReliefMap";
-import { spaceModel } from "@/router/module/SpaceModel";
+import { System } from "@/router/System";
 import { Fold, Expand } from "@element-plus/icons-vue";
-import { ref, computed, reactive, watch } from "vue";
+import { ref, computed, reactive } from "vue";
 import { RouteRecordRaw, useRoute } from "vue-router";
 import SidebarItem from "./SidebarItem.vue";
 import { menuConfigType } from "@/types";
 import useAppStore from "@/store/app";
 import settings from "@/settings";
-import { routeMapKeys } from "@/interface/index";
-import router from "@/router";
-
-const routesMap: Record<keyof routeMapKeys, RouteRecordRaw[]> = {
-	system: system,
-	flatMap: flatMap,
-	reliefMap: reliefMap,
-	spaceModel: spaceModel,
-};
 
 const app = useAppStore();
 const currentRoute = useRoute();
-const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
 const isCollapse = ref<boolean>(app.getMenuCollapse);
+const routerList = ref<Array<RouteRecordRaw>>(System);
 const activeMenu = computed(() => currentRoute.path);
-const path = computed(() => app.getCurrentPath);
-const pathStatic = app.getCurrentPath;
-
+const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
 const sideBarWidth = ref<string>(isCollapse.value ? settings.appConfig.layOut.minWidth : settings.appConfig.layOut.maxWidth);
 
 function switchCollapse() {
@@ -60,13 +46,6 @@ function switchCollapse() {
 	sideBarWidth.value = isCollapse.value ? settings.appConfig.layOut.minWidth : settings.appConfig.layOut.maxWidth;
 	app.switchMenuCollapse(isCollapse.value);
 }
-
-const routerList = ref<Array<RouteRecordRaw>>(routesMap[pathStatic]);
-
-watch(path, path => {
-	router.push(`/${path}`);
-	routerList.value = routesMap[path];
-});
 </script>
 <style lang="less" scoped>
 @import "@/assets/style/variable.less";

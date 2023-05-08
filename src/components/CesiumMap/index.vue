@@ -21,9 +21,7 @@ onMounted(() => {
 <style lang="less">
 .cesiumContainer {
 	position: absolute;
-	top: 20px;
-	left: 20px;
-	width: calc(100% - 40px);
-	height: calc(100% - 40px);
+	width: 100%;
+	height: 100%;
 }
 </style>

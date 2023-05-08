@@ -3,10 +3,9 @@ import NProgress from "nprogress";
 import { ElMessage } from "element-plus";
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
 import "nprogress/nprogress.css";
-import { system } from "./module/System";
-import { flatMap } from "./module/FlatMap";
-import { reliefMap } from "./module/ReliefMap";
-import { spaceModel } from "./module/SpaceModel";
+import { fullScreen } from "./FullScreen";
+import { System } from "./System";
+import settings from "@/settings";
 
 const whiteList = ["/login"];
 
@@ -24,12 +23,10 @@ export const routes: Array<RouteRecordRaw> = [
 	{
 		path: "/",
 		name: "dashboard",
-		redirect: "/system/dashboard",
+		redirect: settings.homePage,
 	},
-	...system,
-	...flatMap,
-	...reliefMap,
-	...spaceModel,
+	...System,
+	...fullScreen,
 	{
 		path: "/redirect",
 		component: () => import("@/views/Redirect/index.vue"),

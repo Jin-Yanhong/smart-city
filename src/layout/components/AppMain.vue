@@ -35,7 +35,7 @@ import settings from "@/settings";
 
 const maxSidebarWidth = settings.appConfig.layOut.maxWidth;
 const minSidebarWidth = settings.appConfig.layOut.minWidth;
-const homePath = "/system/dashboard";
+const homePath = settings.homePage;
 
 const app = useAppStore();
 const homePathActive = ref<boolean>(false);

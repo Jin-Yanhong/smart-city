@@ -23,6 +23,7 @@ const settings = {
 		textColor: colorLight,
 		activeTextColor: colorActive,
 	},
+	homePage: "/Pages/dashboard",
 };
 
 export default settings;

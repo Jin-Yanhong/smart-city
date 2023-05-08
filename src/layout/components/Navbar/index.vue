@@ -10,9 +10,10 @@
 		</div>
 		<div class="contentNav">
 			<ul class="flex-start">
-				<li v-for="nav in contentNav" :key="nav.id" :class="currentPath == nav.path ? 'current' : ''" @click="switchNav(nav)">
-					<span>{{ nav.label }}</span>
-					<i> </i>
+				<li v-for="nav in contentNav" :key="nav.id" @click="switchNav(nav)">
+					<router-link :to="nav.path">
+						<span>{{ nav.label }}</span> <i> </i>
+					</router-link>
 				</li>
 			</ul>
 		</div>
@@ -62,19 +63,14 @@
 </template>
 <script lang="ts" setup>
 import router from "@/router";
-import { ref, reactive, computed } from "vue";
-import { useRoute } from "vue-router";
+import { ref, reactive } from "vue";
 import { ElMessageBox } from "element-plus";
 import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
-import useAppStore from "@/store/app";
 import useUserStore from "@/store/user";
 import { contentNavType } from "@/types";
 import settings from "@/settings";
-import { routeMapKeys } from "@/interface";
 const avatarUrl = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
-const app = useAppStore();
 const user = useUserStore();
-const currentRoute = useRoute();
 const drawer = ref<boolean>(false);
 const sysConfig = reactive({
 	themeColor: settings.appConfig.themeColor,
@@ -84,14 +80,10 @@ const sysConfig = reactive({
 const sideBarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
 const appName = ref<string>(settings.appConfig.name);
 
-let currentPath = computed(() => app.getCurrentPath);
-currentPath = computed(() => currentRoute.fullPath.split("/")[1] as keyof routeMapKeys);
-
 const contentNav = ref<Array<contentNavType>>([
-	{ id: 1, label: "系统管理", path: "system" },
-	{ id: 2, label: "平面地图", path: "flatMap" },
-	{ id: 3, label: "三维地图", path: "reliefMap" },
-	{ id: 4, label: "空间模型", path: "spaceModel" },
+	{ id: 1, label: "平面地图", path: "/FullScreen/flatMap" },
+	{ id: 2, label: "三维地图", path: "/FullScreen/reliefMap" },
+	{ id: 3, label: "空间模型", path: "/FullScreen/spaceModel" },
 ]);
 
 function handleLogout(): void {
@@ -106,7 +98,7 @@ function handleLogout(): void {
 }
 
 function switchNav(nav: contentNavType) {
-	app.changeCurrentPath(nav.path);
+	router.push(nav.path);
 }
 
 function toHome() {
@@ -169,10 +161,6 @@ function toHome() {
 						transform: translateX(20%);
 					}
 				}
-			}
-			.current {
-				border-bottom: 4px solid #fbc531;
-				height: 58px;
 			}
 		}
 	}

@@ -16,7 +16,7 @@ export class Smoke {
 
 		this.material = new THREE.PointsMaterial({
 			size: 50,
-			map: new THREE.TextureLoader().load("/src/components/Three/image/smoke.png"),
+			map: new THREE.TextureLoader().load(window.threeAssetsPath + "image/smoke.png"),
 			transparent: true,
 			depthWrite: false, // 禁止深度写入
 		});

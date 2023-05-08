@@ -4,7 +4,7 @@ import { createI18n } from "vue-i18n";
 import ElementPlus from "element-plus";
 import App from "./App.vue";
 import router from "./router/index";
-import { getStorage, setStorage, cesiumBaseUrl } from "./utils/index";
+import { getStorage, setStorage, setAssetsBaseUrl } from "./utils/index";
 
 import "@/assets/style/reset.less"; // css reset
 import "normalize.css";
@@ -26,5 +26,5 @@ app.use(ElementPlus);
 app.mount("#app");
 
 window.onload = function () {
-	cesiumBaseUrl();
+	setAssetsBaseUrl();
 };

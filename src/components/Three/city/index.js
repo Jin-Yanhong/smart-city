@@ -45,7 +45,7 @@ export class City {
 
 	loadCity() {
 		// 加载模型，并且渲染到画布上
-		loadFBX("/src/components/Three/model/beijing.fbx").then(object => {
+		loadFBX(window.threeAssetsPath + "model/beijing.fbx").then(object => {
 			object.traverse(child => {
 				if (child.isMesh) {
 					new SurroundLine(this.scene, child, this.height, this.time);

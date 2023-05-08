@@ -22,7 +22,7 @@ export class Snow {
 				position.speedY = Math.random() + 4;
 				position.speedZ = Math.random() - 0.5;
 			},
-			url: "/src/components/Three/image/snow.png",
+			url: window.threeAssetsPath + "image/snow.png",
 		});
 		// this.scene = scene;
 		//
@@ -43,7 +43,7 @@ export class Snow {
 		// 材质
 		this.material = new THREE.PointsMaterial({
 			size: 30,
-			map: new THREE.TextureLoader().load("/src/components/Three/image/snow.png"),
+			map: new THREE.TextureLoader().load(window.threeAssetsPath + "image/snow.png"),
 			transparent: true,
 			opacity: 0.8,
 			depthTest: false,

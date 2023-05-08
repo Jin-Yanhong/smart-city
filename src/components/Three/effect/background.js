@@ -3,7 +3,7 @@ import * as THREE from "three";
 export class Background {
 	constructor(scene) {
 		this.scene = scene;
-		this.url = "/src/components/Three/image/black-bg.png";
+		this.url = window.threeAssetsPath + "image/black-bg.png";
 
 		this.init();
 	}

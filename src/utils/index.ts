@@ -1,8 +1,16 @@
-export function cesiumBaseUrl() {
-	const staticPath = "/cesium";
+export function setAssetsBaseUrl() {
+	const cesiumAssetsPath = "/cesium";
 
-	// Cesium 静态资源路径
-	(window as Window & any).CESIUM_BASE_URL = import.meta.env.MODE == "development" ? staticPath : import.meta.env.VITE_PUBLIC_PATH + staticPath;
+	if (import.meta.env.MODE == "development") {
+		// Cesium 静态资源路径
+		(window as Window & any).CESIUM_BASE_URL = cesiumAssetsPath;
+		// three 静态资源路径
+		(window as Window & any).threeAssetsPath = "/src/components/Three/";
+	} else {
+		(window as Window & any).CESIUM_BASE_URL = import.meta.env.VITE_PUBLIC_PATH + cesiumAssetsPath;
+
+		(window as Window & any).threeAssetsPath = import.meta.env.VITE_PUBLIC_PATH + "/three/";
+	}
 }
 
 export function getStorage(key: string): string {

@@ -1,30 +1,31 @@
 import { defineStore } from "pinia";
 import { getStorage, setStorage } from "@/utils";
 
+const locale = getStorage("locale");
 const isMenuCollapse = getStorage("isMenuCollapse");
 
 const useAppStore = defineStore({
 	id: "app",
 	state: () => ({
-		theme: getStorage("theme") || "light",
 		isMenuCollapse: typeof isMenuCollapse == "boolean" ? isMenuCollapse : false,
+		locale: typeof isMenuCollapse == "string" ? locale : window.navigator.language,
 	}),
 	getters: {
-		getTheme: state => {
-			return state.theme;
-		},
 		getMenuCollapse: state => {
 			return state.isMenuCollapse;
 		},
+		getLocale: state => {
+			return state.locale;
+		},
 	},
 	actions: {
-		switchTheme: function () {
-			this.theme = this.theme == "light" ? "dark" : "light";
-			setStorage("theme", this.theme);
-		},
 		switchMenuCollapse: function (state: boolean) {
-			this.isMenuCollapse = !this.isMenuCollapse;
-			setStorage("isMenuCollapse", this.isMenuCollapse);
+			this.isMenuCollapse = state;
+			setStorage("isMenuCollapse", state);
+		},
+		setLocale: function (locale: string) {
+			this.locale = locale;
+			setStorage("locale", locale);
 		},
 	},
 });

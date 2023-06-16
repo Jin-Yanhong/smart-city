@@ -1,0 +1,168 @@
+@import "./variable.less";
+
+@font-face {
+	font-family: 'PingFang';
+	font-display: block;
+	src: url('../static/font/PingFang-Medium.ttf');
+}
+
+:root {
+	font-size: 16px;
+	font-family: PingFang system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+	background: #f4f6f8;
+}
+
+.pages {
+	padding: @layout-gap;
+	overflow-y: auto;
+	height: @heightfull;
+}
+
+.tabBar.pages {
+	height: @heightAuto !important;
+}
+
+.scrollBar {
+	.webkit-scrollbar();
+}
+
+.flex {
+	.flex();
+
+	&-center {
+		.flex.center();
+	}
+
+	&-start {
+		.flex.start();
+	}
+
+	&-end {
+		.flex.end();
+	}
+
+	&-between {
+		.flex.between();
+	}
+
+	&-evenly {
+		.flex.evenly();
+	}
+
+	&-nowrap {
+		.flex.nowrap();
+	}
+}
+
+
+.margin {
+	margin: @layout-gap;
+
+	&L {
+		margin-left: @layout-gap;
+	}
+
+	&R {
+		margin-right: @layout-gap ;
+	}
+
+	&T {
+		margin-top: @layout-gap;
+	}
+
+	&B {
+		margin-bottom: @layout-gap;
+	}
+
+	&TB {
+		margin-top: @layout-gap;
+		margin-bottom: @layout-gap;
+	}
+}
+
+.center {
+	display: block;
+	margin: auto;
+	text-align: center;
+}
+
+
+.btnStyle() {
+	height: 40px;
+	line-height: 40px;
+	color: @color-light;
+	text-align: center;
+	border-radius: @borderRadius;
+}
+
+.btn {
+	background-color: @color-theme;
+	.btnStyle();
+
+	&-primary {
+		.btnStyle();
+		background-color: @color-primary;
+	}
+
+	&-success {
+		.btnStyle();
+		background-color: @color-success;
+	}
+
+	&-danger {
+		.btnStyle();
+		background-color: @color-danger;
+	}
+
+	&-warning {
+		.btnStyle();
+		background-color: @color-warning;
+	}
+
+	&-block {
+		.btnStyle();
+		width: 100%;
+		display: block;
+	}
+}
+
+.hr {
+	margin: @layout-gap auto;
+	height: 1px;
+	display: block;
+	background: #dcdfe6;
+}
+
+.card {
+	padding: @layout-gap;
+	border-radius: 4px;
+	border: 1px solid #ebeef5;
+	background-color: #fff;
+	overflow: hidden;
+	color: #303133;
+
+	.header {
+		padding: @layout-gap;
+		border-bottom: 1px solid #dfdfdf;
+	}
+}
+
+.textEllipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.required {
+	font-style: normal;
+	position: relative;
+
+	&::after {
+		content: '*';
+		color: red;
+		color: 8px;
+	}
+}

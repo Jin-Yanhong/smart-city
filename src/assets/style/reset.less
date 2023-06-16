@@ -1,8 +1,8 @@
 @import "./variable.less";
 
-.noGap() {
-	margin: 0;
-	padding: 0;
+html,
+body {
+	.noGap();
 }
 
 a {
@@ -14,6 +14,8 @@ a {
 		.color.link.hover();
 	}
 }
+
+p,
 h1,
 h2,
 h3,
@@ -23,10 +25,31 @@ h6,
 dl,
 ul {
 	.noGap();
+
 	dt,
 	dd,
 	li {
 		list-style: none;
 		.noGap();
 	}
+}
+
+img {
+	display: inline-block;
+}
+
+.el-Btn {
+	width: calc(100% - 10px);
+	margin-bottom: 10px !important;
+	margin-top: 0 !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.el-Btn:nth-last-child(1) {
+	margin: 0 !important;
+}
+
+.el-tabs__nav-wrap::after {
+	z-index: 0 !important;
 }

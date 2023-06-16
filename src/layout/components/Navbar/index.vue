@@ -20,6 +20,29 @@
 		<div class="nav flex-end">
 			<el-dropdown trigger="click">
 				<span class="el-dropdown-link">
+					<span class="userCenter marginR"> Language </span>
+					<el-icon class="el-icon--right">
+						<arrow-down />
+					</el-icon>
+				</span>
+				<template #dropdown>
+					<el-dropdown-menu>
+						<el-dropdown-item @click="handleLogout">
+							<el-icon>
+								<SwitchButton />
+							</el-icon>
+							Logout
+						</el-dropdown-item>
+						<el-dropdown-item @click="drawer = true">
+							<el-icon><Setting /></el-icon>
+							打开设置
+						</el-dropdown-item>
+					</el-dropdown-menu>
+				</template>
+			</el-dropdown>
+
+			<el-dropdown trigger="click">
+				<span class="el-dropdown-link">
 					<span class="userCenter"> User Center </span>
 					<el-icon class="el-icon--right">
 						<arrow-down />

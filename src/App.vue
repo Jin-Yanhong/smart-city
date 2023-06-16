@@ -10,8 +10,7 @@
 <script lang="js">
 import { defineComponent } from "vue";
 import { ElConfigProvider } from "element-plus";
-
-import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+import zh from "element-plus/dist/locale/zh-cn.mjs";
 
 export default defineComponent({
 	components: {
@@ -19,8 +18,13 @@ export default defineComponent({
 	},
 	setup() {
 		return {
-			locale: zhCn,
+			locale: zh
 		};
 	},
+	created() {
+		this.$i18n.locale =  'zh'
+
+	}
+
 });
 </script>

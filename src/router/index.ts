@@ -1,8 +1,11 @@
-import useUserStore from '@/store/user';
 import NProgress from 'nprogress';
+import useUserStore from '@/store/user';
 import { ElMessage } from 'element-plus';
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
+
+import { i18n } from '@/i18n';
 import 'nprogress/nprogress.css';
+
 import { fullScreen } from './FullScreen';
 import { System } from './System';
 import { Pages } from './module/Pages';
@@ -10,12 +13,14 @@ import settings from '@/settings';
 
 const whiteList = ['/login'];
 
+const { tm } = i18n.global;
+
 export const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/login',
 		name: 'login',
 		meta: {
-			title: '登录',
+			title: 'system.menu.login',
 			cache: true,
 			show: false,
 		},
@@ -23,8 +28,13 @@ export const routes: Array<RouteRecordRaw> = [
 	},
 	{
 		path: '/',
-		name: 'dashboard',
+		name: 'HomePage',
 		redirect: settings.homePage,
+		meta: {
+			title: 'system.menu.home',
+			cache: false,
+			show: false,
+		},
 	},
 	...Pages,
 	...System,
@@ -33,12 +43,17 @@ export const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/redirect',
 		component: () => import('@/views/Redirect/index.vue'),
+		meta: {
+			title: undefined,
+			cache: false,
+			show: false,
+		},
 	},
 	{
 		path: '/404',
 		component: () => import('@/views/ErrorPage/4xx.vue'),
 		meta: {
-			title: 'NotFound',
+			title: 'system.menu.notFound',
 			cache: false,
 			show: false,
 		},
@@ -46,6 +61,11 @@ export const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/:pathMatch(.*)*',
 		redirect: '/404',
+		meta: {
+			title: undefined,
+			cache: false,
+			show: false,
+		},
 	},
 ];
 
@@ -82,7 +102,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 
 router.afterEach((to: RouteLocationNormalized) => {
 	NProgress.done();
-	document.title = `智慧城市 - ${to.meta?.title}`;
+	document.title = `${tm('system.appName')} - ${tm(to?.meta?.title as string)}`;
 });
 
 export default router;

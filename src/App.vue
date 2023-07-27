@@ -11,11 +11,11 @@
 import { computed } from 'vue';
 import useAppStore from '@/store/app';
 import { ElConfigProvider } from 'element-plus';
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+import zh from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 
 const App = useAppStore();
 const locale = computed(() => App.getLocale);
-const elocale = computed(() => (locale.value === 'zh' ? zhCn : en))
+const elocale = computed(() => (locale.value === 'zh' ? zh : en))
 App.setLocale(locale.value)
 </script>

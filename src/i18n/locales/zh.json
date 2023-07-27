@@ -3,8 +3,23 @@
 		"hello": "你好，世界"
 	},
 	"system": {
+		"appName": "智慧城市",
 		"language": "语言",
 		"user": "用户",
-		"menu": {}
+		"menu": {
+			"home": "主页",
+			"login": "登录",
+			"notFound": "页面不存在",
+			"busiView": "业务视图",
+			"chart": "图表",
+			"general": "概要",
+			"system": "系统管理",
+			"systemIndex": "系统信息",
+			"systemDicts": "系统字典",
+			"fullscreen": "全屏视图",
+			"flatMap": "平面地图",
+			"reliefMap": "空间地图",
+			"spaceModel": "空间模型"
+		}
 	}
 }

@@ -3,8 +3,23 @@
 		"hello": "{ msg } world"
 	},
 	"system": {
+		"appName": "Smart City",
 		"language": "Language",
 		"user": "User",
-		"menu": {}
+		"menu": {
+			"home": "Home",
+			"login": "Login",
+			"notFound": "NotFound",
+			"busiView": "Views",
+			"chart": "Chart",
+			"general": "General",
+			"system": "System",
+			"systemIndex": "SystemIndex",
+			"systemDicts": "SystemDicts",
+			"fullscreen": "Fullscreen",
+			"flatMap": "FlatMap",
+			"reliefMap": "ReliefMap",
+			"spaceModel": "SpaceModel"
+		}
 	}
 }

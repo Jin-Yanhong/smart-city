@@ -4,7 +4,7 @@
 			<el-card shadow="never">
 				<template #header>
 					<div class="card-header">
-						<span>Welcome to {{ AppName }}</span>
+						<span>Welcome to {{ tm(AppName) }}</span>
 					</div>
 				</template>
 				<ElForm :model="form" :label-width="labelWidth" label-position="left" ref="loginFormRef" :rules="rules">
@@ -24,32 +24,34 @@
 </template>
 
 <script lang="ts" setup>
-import settings from "@/settings";
-import router from "@/router/index";
-import { loginFormType } from "@/types";
-import useUserStore from "@/store/user";
-import { onMounted, reactive, ref } from "vue";
-import type { FormInstance, FormRules } from "element-plus";
-import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from "vue-router";
+import settings from '@/settings';
+import router from '@/router/index';
+import { loginFormType } from '@/types';
+import useUserStore from '@/store/user';
+import { onMounted, reactive, ref } from 'vue';
+import type { FormInstance, FormRules } from 'element-plus';
+import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
+import { i18n } from '@/i18n';
 
-const form = reactive<loginFormType>({ userName: "admin", passWord: "admin" });
-const AppName = ref<string>("");
+const { tm } = i18n.global;
+const form = reactive<loginFormType>({ userName: 'admin', passWord: 'admin' });
+const AppName = ref<string>('');
 const user = useUserStore();
-const labelWidth = ref("140px");
+const labelWidth = ref('140px');
 const loginFormRef = ref<FormInstance>();
 const rules = reactive<FormRules>({
 	userName: [
 		{
 			required: true,
-			message: "Please input user name",
-			trigger: "blur",
+			message: 'Please input user name',
+			trigger: 'blur',
 		},
 	],
 	passWord: [
 		{
 			required: true,
-			message: "Please select user password",
-			trigger: "change",
+			message: 'Please select user password',
+			trigger: 'change',
 		},
 	],
 });
@@ -66,11 +68,11 @@ function onSubmit(formEl: FormInstance | undefined) {
 
 					if (path.redirect) {
 						router.replace({
-							path: "/redirect",
+							path: '/redirect',
 							query: path,
 						});
 					} else {
-						router.replace("/dashboard");
+						router.replace('/dashboard');
 					}
 				}, 200);
 			});
@@ -79,11 +81,11 @@ function onSubmit(formEl: FormInstance | undefined) {
 }
 
 onMounted(() => {
-	AppName.value = settings.appConfig.name as string;
+	AppName.value = settings.appConfig.name;
 });
 </script>
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
 
 .page {
 	height: 100vh;

@@ -1,9 +1,9 @@
 <template>
 	<template v-if="item?.children?.length as number > 1">
-		<ElSubMenu :index="basePath" :title="basePath">
+		<ElSubMenu v-show="item.meta?.show" :index="basePath" :title="basePath">
 			<template #title>
 				<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
-				<span> {{ item.meta?.title }}</span>
+				<span> {{ i18nMenuTitle(item.meta?.title as string) }}</span>
 			</template>
 			<SidebarItem v-for="child in item.children" v-bind:key="child.path" :item="child" :basePath="basePath" />
 		</ElSubMenu>
@@ -12,18 +12,20 @@
 		<ElMenuItem v-show="item.meta?.show" @click="menuClick(resolvePath([basePath, '/', item.path]))" :index="resolvePath([basePath, '/', item.path])">
 			<el-icon> <component :is="item?.meta?.icon" /> </el-icon>
 			<template #title>
-				<span> {{ item.meta?.title }} </span>
+				<span> {{ i18nMenuTitle(item.meta?.title as string) }} </span>
 			</template>
 		</ElMenuItem>
 	</template>
 </template>
 
 <script lang="ts">
-import router from "@/router/index";
-import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-import { ElMenuItem, ElSubMenu } from "element-plus";
-import { defineComponent, PropType } from "vue";
-import { RouteRecordRaw } from "vue-router";
+import router from '@/router/index';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import { ElMenuItem, ElSubMenu } from 'element-plus';
+import { defineComponent, PropType } from 'vue';
+import { RouteRecordRaw } from 'vue-router';
+import { i18n } from '@/i18n';
+const { te, tm } = i18n.global;
 
 function registerIcon() {
 	const icon: any = {};
@@ -38,7 +40,7 @@ export default defineComponent({
 		item: { type: Object as PropType<RouteRecordRaw>, required: true },
 		basePath: { type: String, required: true },
 	},
-	name: "SidebarItem",
+	name: 'SidebarItem',
 	components: {
 		ElSubMenu,
 		ElMenuItem,
@@ -46,12 +48,26 @@ export default defineComponent({
 	},
 	methods: {
 		resolvePath(paths: string[]): string {
-			const pathNode: string[] = paths.join("").replace(/\//g, " ").split(" ");
-			const result: string = Array.from(new Set(pathNode)).join("/") || "/";
+			const pathNode: string[] = paths.join('').replace(/\//g, ' ').split(' ');
+			const result: string = Array.from(new Set(pathNode)).join('/') || '/';
 			return result;
 		},
 		menuClick(path: string) {
 			router.push(path);
+		},
+		i18nMenuTitle(message: string) {
+			try {
+				if (te(message)) {
+					return tm(message);
+				} else {
+					throw new Error(`Vue-I18n: No Message for ${message}`);
+				}
+			} catch (error: any) {
+				if (!message == undefined) {
+					console.warn(error.message);
+					return '';
+				}
+			}
 		},
 	},
 });

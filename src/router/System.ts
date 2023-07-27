@@ -1,6 +1,7 @@
 import Layout from '@/layout/index.vue';
 import { RouteRecordRaw } from 'vue-router';
-import { Pages } from './module/Pages';
+import { i18n } from '@/i18n';
+const { tm } = i18n.global;
 
 export const System: Array<RouteRecordRaw> = [
 	{
@@ -9,28 +10,17 @@ export const System: Array<RouteRecordRaw> = [
 		redirect: '/system/index',
 		component: Layout,
 		meta: {
-			title: '系统管理',
+			title: 'system.menu.system',
 			icon: 'Odometer',
 			cache: true,
 			show: true,
 		},
 		children: [
 			{
-				path: 'general',
-				name: 'General',
-				meta: {
-					title: '概要',
-					icon: 'PieChart',
-					cache: true,
-					show: true,
-				},
-				component: () => import('@/views/Pages/General.vue'),
-			},
-			{
 				path: 'index',
 				name: 'SystemIndex',
 				meta: {
-					title: '系统信息',
+					title: 'system.menu.systemIndex',
 					icon: 'PieChart',
 					cache: true,
 					show: true,
@@ -41,7 +31,7 @@ export const System: Array<RouteRecordRaw> = [
 				path: 'dicts',
 				name: 'SystemDicts',
 				meta: {
-					title: '系统字典',
+					title: 'system.menu.systemDicts',
 					icon: 'PieChart',
 					cache: true,
 					show: true,
@@ -50,5 +40,4 @@ export const System: Array<RouteRecordRaw> = [
 			},
 		],
 	},
-	...Pages,
 ];

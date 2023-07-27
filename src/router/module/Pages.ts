@@ -1,4 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
+import { i18n } from '@/i18n';
+const { tm } = i18n.global;
 
 export const Pages: Array<RouteRecordRaw> = [
 	{
@@ -6,7 +8,7 @@ export const Pages: Array<RouteRecordRaw> = [
 		name: 'Pages',
 		component: () => import('@/layout/index.vue'),
 		meta: {
-			title: '业务视图',
+			title: 'system.menu.busiView',
 			icon: 'Odometer',
 			cache: true,
 			show: true,
@@ -16,7 +18,7 @@ export const Pages: Array<RouteRecordRaw> = [
 				path: 'dashboard',
 				name: 'Dashboard',
 				meta: {
-					title: '图表',
+					title: 'system.menu.chart',
 					icon: 'PieChart',
 					cache: true,
 					show: true,
@@ -24,15 +26,15 @@ export const Pages: Array<RouteRecordRaw> = [
 				component: () => import('@/views/Pages/Dashboard.vue'),
 			},
 			{
-				path: 'publicOpinion',
-				name: 'PublicOpinion',
+				path: 'general',
+				name: 'General',
 				meta: {
-					title: '舆情管理',
+					title: 'system.menu.general',
 					icon: 'PieChart',
 					cache: true,
 					show: true,
 				},
-				component: () => import('@/views/Pages/PublicOpinion.vue'),
+				component: () => import('@/views/Pages/General.vue'),
 			},
 		],
 	},

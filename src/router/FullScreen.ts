@@ -1,51 +1,51 @@
-import { RouteRecordRaw } from "vue-router";
-import Fullscreen from "@/layout/components/FullScreen.vue";
+import { RouteRecordRaw } from 'vue-router';
+import Fullscreen from '@/layout/components/FullScreen.vue';
 
 export const fullScreen: Array<RouteRecordRaw> = [
 	{
-		path: "/FullScreen",
-		name: "FullScreen",
-		redirect: "/FullScreen/flatMap",
+		path: '/FullScreen',
+		name: 'FullScreen',
+		redirect: '/FullScreen/flatMap',
 		component: Fullscreen,
 		meta: {
-			title: "全屏视图",
-			icon: "Odometer",
+			title: 'system.menu.fullscreen',
+			icon: 'Odometer',
 			cache: true,
-			show: true,
+			show: false,
 		},
 		children: [
 			{
-				path: "flatMap",
-				name: "DataSummary",
+				path: 'flatMap',
+				name: 'DataSummary',
 				meta: {
-					title: "平面地图",
-					icon: "PieChart",
+					title: 'system.menu.flatMap',
+					icon: 'PieChart',
 					cache: true,
 					show: true,
 				},
-				component: () => import("@/views/FullScreen/FlatMap.vue"),
+				component: () => import('@/views/FullScreen/FlatMap/index.vue'),
 			},
 			{
-				path: "ReliefMap",
-				name: "ReliefMap",
+				path: 'ReliefMap',
+				name: 'ReliefMap',
 				meta: {
-					title: "空间地图",
-					icon: "PieChart",
+					title: 'system.menu.reliefMap',
+					icon: 'PieChart',
 					cache: true,
 					show: true,
 				},
-				component: () => import("@/views/FullScreen/ReliefMap.vue"),
+				component: () => import('@/views/FullScreen/ReliefMap/index.vue'),
 			},
 			{
-				path: "SpaceModel",
-				name: "SpaceModel",
+				path: 'SpaceModel',
+				name: 'SpaceModel',
 				meta: {
-					title: "空间模型",
-					icon: "PieChart",
+					title: 'system.menu.spaceModel',
+					icon: 'PieChart',
 					cache: true,
 					show: true,
 				},
-				component: () => import("@/views/FullScreen/SpaceModel.vue"),
+				component: () => import('@/views/FullScreen/SpaceModel/index.vue'),
 			},
 		],
 	},

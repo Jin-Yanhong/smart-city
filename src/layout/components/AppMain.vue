@@ -3,19 +3,13 @@
 		<el-scrollbar style="width: 100%; height: 42px; background: #a6cfff">
 			<div class="tagsContainer">
 				<el-tag class="tagsView" size="large" :effect="homePathActive ? 'dark' : 'plain'">
-					<router-link :class="homePathActive ? 'Active' : 'noActive'" :to="{ path: '/' }"> 首页 </router-link>
+					<router-link :class="homePathActive ? 'Active' : 'noActive'" :to="{ path: '/' }">
+						{{ $t('system.menu.home') }}
+					</router-link>
 				</el-tag>
-				<el-tag
-					class="tagsView"
-					size="large"
-					v-for="tag in tagViews"
-					:key="tag.path"
-					closable
-					@close="tagClose(tag)"
-					:effect="tag.isActive ? 'dark' : 'plain'"
-				>
+				<el-tag class="tagsView" size="large" v-for="tag in tagViews" :key="tag.path" closable @close="tagClose(tag)" :effect="tag.isActive ? 'dark' : 'plain'">
 					<router-link :class="['noActive', tag.isActive ? ' Active' : '']" :to="tag.path">
-						{{ tag.title }}
+						{{ $t(tag.title) }}
 					</router-link>
 				</el-tag>
 			</div>
@@ -27,11 +21,11 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import { tagViewsType } from "@/types/index";
-import useAppStore from "@/store/app";
-import { computed, ref, watch } from "vue";
-import { useRoute, RouteLocationNormalizedLoaded } from "vue-router";
-import settings from "@/settings";
+import { tagViewsType } from '@/types/index';
+import useAppStore from '@/store/app';
+import { computed, ref, watch } from 'vue';
+import { useRoute, RouteLocationNormalizedLoaded } from 'vue-router';
+import settings from '@/settings';
 
 const maxSidebarWidth = settings.appConfig.layOut.maxWidth;
 const minSidebarWidth = settings.appConfig.layOut.minWidth;
@@ -85,7 +79,7 @@ watch([route, isMenuCollapse], ([route, isMenuCollapse]) => {
 </script>
 
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
 
 @menuwidth: v-bind(sideBarWidth);
 

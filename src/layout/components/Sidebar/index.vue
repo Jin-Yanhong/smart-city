@@ -6,16 +6,7 @@
 			</div>
 
 			<div class="scrollY">
-				<ElMenu
-					:default-active="activeMenu"
-					:unique-opened="menuConfig.uniqueOpened"
-					:collapse-transition="menuConfig.collapseTransition"
-					:collapse="isCollapse"
-					:background-color="menuConfig.backgroundColor"
-					:active-text-color="menuConfig.activeTextColor"
-					:text-color="menuConfig.textColor"
-					mode="vertical"
-				>
+				<ElMenu :default-active="activeMenu" :unique-opened="menuConfig.uniqueOpened" :collapse-transition="menuConfig.collapseTransition" :collapse="isCollapse" :background-color="menuConfig.backgroundColor" :active-text-color="menuConfig.activeTextColor" :text-color="menuConfig.textColor" mode="vertical">
 					<SidebarItem v-for="route in routerList" :key="route.path" :item="route" :basePath="route.path" />
 				</ElMenu>
 			</div>
@@ -24,19 +15,19 @@
 </template>
 
 <script lang="ts" setup>
-import { System } from "@/router/System";
-import { Fold, Expand } from "@element-plus/icons-vue";
-import { ref, computed, reactive } from "vue";
-import { RouteRecordRaw, useRoute } from "vue-router";
-import SidebarItem from "./SidebarItem.vue";
-import { menuConfigType } from "@/types";
-import useAppStore from "@/store/app";
-import settings from "@/settings";
+import { routes } from '@/router';
+import { Fold, Expand } from '@element-plus/icons-vue';
+import { ref, computed, reactive } from 'vue';
+import { RouteRecordRaw, useRoute } from 'vue-router';
+import SidebarItem from './SidebarItem.vue';
+import { menuConfigType } from '@/types';
+import useAppStore from '@/store/app';
+import settings from '@/settings';
 
 const app = useAppStore();
 const currentRoute = useRoute();
 const isCollapse = ref<boolean>(app.getMenuCollapse);
-const routerList = ref<Array<RouteRecordRaw>>(System);
+const routerList = ref<Array<RouteRecordRaw>>(routes);
 const activeMenu = computed(() => currentRoute.path);
 const menuConfig = reactive<menuConfigType>({ ...settings.menuConfig });
 const sideBarWidth = ref<string>(isCollapse.value ? settings.appConfig.layOut.minWidth : settings.appConfig.layOut.maxWidth);
@@ -48,7 +39,7 @@ function switchCollapse() {
 }
 </script>
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
 
 .sidebarCom {
 	background-color: @color-layout-bg-navbar;
@@ -72,7 +63,7 @@ function switchCollapse() {
 		}
 	}
 
-	[role="menubar"] {
+	[role='menubar'] {
 		transition: all 0.3s;
 		max-width: v-bind(sideBarWidth);
 		min-width: v-bind(sideBarWidth);

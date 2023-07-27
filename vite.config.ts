@@ -14,11 +14,8 @@ export default ({ mode }) => {
 		base: config.VITE_PUBLIC_PATH,
 		plugins: [
 			vue(),
-
 			VueI18nPlugin({
-				/* options */
-				// locale messages resource pre-compile option
-				include: resolve(dirname(fileURLToPath(import.meta.url)), './path/to/src/locales/**'),
+				include: resolve(dirname(fileURLToPath(import.meta.url)), './src/locales/**'),
 			}),
 		],
 		resolve: {

@@ -10,16 +10,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-	name: "view_dashboard",
+	name: 'view_dashboard',
 	components: {},
 	methods: {},
 });
 </script>
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
 .box {
 	display: grid;
 	grid-template-rows: repeat(2, calc(50% - 5px));

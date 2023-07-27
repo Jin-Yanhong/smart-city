@@ -5,14 +5,14 @@
 				<el-avatar :size="40" :src="avatarUrl" />
 			</span>
 			<span class="name" @click="toHome">
-				{{ appName }}
+				{{ $t(appName) }}
 			</span>
 		</div>
 		<div class="contentNav">
 			<ul class="flex-start">
 				<li v-for="nav in contentNav" :key="nav.id" @click="switchNav(nav)">
 					<router-link :to="nav.path">
-						<span>{{ nav.label }}</span> <i> </i>
+						<span>{{ $t(nav.label) }}</span> <i> </i>
 					</router-link>
 				</li>
 			</ul>
@@ -21,6 +21,9 @@
 			<el-dropdown trigger="click" class="marginR">
 				<span class="el-dropdown-link">
 					<span class="userCenter">
+						<el-icon>
+							<Bicycle />
+						</el-icon>
 						{{ $t('system.language') }}
 					</span>
 					<el-icon class="el-icon--right">
@@ -29,7 +32,7 @@
 				</span>
 				<template #dropdown>
 					<el-dropdown-menu>
-						<el-dropdown-item @click="switchLanguage('en')"> 英文 </el-dropdown-item>
+						<el-dropdown-item @click="switchLanguage('en')"> English </el-dropdown-item>
 						<el-dropdown-item @click="switchLanguage('zh')"> 中文 </el-dropdown-item>
 					</el-dropdown-menu>
 				</template>
@@ -38,6 +41,9 @@
 			<el-dropdown trigger="click" class="marginL">
 				<span class="el-dropdown-link">
 					<span class="userCenter">
+						<el-icon>
+							<Avatar />
+						</el-icon>
 						{{ $t('system.user') }}
 					</span>
 					<el-icon class="el-icon--right">
@@ -62,8 +68,7 @@
 				</template>
 			</el-dropdown>
 		</div>
-		<el-drawer class="userDrawer" v-model="drawer" title="系统设置" direction="rtl" size="360"
-			:close-on-click-modal="false">
+		<el-drawer class="userDrawer" v-model="drawer" title="系统设置" direction="rtl" size="360" :close-on-click-modal="false">
 			<div class="flex-between">
 				<span> 系统主题色 </span>
 				<span class="flex-center">
@@ -87,16 +92,16 @@
 import router from '@/router';
 import { ref, reactive } from 'vue';
 import { ElMessageBox } from 'element-plus';
-import { ArrowDown, SwitchButton, Setting } from '@element-plus/icons-vue';
+import { ArrowDown, SwitchButton, Setting, Bicycle, Avatar } from '@element-plus/icons-vue';
 import useUserStore from '@/store/user';
 import useAppStore from '@/store/app';
+import { fullScreen } from '@/router/FullScreen';
 import { contentNavType } from '@/types';
 import settings from '@/settings';
 
 const avatarUrl = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 const user = useUserStore();
 const app = useAppStore();
-
 
 const drawer = ref<boolean>(false);
 const sysConfig = reactive({
@@ -107,11 +112,15 @@ const sysConfig = reactive({
 const sideBarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
 const appName = ref<string>(settings.appConfig.name);
 
-const contentNav = ref<Array<contentNavType>>([
-	{ id: 1, label: '平面地图', path: '/FullScreen/flatMap' },
-	{ id: 2, label: '三维地图', path: '/FullScreen/reliefMap' },
-	{ id: 3, label: '空间模型', path: '/FullScreen/spaceModel' },
-]);
+const contentNav = ref<Array<contentNavType> | undefined>([]);
+
+contentNav.value = fullScreen[0].children?.map((el, index) => {
+	return {
+		id: index + 1,
+		label: el?.meta?.title as string,
+		path: '/FullScreen/' + el.path,
+	};
+});
 
 function handleLogout(): void {
 	ElMessageBox.confirm('Are you confirm to logout ?', 'Warning', {
@@ -133,8 +142,7 @@ function toHome() {
 }
 
 function switchLanguage(locale: string) {
-	app.setLocale(locale)
-
+	app.setLocale(locale);
 }
 </script>
 <style lang="less" scoped>
@@ -212,7 +220,7 @@ function switchLanguage(locale: string) {
 		cursor: pointer;
 
 		// 点亮右侧下拉箭头
-		&+.el-icon {
+		& + .el-icon {
 			color: #fff;
 		}
 	}

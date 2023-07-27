@@ -8,7 +8,8 @@ import en from './locales/en.json';
 import zh from './locales/zh.json';
 
 const i18n: I18n = createI18n({
-	// locale: 'zh',
+	legacy: true,
+	locale: 'zh',
 	fallbackLocale: 'en',
 	dateTimeFormats,
 	numberFormats,
@@ -25,7 +26,7 @@ function setI18nLanguage(locale: string | WritableComputedRef<string>) {
 		(i18n.global.locale as any).value = locale;
 	}
 	// axios.defaults.headers.common['Accept-Language'] = locale;
-	// (document.querySelector('html') as HTMLElement).setAttribute('lang', locale);
+	(document.querySelector('html') as HTMLElement).setAttribute('lang', locale as string);
 }
 
 export { i18n, setI18nLanguage };

@@ -18,6 +18,7 @@
         ],
         "baseUrl": ".",
         "types": [
+            "vue-i18n",
             "@types/d3",
             "@types/three",
             "@cesium/engine",

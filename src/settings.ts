@@ -7,7 +7,7 @@ const colorLight = '#f5f6fa';
 
 const settings = {
 	appConfig: {
-		name: '智慧城市',
+		name: 'system.appName',
 		themeColor: themeColor,
 		activeColor: colorActive,
 		copyright: '<a href=mailto:jin-yanhong@outlook.com>@Jin-Yanhong</a>',
@@ -23,7 +23,7 @@ const settings = {
 		textColor: colorLight,
 		activeTextColor: colorActive,
 	},
-	homePage: '/System/general',
+	homePage: '/Pages/general',
 };
 
 export default settings;

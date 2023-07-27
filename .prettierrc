@@ -1,7 +1,7 @@
 {
 	"semi": true,
 	"tabWidth": 4,
-	"printWidth": 160,
+	"printWidth": 520,
 	"useTabs": true,
 	"quoteProps": "as-needed",
 	"bracketSpacing": true,

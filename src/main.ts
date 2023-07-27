@@ -1,10 +1,10 @@
+import App from './App.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import ElementPlus from 'element-plus';
-import App from './App.vue';
 import router from './router/index';
 import { i18n } from '@/i18n/index';
-
+import useAppStore from '@/store/app';
+import ElementPlus from 'element-plus';
 import { getStorage, setStorage, setAssetsBaseUrl } from './utils/index';
 
 import '@/assets/style/reset.less'; // css reset
@@ -28,4 +28,5 @@ app.mount('#app');
 
 window.onload = function () {
 	setAssetsBaseUrl();
+	useAppStore().setCachedViews();
 };

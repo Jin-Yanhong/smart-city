@@ -1,9 +1,11 @@
 <template>
 	<el-config-provider :locale="elocale">
 		<router-view v-slot="{ Component }">
-			<keep-alive :include="['FlatMap', 'ReliefMap']">
-				<component :is="Component" />
-			</keep-alive>
+			<transition name="fade-transform" mode="out-in">
+				<keep-alive :include="cachedViews">
+					<component :is="Component" />
+				</keep-alive>
+			</transition>
 		</router-view>
 	</el-config-provider>
 </template>
@@ -16,6 +18,7 @@ import en from 'element-plus/dist/locale/en.mjs'
 
 const App = useAppStore();
 const locale = computed(() => App.getLocale);
+const cachedViews = computed(() => App.getCachedViews);
 const elocale = computed(() => (locale.value === 'zh' ? zh : en))
 App.setLocale(locale.value)
 </script>

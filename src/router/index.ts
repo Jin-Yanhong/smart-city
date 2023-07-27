@@ -18,7 +18,7 @@ const { tm } = i18n.global;
 export const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/login',
-		name: 'login',
+		name: 'Login',
 		meta: {
 			title: 'system.menu.login',
 			cache: true,

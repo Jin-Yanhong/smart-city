@@ -18,32 +18,28 @@
 			</ul>
 		</div>
 		<div class="nav flex-end">
-			<el-dropdown trigger="click">
+			<el-dropdown trigger="click" class="marginR">
 				<span class="el-dropdown-link">
-					<span class="userCenter marginR"> Language </span>
+					<span class="userCenter">
+						{{ $t('system.language') }}
+					</span>
 					<el-icon class="el-icon--right">
 						<arrow-down />
 					</el-icon>
 				</span>
 				<template #dropdown>
 					<el-dropdown-menu>
-						<el-dropdown-item @click="handleLogout">
-							<el-icon>
-								<SwitchButton />
-							</el-icon>
-							Logout
-						</el-dropdown-item>
-						<el-dropdown-item @click="drawer = true">
-							<el-icon><Setting /></el-icon>
-							打开设置
-						</el-dropdown-item>
+						<el-dropdown-item @click="switchLanguage('en')"> 英文 </el-dropdown-item>
+						<el-dropdown-item @click="switchLanguage('zh')"> 中文 </el-dropdown-item>
 					</el-dropdown-menu>
 				</template>
 			</el-dropdown>
 
-			<el-dropdown trigger="click">
+			<el-dropdown trigger="click" class="marginL">
 				<span class="el-dropdown-link">
-					<span class="userCenter"> User Center </span>
+					<span class="userCenter">
+						{{ $t('system.user') }}
+					</span>
 					<el-icon class="el-icon--right">
 						<arrow-down />
 					</el-icon>
@@ -57,14 +53,17 @@
 							Logout
 						</el-dropdown-item>
 						<el-dropdown-item @click="drawer = true">
-							<el-icon><Setting /></el-icon>
+							<el-icon>
+								<Setting />
+							</el-icon>
 							打开设置
 						</el-dropdown-item>
 					</el-dropdown-menu>
 				</template>
 			</el-dropdown>
 		</div>
-		<el-drawer class="userDrawer" v-model="drawer" title="系统设置" direction="rtl" size="360" :close-on-click-modal="false">
+		<el-drawer class="userDrawer" v-model="drawer" title="系统设置" direction="rtl" size="360"
+			:close-on-click-modal="false">
 			<div class="flex-between">
 				<span> 系统主题色 </span>
 				<span class="flex-center">
@@ -85,15 +84,20 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import router from "@/router";
-import { ref, reactive } from "vue";
-import { ElMessageBox } from "element-plus";
-import { ArrowDown, SwitchButton, Setting } from "@element-plus/icons-vue";
-import useUserStore from "@/store/user";
-import { contentNavType } from "@/types";
-import settings from "@/settings";
-const avatarUrl = "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png";
+import router from '@/router';
+import { ref, reactive } from 'vue';
+import { ElMessageBox } from 'element-plus';
+import { ArrowDown, SwitchButton, Setting } from '@element-plus/icons-vue';
+import useUserStore from '@/store/user';
+import useAppStore from '@/store/app';
+import { contentNavType } from '@/types';
+import settings from '@/settings';
+
+const avatarUrl = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 const user = useUserStore();
+const app = useAppStore();
+
+
 const drawer = ref<boolean>(false);
 const sysConfig = reactive({
 	themeColor: settings.appConfig.themeColor,
@@ -104,16 +108,16 @@ const sideBarWidth = ref<string>(settings.appConfig.layOut.maxWidth);
 const appName = ref<string>(settings.appConfig.name);
 
 const contentNav = ref<Array<contentNavType>>([
-	{ id: 1, label: "平面地图", path: "/FullScreen/flatMap" },
-	{ id: 2, label: "三维地图", path: "/FullScreen/reliefMap" },
-	{ id: 3, label: "空间模型", path: "/FullScreen/spaceModel" },
+	{ id: 1, label: '平面地图', path: '/FullScreen/flatMap' },
+	{ id: 2, label: '三维地图', path: '/FullScreen/reliefMap' },
+	{ id: 3, label: '空间模型', path: '/FullScreen/spaceModel' },
 ]);
 
 function handleLogout(): void {
-	ElMessageBox.confirm("Are you confirm to logout ?", "Warning", {
-		confirmButtonText: "I conform",
-		cancelButtonText: "Cancle",
-		type: "warning",
+	ElMessageBox.confirm('Are you confirm to logout ?', 'Warning', {
+		confirmButtonText: 'I conform',
+		cancelButtonText: 'Cancle',
+		type: 'warning',
 	}).then(() => {
 		user.handleLogout();
 		location.reload();
@@ -125,37 +129,50 @@ function switchNav(nav: contentNavType) {
 }
 
 function toHome() {
-	router.push("/");
+	router.push('/');
+}
+
+function switchLanguage(locale: string) {
+	app.setLocale(locale)
+
 }
 </script>
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
+
 .navbar {
 	min-width: 900px;
 	position: relative;
 	z-index: 3;
 	background-color: @color-layout-bg-navbar;
 	box-shadow: var(@box-shadow);
+
 	.logo {
 		width: v-bind(sideBarWidth);
 		color: #fff;
 		user-select: none;
+
 		.img {
 			margin-right: @layout-gap;
 		}
+
 		.name {
 			cursor: pointer;
+
 			&:hover {
 				color: @color-active;
 			}
 		}
 	}
+
 	.contentNav {
 		* {
 			user-select: none;
 		}
+
 		ul {
 			padding-left: 2 * @layout-gap;
+
 			li {
 				user-select: none;
 				text-align: center;
@@ -178,6 +195,7 @@ function toHome() {
 					background: #feca57;
 					transition: 0.3s all ease-in-out;
 				}
+
 				&:hover {
 					i {
 						width: 100%;
@@ -187,15 +205,18 @@ function toHome() {
 			}
 		}
 	}
+
 	.userCenter {
 		color: #fff;
 		line-height: 58px;
 		cursor: pointer;
+
 		// 点亮右侧下拉箭头
-		& + .el-icon {
+		&+.el-icon {
 			color: #fff;
 		}
 	}
+
 	.nav {
 		flex: 1;
 		padding: 0 @layout-gap;

@@ -5,7 +5,7 @@
 	"useTabs": true,
 	"quoteProps": "as-needed",
 	"bracketSpacing": true,
-	"singleQuote": false,
+	"singleQuote": true,
 	"bracketSameLine": false,
 	"endOfLine": "auto",
 	"arrowParens": "avoid",

@@ -1,43 +1,51 @@
-import useUserStore from "@/store/user";
-import NProgress from "nprogress";
-import { ElMessage } from "element-plus";
-import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
-import "nprogress/nprogress.css";
-import { fullScreen } from "./FullScreen";
-import { System } from "./System";
-import settings from "@/settings";
+import useUserStore from '@/store/user';
+import NProgress from 'nprogress';
+import { ElMessage } from 'element-plus';
+import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
+import 'nprogress/nprogress.css';
+import { fullScreen } from './FullScreen';
+import { System } from './System';
+import { Pages } from './module/Pages';
+import settings from '@/settings';
 
-const whiteList = ["/login"];
+const whiteList = ['/login'];
 
 export const routes: Array<RouteRecordRaw> = [
 	{
-		path: "/login",
-		name: "login",
+		path: '/login',
+		name: 'login',
 		meta: {
-			title: "登录",
+			title: '登录',
 			cache: true,
 			show: false,
 		},
-		component: () => import("@/views/Login/index.vue"),
+		component: () => import('@/views/Login/index.vue'),
 	},
 	{
-		path: "/",
-		name: "dashboard",
+		path: '/',
+		name: 'dashboard',
 		redirect: settings.homePage,
 	},
+	...Pages,
 	...System,
 	...fullScreen,
+
 	{
-		path: "/redirect",
-		component: () => import("@/views/Redirect/index.vue"),
+		path: '/redirect',
+		component: () => import('@/views/Redirect/index.vue'),
 	},
 	{
-		path: "/404",
-		component: () => import("@/views/ErrorPage/4xx.vue"),
+		path: '/404',
+		component: () => import('@/views/ErrorPage/4xx.vue'),
+		meta: {
+			title: 'NotFound',
+			cache: false,
+			show: false,
+		},
 	},
 	{
-		path: "/:pathMatch(.*)*",
-		redirect: "/404",
+		path: '/:pathMatch(.*)*',
+		redirect: '/404',
 	},
 ];
 
@@ -49,8 +57,8 @@ const router = createRouter({
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized, next) => {
 	NProgress.start();
 	if (useUserStore().getToken) {
-		if (to.path === "/login") {
-			next({ path: "/" });
+		if (to.path === '/login') {
+			next({ path: '/' });
 			NProgress.done();
 		} else {
 			try {
@@ -58,7 +66,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 			} catch (err: any) {
 				useUserStore().handleLogout();
 				ElMessage.error(err.message);
-				next("/login");
+				next('/login');
 				NProgress.done();
 			}
 		}

@@ -1,0 +1,10 @@
+{
+	"message": {
+		"hello": "{ msg } world"
+	},
+	"system": {
+		"language": "Language",
+		"user": "User",
+		"menu": {}
+	}
+}

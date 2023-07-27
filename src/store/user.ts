@@ -1,11 +1,12 @@
-import { clearStorage, getStorage, setStorage } from "@/utils/index";
-import { defineStore } from "pinia";
-import { loginFormType } from "@/types";
+import { setCookie, getCookie, removeCookie } from '@/utils/auth';
+import { clearStorage } from '@/utils/index';
+import { defineStore } from 'pinia';
+import { loginFormType } from '@/types';
 
 const useUserStore = defineStore({
-	id: "user",
+	id: 'user',
 	state: () => ({
-		token: getStorage("token"),
+		token: getCookie(),
 	}),
 	getters: {
 		getToken: state => {
@@ -20,21 +21,23 @@ const useUserStore = defineStore({
 			})
 				.then(res => {
 					const accessToken = res as string;
-					setStorage("token", accessToken);
+					setCookie(accessToken);
 					this.$patch({
 						token: accessToken,
 					});
 				})
 				.catch(err => {
+					removeCookie();
 					this.$patch({
-						token: "",
+						token: '',
 					});
 					clearStorage();
 				});
 		},
 		async handleLogout() {
+			removeCookie();
 			this.$patch({
-				token: "",
+				token: '',
 			});
 			clearStorage();
 		},

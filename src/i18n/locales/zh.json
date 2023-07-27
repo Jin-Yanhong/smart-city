@@ -1,0 +1,10 @@
+{
+	"message": {
+		"hello": "你好，世界"
+	},
+	"system": {
+		"language": "语言",
+		"user": "用户",
+		"menu": {}
+	}
+}

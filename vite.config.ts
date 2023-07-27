@@ -1,19 +1,29 @@
-import { defineConfig, loadEnv } from "vite";
-import vue from "@vitejs/plugin-vue";
-import path from "path";
+import { defineConfig, loadEnv } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import path, { resolve, dirname } from 'path';
+import { fileURLToPath } from 'node:url';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 
 const port = 5000;
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-	const config = loadEnv(mode, "./");
+	const config = loadEnv(mode, './');
 
 	return defineConfig({
 		base: config.VITE_PUBLIC_PATH,
-		plugins: [vue()],
+		plugins: [
+			vue(),
+
+			VueI18nPlugin({
+				/* options */
+				// locale messages resource pre-compile option
+				include: resolve(dirname(fileURLToPath(import.meta.url)), './path/to/src/locales/**'),
+			}),
+		],
 		resolve: {
 			alias: {
-				"@": path.resolve(__dirname, "./src"),
+				'@': path.resolve(__dirname, './src'),
 			},
 		},
 		server: {
@@ -21,10 +31,10 @@ export default ({ mode }) => {
 			open: true,
 			port: port,
 			proxy: {
-				"/api": {
+				'/api': {
 					target: config.VITE_BASE_API,
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, "/api"),
+					rewrite: path => path.replace(/^\/api/, '/api'),
 				},
 			},
 		},

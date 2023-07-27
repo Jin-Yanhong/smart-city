@@ -1,34 +1,18 @@
 <template>
 	<div class="view">
-		<div>
-			<p>use State by pinia</p>
-			<ElButton type="primary" @click="AppStore.switchTheme()"> Click me! {{ theme }} </ElButton>
-		</div>
-		<div>
-			<p>use http request</p>
-			<ElImage v-for="img in data.imageList" :key="img" :src="img" style="width: 200px" />
-		</div>
+		<div class="hr"></div>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, reactive } from "@vue/runtime-core";
-import useAppStore from "@/store/app";
-import { loadImage } from "@/api/home";
-
+import { computed, onMounted } from '@vue/runtime-core';
+import useAppStore from '@/store/app';
+// import useUserStore from '@/store/user';
 const AppStore = useAppStore();
+// const UserStore = useUserStore();
 
-const data = reactive({
-	imageList: [],
-});
-
-const theme = computed(() => AppStore.getTheme);
-
-onMounted(() => {
-	loadImage(res => {
-		data.imageList = res.data;
-	});
-});
+const local = computed(() => AppStore.getLocale);
+// const local = computed(() => UserStore.token);
 </script>
 
 <style lang="less"></style>

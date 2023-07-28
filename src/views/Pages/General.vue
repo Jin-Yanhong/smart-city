@@ -14,6 +14,9 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue';
+defineOptions({
+	name: 'PagesGeneral',
+});
 const desc = reactive([
 	{
 		title: '系统管理',

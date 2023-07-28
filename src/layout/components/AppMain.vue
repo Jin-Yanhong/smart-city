@@ -21,6 +21,9 @@
 	</div>
 </template>
 <script lang="ts" setup>
+defineOptions({
+	name: 'AppMain',
+});
 import { tagViewsType } from '@/types/index';
 import useAppStore from '@/store/app';
 import { computed, ref, watch } from 'vue';

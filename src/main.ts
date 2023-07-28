@@ -16,8 +16,8 @@ const app = createApp(App);
 
 const pinia = createPinia();
 
-app.config.globalProperties.$getStorage = getStorage;
 app.config.globalProperties.$setStorage = setStorage;
+app.config.globalProperties.$getStorage = getStorage;
 
 app.use(i18n);
 app.use(pinia);

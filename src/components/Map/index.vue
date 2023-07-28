@@ -5,17 +5,20 @@
 	</div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import { initMap } from "./mapOperates";
+defineOptions({
+	name: 'MapContainer',
+});
+import { ref, onMounted } from 'vue';
+import { initMap } from './mapOperates';
 
 const mapContainer = ref<HTMLDivElement>();
-const emits = defineEmits(["onMapReady"]);
+const emits = defineEmits(['onMapReady']);
 
 let mapIns = ref();
 
 onMounted(() => {
 	mapIns.value = initMap(mapContainer.value as HTMLDivElement);
-	emits("onMapReady", mapIns.value);
+	emits('onMapReady', mapIns.value);
 });
 </script>
 

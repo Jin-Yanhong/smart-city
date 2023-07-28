@@ -3,10 +3,13 @@
 </template>
 
 <script lang="ts" setup>
-import * as Cesium from "cesium";
-import { cesiumAccessToken } from "@/config";
-import { ref, onMounted } from "vue";
-import "cesium/Build/Cesium/Widgets/widgets.css";
+defineOptions({
+	name: 'CesiumContainer',
+});
+import * as Cesium from 'cesium';
+import { cesiumAccessToken } from '@/config';
+import { ref, onMounted } from 'vue';
+import 'cesium/Build/Cesium/Widgets/widgets.css';
 
 Cesium.Ion.defaultAccessToken = cesiumAccessToken;
 const cesiumContainer = ref<HTMLDivElement>();

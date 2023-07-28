@@ -99,6 +99,10 @@ import { fullScreen } from '@/router/FullScreen';
 import { contentNavType } from '@/types';
 import settings from '@/settings';
 
+defineOptions({
+	name: 'NavBar',
+});
+
 const avatarUrl = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 const user = useUserStore();
 const app = useAppStore();
@@ -118,7 +122,7 @@ contentNav.value = fullScreen[0].children?.map((el, index) => {
 	return {
 		id: index + 1,
 		label: el?.meta?.title as string,
-		path: '/FullScreen/' + el.path,
+		path: el.path,
 	};
 });
 

@@ -50,22 +50,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import Map from "ol/Map";
-import type { TagProps } from "element-plus";
-import MapOl from "@/components/Map/index.vue";
-import { overlayIns } from "@/components/Map/mapOperates";
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+import Map from 'ol/Map';
+import type { TagProps } from 'element-plus';
+import MapOl from '@/components/Map/index.vue';
+import { overlayIns } from '@/components/Map/mapOperates';
 
-type Item = { type: TagProps["type"]; label: string };
-
+type Item = { type: TagProps['type']; label: string };
+defineOptions({
+	name: 'PagesOlMap',
+});
 const mapIns = ref<Map>();
 const overlayContainer = ref<HTMLDivElement>();
 const items = ref<Array<Item>>([
-	{ type: "danger", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！1" },
-	{ type: "success", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！2" },
-	{ type: "info", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！3" },
-	{ type: "danger", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！4" },
-	{ type: "warning", label: "纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！5" },
+	{ type: 'danger', label: '纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！1' },
+	{ type: 'success', label: '纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！2' },
+	{ type: 'info', label: '纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！3' },
+	{ type: 'danger', label: '纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！4' },
+	{ type: 'warning', label: '纬七路 与 经二十六路 交汇处发生车辆交通事故，造成交通拥堵。请立即前往处理！5' },
 ]);
 
 let myInterval = ref();
@@ -83,10 +85,10 @@ function msgTextParser(input: string): string {
 	const reg = /(?<=translateX\()[^\(\)]*(?=px\))/;
 
 	if (reg.test(input)) {
-		const arr = input.match(reg) || [""];
+		const arr = input.match(reg) || [''];
 		result = arr[0];
 	} else {
-		result = "";
+		result = '';
 	}
 	return result;
 }
@@ -97,15 +99,15 @@ function setMymyInterval() {
 	if (scrollWidth > containerWidth) {
 		let offset = 0;
 		myInterval.value = window.setInterval(() => {
-			const input = notice.value?.style.transform || "";
+			const input = notice.value?.style.transform || '';
 			const noticeScroll = Number(msgTextParser(input));
 			if (Math.abs(noticeScroll) <= scrollWidth - containerWidth) {
 				offset += 1;
-				notice.value?.setAttribute("style", `transform: translateX(-${offset}px);`);
+				notice.value?.setAttribute('style', `transform: translateX(-${offset}px);`);
 			} else {
 				window.setTimeout(() => {
 					offset = 0;
-					notice.value?.setAttribute("style", `transform: translateX(0px); transition: 1s;`);
+					notice.value?.setAttribute('style', `transform: translateX(0px); transition: 1s;`);
 				}, 1200);
 			}
 		}, 10);
@@ -122,18 +124,18 @@ const onMapReady = (Ins: Map) => {
 	mapIns.value = Ins;
 	const overlay = overlayIns(1, overlayContainer.value as HTMLDivElement);
 	mapIns.value.addOverlay(overlay);
-	mapIns.value?.on("click", function (e) {
+	mapIns.value?.on('click', function (e) {
 		overlay.setPosition(e.coordinate);
 	});
 };
 </script>
 <script lang="ts">
 export default {
-	name: "FlatMap",
+	name: 'FlatMap',
 };
 </script>
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
 
 .FullScreen {
 	.container {
@@ -150,7 +152,7 @@ export default {
 			position: relative;
 
 			&::before {
-				content: "";
+				content: '';
 				width: 20px;
 				height: 20px;
 				border: 1px solid @color-active;
@@ -163,7 +165,7 @@ export default {
 				z-index: -2;
 			}
 			&::after {
-				content: "";
+				content: '';
 				width: 30px;
 				height: 2px;
 				display: block;

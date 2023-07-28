@@ -5,12 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-import CesiumMap from "@/components/CesiumMap/index.vue";
+import CesiumMap from '@/components/CesiumMap/index.vue';
+defineOptions({
+	name: 'CesiumMap',
+});
 </script>
 
 <script lang="ts">
 export default {
-	name: "ReliefMap",
+	name: 'ReliefMap',
 };
 </script>
 

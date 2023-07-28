@@ -33,6 +33,9 @@ import type { FormInstance, FormRules } from 'element-plus';
 import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 import { i18n } from '@/i18n';
 
+defineOptions({
+	name: 'Login',
+});
 const { tm } = i18n.global;
 const form = reactive<loginFormType>({ userName: 'admin', passWord: 'admin' });
 const AppName = ref<string>('');

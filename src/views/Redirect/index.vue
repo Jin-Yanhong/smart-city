@@ -3,14 +3,16 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import router from "@/router/index";
-import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from "vue-router";
+import { onMounted, ref } from 'vue';
+import router from '@/router/index';
+import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
 
 const currentRoute: RouteLocationNormalizedLoaded = useRoute();
 
 const fullscreenLoading = ref(false);
-
+defineOptions({
+	name: 'Redirect',
+});
 onMounted(() => {
 	fullscreenLoading.value = true;
 	const path: LocationQuery = currentRoute.query;

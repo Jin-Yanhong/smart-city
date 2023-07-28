@@ -14,12 +14,12 @@
 			"chart": "Chart",
 			"general": "General",
 			"system": "System",
-			"systemIndex": "SystemIndex",
-			"systemDicts": "SystemDicts",
+			"systemIndex": "System Main",
+			"systemDicts": "System Dicts",
 			"fullscreen": "Fullscreen",
-			"flatMap": "FlatMap",
-			"reliefMap": "ReliefMap",
-			"spaceModel": "SpaceModel"
+			"flatMap": "Flat Map",
+			"reliefMap": "Relief Map",
+			"spaceModel": "Space Model"
 		}
 	}
 }

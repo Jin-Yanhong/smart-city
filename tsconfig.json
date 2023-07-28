@@ -41,7 +41,6 @@
         "src/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
-        "src/components/Three/city/index.js",
     ],
     "exclude": [
         "element-plus/dist/locale/**"

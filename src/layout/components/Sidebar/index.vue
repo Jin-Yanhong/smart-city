@@ -24,6 +24,9 @@ import { menuConfigType } from '@/types';
 import useAppStore from '@/store/app';
 import settings from '@/settings';
 
+defineOptions({
+	name: 'SideBar',
+});
 const app = useAppStore();
 const currentRoute = useRoute();
 const isCollapse = ref<boolean>(app.getMenuCollapse);

@@ -5,18 +5,20 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
-import { initCity } from "@/components/Three/index";
+import { ref, onMounted } from 'vue';
+import { initCity } from '@/components/Three/index';
 
 const threeContainer = ref<HTMLCanvasElement>();
-
+defineOptions({
+	name: 'ThreeContainer',
+});
 onMounted(() => {
 	initCity(threeContainer.value as HTMLCanvasElement);
 });
 </script>
 
 <style lang="less" scoped>
-@import "@/assets/style/variable.less";
+@import '@/assets/style/variable.less';
 
 .threeContainer {
 	position: absolute;

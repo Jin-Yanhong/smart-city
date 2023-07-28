@@ -75,6 +75,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 const tips = ref<string>('Looks like the page you were looking for is no longer here');
+defineOptions({
+	name: 'NotFound',
+});
 </script>
 <style lang="less" scoped>
 @import '../../assets/404/css/css.css';

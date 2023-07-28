@@ -9,9 +9,13 @@
 </template>
 
 <script lang="ts" setup>
-import AppMain from "./components/AppMain.vue";
-import Navbar from "./components/Navbar/index.vue";
-import Sidebar from "./components/Sidebar/index.vue";
+import AppMain from './components/AppMain.vue';
+import Navbar from './components/Navbar/index.vue';
+import Sidebar from './components/Sidebar/index.vue';
+
+defineOptions({
+	name: 'LayOut',
+});
 </script>
 <style lang="less" scoped>
 .app-container {

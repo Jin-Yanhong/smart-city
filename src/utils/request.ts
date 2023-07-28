@@ -1,10 +1,10 @@
-import axios, { type AxiosRequestHeaders, type AxiosRequestConfig, type AxiosResponse } from "axios";
-import { ElMessage, ElMessageBox, ElNotification } from "element-plus";
-import { requestCode } from "./constant";
-import { responseData, requestIdleCallback } from "@/types/index";
+import axios, { type AxiosRequestHeaders, type AxiosRequestConfig, type AxiosResponse } from 'axios';
+import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
+import { requestCode } from './constant';
+import { responseData, requestCallback } from '@/types/index';
 
 const service = axios.create({
-	baseURL: window.location.origin,
+	baseURL: import.meta.env.MODE == 'development' ? '/api' : import.meta.env.VITE_BASE_API,
 	timeout: 5000,
 	withCredentials: false, // send cookies when cross-domain requests
 });
@@ -13,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
 	config => {
 		const customerHeaders: Partial<AxiosRequestHeaders> = {
-			"Content-Type": "application/json;charset=utf-8",
+			'Content-Type': 'application/json;charset=utf-8',
 		};
 		config.headers = Object.assign(config.headers ?? {}, customerHeaders);
 		return config;
@@ -30,10 +30,10 @@ service.interceptors.response.use(
 		const code = res.code;
 
 		if (code === requestCode.userNotAuthorized) {
-			ElMessageBox.confirm("登陆已过期，可以取消继续留在该页面，或者重新登录", "确定退出", {
-				confirmButtonText: "重新登录",
-				cancelButtonText: "取消",
-				type: "warning",
+			ElMessageBox.confirm('登陆已过期，可以取消继续留在该页面，或者重新登录', '确定退出', {
+				confirmButtonText: '重新登录',
+				cancelButtonText: '取消',
+				type: 'warning',
 			}).then(() => {
 				location.reload();
 			});
@@ -43,7 +43,7 @@ service.interceptors.response.use(
 		if (code !== requestCode.success) {
 			ElMessage({
 				message: res.msg,
-				type: "error",
+				type: 'error',
 				duration: 5 * 1000,
 			});
 			return Promise.reject(new Error(res.msg));
@@ -59,11 +59,7 @@ service.interceptors.response.use(
 /**
  *
  */
-function request(
-	requestData: Partial<AxiosRequestConfig>,
-	successCallback: requestIdleCallback,
-	errorCallback?: requestIdleCallback
-) {
+function request(requestData: Partial<AxiosRequestConfig>, successCallback: requestCallback, errorCallback?: requestCallback) {
 	service({ ...requestData })
 		.then((res: AxiosResponse<any, any>) => {
 			const data: responseData = res.data;
@@ -74,9 +70,9 @@ function request(
 				errorCallback(err);
 			} else {
 				ElNotification({
-					title: "系统提示",
+					title: '系统提示',
 					message: err.message,
-					type: "error",
+					type: 'error',
 				});
 			}
 		});

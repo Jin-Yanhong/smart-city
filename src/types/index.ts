@@ -28,6 +28,16 @@ export type tagViewsType = {
 	isActive: boolean;
 };
 
-export type RouterListKey = "routes" | "system" | "flatMap" | "reliefMap" | "spaceModel";
+export type requestCallback = (res: responseData) => void;
 
-export type requestIdleCallback = (res: responseData) => void;
+export type tableRowData = {
+	[key: string]: string | number | boolean | Date | any[];
+};
+
+export type tableColumnProps = {
+	type: 'selection' | undefined;
+	label: string;
+	prop: string;
+	align: 'left' | 'center' | 'right';
+	fixed: 'left' | 'right';
+};

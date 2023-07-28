@@ -1,9 +1,9 @@
-import request from "@/utils/request";
-import { requestIdleCallback } from "@/types/index";
-export function loadImage(callback: requestIdleCallback): void {
+import request from '@/utils/request';
+import { requestCallback } from '@/types/index';
+export function loadData(callback: requestCallback): void {
 	return request(
 		{
-			url: `/api/links/bingWallpaper`,
+			url: `/first`,
 			method: `get`,
 		},
 		callback

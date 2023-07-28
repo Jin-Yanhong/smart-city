@@ -5,7 +5,9 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import Crud from '@/components/Crud/index.vue';
+import { tableColumnProps } from '@/types/index';
 defineOptions({
 	name: 'SystemDicts',
 });

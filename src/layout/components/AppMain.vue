@@ -21,9 +21,6 @@
 	</div>
 </template>
 <script lang="ts" setup>
-defineOptions({
-	name: 'AppMain',
-});
 import { tagViewsType } from '@/types/index';
 import useAppStore from '@/store/app';
 import { computed, ref, watch } from 'vue';
@@ -41,6 +38,10 @@ const isMenuCollapse = computed(() => app.getMenuCollapse);
 const sideBarWidth = ref<string>(isMenuCollapse.value ? minSidebarWidth : maxSidebarWidth);
 const copyright = ref<string>(settings.appConfig.copyright);
 const route: RouteLocationNormalizedLoaded = useRoute();
+
+defineOptions({
+	name: 'AppMain',
+});
 
 function tagClose(tag: tagViewsType) {
 	const index = tagViews.value.indexOf(tag);

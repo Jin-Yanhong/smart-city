@@ -5,9 +5,6 @@
 	</div>
 </template>
 <script lang="ts" setup>
-defineOptions({
-	name: 'MapContainer',
-});
 import { ref, onMounted } from 'vue';
 import { initMap } from './mapOperates';
 
@@ -15,7 +12,9 @@ const mapContainer = ref<HTMLDivElement>();
 const emits = defineEmits(['onMapReady']);
 
 let mapIns = ref();
-
+defineOptions({
+	name: 'MapContainer',
+});
 onMounted(() => {
 	mapIns.value = initMap(mapContainer.value as HTMLDivElement);
 	emits('onMapReady', mapIns.value);

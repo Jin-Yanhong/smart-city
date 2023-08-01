@@ -10,7 +10,7 @@ import { getStorage, setStorage, setAssetsBaseUrl } from './utils/index';
 import '@/assets/style/reset.less'; // css reset
 import 'normalize.css';
 import 'element-plus/dist/index.css'; // ElementPlus style
-import '@/assets/style/global.less';
+import '@/assets/style/index.less';
 
 const app = createApp(App);
 
@@ -22,7 +22,9 @@ app.config.globalProperties.$getStorage = getStorage;
 app.use(i18n);
 app.use(pinia);
 app.use(router);
-app.use(ElementPlus);
+app.use(ElementPlus, {
+	size: 'large',
+});
 
 app.mount('#app');
 

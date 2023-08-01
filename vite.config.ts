@@ -23,6 +23,10 @@ export default ({ mode }) => {
 				'@': path.resolve(__dirname, './src'),
 			},
 		},
+		esbuild: {
+			jsxFactory: 'h',
+			jsxFragment: 'Fragment',
+		},
 		server: {
 			hmr: true,
 			open: true,

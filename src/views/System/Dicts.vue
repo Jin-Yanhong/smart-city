@@ -6,6 +6,8 @@
 			<ElTableColumn prop="date" label="Date" width="180"></ElTableColumn>
 			<ElTableColumn prop="date" label="Date" width="180"></ElTableColumn>
 			<ElTableColumn prop="date" label="Date" width="180"></ElTableColumn>
+			<ElTableColumn prop="date" label="Date" width="180"></ElTableColumn>
+			<ElTableColumn prop="date" label="Date" width="180"></ElTableColumn>
 		</Crud>
 	</div>
 </template>

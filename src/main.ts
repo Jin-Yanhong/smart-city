@@ -22,9 +22,7 @@ app.config.globalProperties.$getStorage = getStorage;
 app.use(i18n);
 app.use(pinia);
 app.use(router);
-app.use(ElementPlus, {
-	size: 'large',
-});
+app.use(ElementPlus);
 
 app.mount('#app');
 

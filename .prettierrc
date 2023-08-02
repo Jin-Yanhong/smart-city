@@ -3,6 +3,7 @@
 	"tabWidth": 4,
 	"printWidth": 520,
 	"useTabs": true,
+	"jsxSingleQuote": true,
 	"quoteProps": "as-needed",
 	"bracketSpacing": true,
 	"singleQuote": true,

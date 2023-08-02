@@ -1,12 +1,12 @@
 <script lang="jsx">
-import { defineComponent, h, ref } from 'vue';
-import { ElPagination, ElTable, ElTableColumn } from 'element-plus';
+import { h } from 'vue';
+import { ElButton, ElPagination, ElTable, ElTableColumn, ElIcon } from 'element-plus';
+import { Search } from '@element-plus/icons-vue';
 
-export default defineComponent({
+export default {
 	name: 'Crud',
 	props: ['api'],
-	setup(props, { attrs, slots, emit, expose }) {
-		console.log(slots.default());
+	render() {
 		const tableRowData = [
 			{
 				date: '2016-05-03',
@@ -18,37 +18,66 @@ export default defineComponent({
 				name: 'Tom',
 				address: 'No. 189, Grove St, Los Angeles',
 			},
-			{
-				date: '2016-05-04',
-				name: 'Tom',
-				address: 'No. 189, Grove St, Los Angeles',
-			},
-			{
-				date: '2016-05-01',
-				name: 'Tom',
-				address: 'No. 189, Grove St, Los Angeles',
-			},
 		];
+		const defaultSlot = this.$slots.default().map(column => {
+			return column;
+		});
 
-		return () =>
-			h(
-				'div',
-				{ ...props },
+		const { toCreate, toDelete, toUpdate, toQuery } = this;
+
+		return h(
+			'div',
+			{ class: ['Crud'] },
+			<div>
 				<div>
-					<div class="marginT">
-						<ElTable
-							data={tableRowData}
-							slots={{
-								default: slots.default(),
-							}}
-						/>
+					<div class='marginT'>
+						<ElButton size='small' type='' onClick={toCreate}>
+							{{ default: () => '新增' }}
+						</ElButton>
+						<ElButton type='danger' onClick={toDelete}>
+							{{ default: () => '删除' }}
+						</ElButton>
+						<ElButton type='' onClick={toUpdate}>
+							{{ default: () => '更新' }}
+						</ElButton>
+						<ElButton type='danger' icon={{ default: () => <Search /> }} onClick={toQuery}>
+							{{ default: () => '查询' }}
+						</ElButton>
 					</div>
 
-					<div class="marginT">
-						<ElPagination small layout="prev, pager, next" total={30} />
+					<div class='marginT'>
+						<ElTable ref='table' data={tableRowData}>
+							{{
+								default: defaultSlot,
+							}}
+
+							<ElTableColumn>
+								<ElButton type='' onClick={toUpdate}>
+									{{ default: () => '修改' }}
+								</ElButton>
+								<ElButton type='' onClick={toUpdate}>
+									{{ default: () => '删除' }}
+								</ElButton>
+							</ElTableColumn>
+						</ElTable>
 					</div>
 				</div>
-			);
+				<div class='marginT'>
+					<ElPagination small layout='prev, pager, next' total={30} />
+				</div>
+			</div>
+		);
 	},
-});
+	data() {
+		return {
+			//
+		};
+	},
+	methods: {
+		toCreate() {},
+		toDelete() {},
+		toUpdate() {},
+		toQuery() {},
+	},
+};
 </script>

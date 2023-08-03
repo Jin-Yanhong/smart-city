@@ -1,10 +1,12 @@
 import axios, { type AxiosRequestHeaders, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { ElMessage, ElMessageBox, ElNotification } from 'element-plus';
 import { requestCode } from './constant';
+import { getCookie, removeCookie } from '@/utils/auth';
 import { responseData, requestCallback } from '@/types/index';
+import router from '@/router';
 
 const service = axios.create({
-	baseURL: import.meta.env.MODE == 'development' ? '/api' : import.meta.env.VITE_BASE_API,
+	baseURL: import.meta.env.MODE == 'development' ? '/' : import.meta.env.VITE_BASE_API,
 	timeout: 5000,
 	withCredentials: false, // send cookies when cross-domain requests
 });
@@ -12,10 +14,14 @@ const service = axios.create({
 // Request interceptors
 service.interceptors.request.use(
 	config => {
+		const token = getCookie();
 		const customerHeaders: Partial<AxiosRequestHeaders> = {
 			'Content-Type': 'application/json;charset=utf-8',
 		};
-		config.headers = Object.assign(config.headers ?? {}, customerHeaders);
+		if (token) {
+			customerHeaders.token = token;
+		}
+		config.headers = Object.assign(config.headers, customerHeaders);
 		return config;
 	},
 	error => {
@@ -30,13 +36,19 @@ service.interceptors.response.use(
 		const code = res.code;
 
 		if (code === requestCode.userNotAuthorized) {
+			removeCookie();
+
 			ElMessageBox.confirm('登陆已过期，可以取消继续留在该页面，或者重新登录', '确定退出', {
 				confirmButtonText: '重新登录',
 				cancelButtonText: '取消',
 				type: 'warning',
-			}).then(() => {
-				location.reload();
-			});
+			})
+				.then(() => {
+					router.push('/login');
+				})
+				.catch(err => {
+					router.push('/login');
+				});
 			return Promise.reject(res.msg);
 		}
 
@@ -48,7 +60,7 @@ service.interceptors.response.use(
 			});
 			return Promise.reject(new Error(res.msg));
 		} else {
-			return response;
+			return res;
 		}
 	},
 	error => {

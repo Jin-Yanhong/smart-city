@@ -15,17 +15,6 @@ export const Pages: Array<RouteRecordRaw> = [
 		},
 		children: [
 			{
-				path: 'dashboard',
-				name: 'Dashboard',
-				meta: {
-					title: 'system.menu.chart',
-					icon: 'PieChart',
-					cache: true,
-					show: true,
-				},
-				component: () => import('@/views/Pages/Dashboard.vue'),
-			},
-			{
 				path: 'general',
 				name: 'General',
 				meta: {
@@ -35,6 +24,17 @@ export const Pages: Array<RouteRecordRaw> = [
 					show: true,
 				},
 				component: () => import('@/views/Pages/General.vue'),
+			},
+			{
+				path: 'dashboard',
+				name: 'Dashboard',
+				meta: {
+					title: 'system.menu.chart',
+					icon: 'PieChart',
+					cache: true,
+					show: true,
+				},
+				component: () => import('@/views/Pages/Dashboard.vue'),
 			},
 		],
 	},

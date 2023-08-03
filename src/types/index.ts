@@ -41,3 +41,9 @@ export type tableColumnProps = {
 	align: 'left' | 'center' | 'right';
 	fixed: 'left' | 'right';
 };
+
+export type crudQueryParams = {
+	size: number;
+	page: number;
+	[key: string]: any;
+};

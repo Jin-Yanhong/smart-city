@@ -1,9 +1,9 @@
 import request from '@/utils/request';
-import { requestCallback } from '@/types/index';
+import { requestCallback, crudQueryParams } from '@/types/index';
 
 const dictCrud = {
 	create: (data: any, callback: requestCallback) => {
-		return request(
+		request(
 			{
 				url: `/data`,
 				method: `post`,
@@ -13,7 +13,7 @@ const dictCrud = {
 		);
 	},
 	read: (id: number | string, callback: requestCallback) => {
-		return request(
+		request(
 			{
 				url: `/data/{id}`,
 				method: `get`,
@@ -22,7 +22,7 @@ const dictCrud = {
 		);
 	},
 	update: (data: any, callback: requestCallback) => {
-		return request(
+		request(
 			{
 				url: `/data`,
 				method: `put`,
@@ -32,7 +32,7 @@ const dictCrud = {
 		);
 	},
 	delete: (callback: requestCallback) => {
-		return request(
+		request(
 			{
 				url: `/data/{id}`,
 				method: `delete`,
@@ -40,11 +40,12 @@ const dictCrud = {
 			callback
 		);
 	},
-	list: (callback: requestCallback) => {
-		return request(
+	list: (query: crudQueryParams, callback: requestCallback) => {
+		request(
 			{
-				url: `/data`,
+				url: `/api/sys/dict`,
 				method: `get`,
+				params: query,
 			},
 			callback
 		);

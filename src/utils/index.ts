@@ -37,3 +37,12 @@ export function setStorage(key: string, value: any): void {
 export function clearStorage(): void {
 	window.localStorage.clear();
 }
+
+export function envMode(): { mode: string; isDev: boolean; isProd: boolean } {
+	const result = {
+		mode: import.meta.env.MODE,
+		isDev: import.meta.env.MODE == 'development',
+		isProd: import.meta.env.MODE == 'production',
+	};
+	return result;
+}

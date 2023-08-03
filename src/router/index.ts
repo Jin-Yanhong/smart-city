@@ -36,6 +36,7 @@ export const routes: Array<RouteRecordRaw> = [
 			show: false,
 		},
 	},
+
 	...Pages,
 	...System,
 	...fullScreen,
@@ -102,7 +103,11 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 
 router.afterEach((to: RouteLocationNormalized) => {
 	NProgress.done();
-	document.title = `${tm('system.appName')} - ${tm(to?.meta?.title as string)}`;
+	try {
+		document.title = `${tm('system.appName')} - ${tm(to?.meta?.title as string)}`;
+	} catch (error: any) {
+		console.log('[vueI18n]', error.message);
+	}
 });
 
 export default router;

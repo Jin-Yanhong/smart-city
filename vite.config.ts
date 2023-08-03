@@ -35,7 +35,7 @@ export default ({ mode }) => {
 				'/api': {
 					target: config.VITE_BASE_API,
 					changeOrigin: true,
-					rewrite: path => path.replace(/^\/api/, '/api'),
+					rewrite: path => path.replace(/^\/api\//, '/api/'),
 				},
 			},
 		},

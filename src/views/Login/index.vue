@@ -75,7 +75,9 @@ function onSubmit(formEl: FormInstance | undefined) {
 							query: path,
 						});
 					} else {
-						router.replace('/dashboard');
+						router.replace(settings.homePage).catch(err => {
+							console.log('Login Redirect Error:', err);
+						});
 					}
 				}, 200);
 			});

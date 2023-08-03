@@ -1,7 +1,10 @@
 import { setCookie, getCookie, removeCookie } from '@/utils/auth';
-import { clearStorage } from '@/utils/index';
+import { clearStorage, envMode } from '@/utils/index';
 import { defineStore } from 'pinia';
 import { loginFormType } from '@/types';
+
+import { login, logout } from '@/api/user';
+import router from '@/router';
 
 const useUserStore = defineStore({
 	id: 'user',
@@ -16,14 +19,19 @@ const useUserStore = defineStore({
 	actions: {
 		handleLogin(loginArgs: loginFormType) {
 			return new Promise((resolve, reject) => {
-				const str = JSON.stringify(loginArgs);
-				resolve(str);
+				if (envMode().isDev) {
+					login(loginArgs, res => resolve(res));
+				} else {
+					resolve({
+						token: JSON.stringify(loginArgs),
+					});
+				}
 			})
 				.then(res => {
-					const accessToken = res as string;
-					setCookie(accessToken);
+					const token = (res as any).token;
+					setCookie(token);
 					this.$patch({
-						token: accessToken,
+						token: token,
 					});
 				})
 				.catch(err => {
@@ -32,14 +40,24 @@ const useUserStore = defineStore({
 						token: '',
 					});
 					clearStorage();
+					router.replace('/');
 				});
 		},
 		async handleLogout() {
-			removeCookie();
-			this.$patch({
-				token: '',
+			return new Promise((resolve, reject) => {
+				if (envMode().isDev) {
+					logout(res => resolve(res));
+				} else {
+					resolve({});
+				}
+			}).then(res => {
+				removeCookie();
+				this.$patch({
+					token: '',
+				});
+				clearStorage();
+				router.replace('/');
 			});
-			clearStorage();
 		},
 	},
 });

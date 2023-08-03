@@ -9,6 +9,10 @@ const formStatus = {
 	create: 'create',
 };
 
+const query = {
+	size: 10,
+	page: 1,
+};
 export default {
 	name: 'Crud',
 	render() {
@@ -107,7 +111,7 @@ export default {
 	data() {
 		return {
 			tableRowData: [],
-			query: {},
+			query: query,
 			pager: {
 				size: 10,
 				total: 100,
@@ -133,6 +137,7 @@ export default {
 	},
 	created() {
 		this.setFormRules();
+		this.toQuery();
 	},
 	methods: {
 		/**
@@ -177,13 +182,24 @@ export default {
 				this.currentItem = JSON.parse(JSON.stringify(row));
 			});
 		},
-		toQuery() {},
+		toQuery() {
+			this.query = query;
+			this.toReload();
+		},
 		toQueryReset() {
 			this.resetFormFields('queryForm', () => {
 				this.toReload();
 			});
 		},
-		toReload() {},
+		toReload() {
+			this.crud.list(this.query, res => {
+				console.log(res);
+				this.tableRowData = res.content;
+				this.pager.total = res.total;
+				this.pager.size = this.query.size;
+				this.pager.current = this.query.page;
+			});
+		},
 		pageCurrentChange() {},
 		pageSizeChange() {},
 		toSubmit() {},

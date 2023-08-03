@@ -1,7 +1,17 @@
 <template>
 	<div class="view">
-		<Crud tableName="字典项">
-			<!-- <template #column> -->
+		<Crud tableName="字典项" :crud="dictCrud">
+			<template v-slot:query="query">
+				<el-form-item label="Date" prop="date">
+					<el-input v-model="query.date" />
+				</el-form-item>
+				<el-form-item label="Name" prop="name">
+					<el-input v-model="query.name" />
+				</el-form-item>
+				<el-form-item label="Address" prop="address">
+					<el-input v-model="query.address" />
+				</el-form-item>
+			</template>
 			<template v-slot:column>
 				<el-table-column prop="date" label="Date" />
 				<el-table-column prop="name" label="Name" />
@@ -26,8 +36,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import Crud from '@/components/Crud/index.vue';
+import { dictCrud } from '@/api/dict';
 
 defineOptions({
 	name: 'SystemDicts',

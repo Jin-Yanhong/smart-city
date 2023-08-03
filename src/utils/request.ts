@@ -59,7 +59,7 @@ service.interceptors.response.use(
 /**
  *
  */
-function request(requestData: Partial<AxiosRequestConfig>, successCallback: requestCallback, errorCallback?: requestCallback) {
+function request(requestData: AxiosRequestConfig, successCallback: requestCallback, errorCallback?: requestCallback) {
 	service({ ...requestData })
 		.then((res: AxiosResponse<any, any>) => {
 			const data: responseData = res.data;

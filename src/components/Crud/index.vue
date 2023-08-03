@@ -1,7 +1,7 @@
 <script lang="jsx">
 import { h, nextTick } from 'vue';
 import { ElButton, ElPagination, ElTable, ElTableColumn, ElIcon, ElDialog, ElForm } from 'element-plus';
-import { Search, Delete, Edit, Plus } from '@element-plus/icons-vue';
+import { Search, Delete as DelIcon, Edit, Plus } from '@element-plus/icons-vue';
 import { formRules } from './setFormRules';
 
 const formStatus = {
@@ -12,7 +12,7 @@ const formStatus = {
 export default {
 	name: 'Crud',
 	render() {
-		const { tableName, toCreate, toDelete, toUpdate, toQuery, pageCurrentChange, pageSizeChange, toSubmit } = this;
+		const { tableName, toCreate, toDelete, toUpdate, toQuery, toQueryReset, pageCurrentChange, pageSizeChange, toSubmit } = this;
 		let { status, pager, dialogVisible, tableRowData } = this;
 
 		const columns = this.$slots?.column();
@@ -27,7 +27,7 @@ export default {
 							<ElButton size='small' type='warning' icon={() => <ElIcon>{() => <Edit />}</ElIcon>} onClick={() => toUpdate(row, $index)}>
 								{() => '更新'}
 							</ElButton>
-							<ElButton size='small' type='danger' icon={() => <ElIcon>{() => <Delete />}</ElIcon>} onClick={() => toDelete(row, $index)}>
+							<ElButton size='small' type='danger' icon={() => <ElIcon>{() => <DelIcon />}</ElIcon>} onClick={() => toDelete(row, $index)}>
 								{() => '删除'}
 							</ElButton>
 						</div>
@@ -40,20 +40,29 @@ export default {
 			'div',
 			{ class: ['Crud'] },
 			<div>
-				<div>
-					<ElButton type='success' icon={() => <ElIcon>{() => <Plus />}</ElIcon>} onClick={toCreate}>
-						{() => '新增'}
-					</ElButton>
-					<ElButton type='danger' icon={() => <ElIcon>{() => <Delete />}</ElIcon>} onClick={toDelete}>
-						{() => '删除'}
-					</ElButton>
-					<ElButton type='warning' icon={() => <ElIcon>{() => <Edit />}</ElIcon>} onClick={toUpdate}>
-						{() => '更新'}
-					</ElButton>
-					<ElButton type='primary' icon={() => <ElIcon>{() => <Search />}</ElIcon>} onClick={toQuery}>
-						{() => '查询'}
-					</ElButton>
+				<div class='flex-between'>
+					<div>
+						<ElForm ref='queryForm' class='queryForm' model={this.query} inline>
+							{() => this.$slots.query(this.query)}
+						</ElForm>
+					</div>
+					<div>
+						<ElButton type='success' icon={() => <ElIcon>{() => <Plus />}</ElIcon>} onClick={toCreate}>
+							{() => '新增'}
+						</ElButton>
+						<ElButton type='danger' icon={() => <ElIcon>{() => <DelIcon />}</ElIcon>} onClick={toDelete}>
+							{() => '删除'}
+						</ElButton>
+						<ElButton type='primary' icon={() => <ElIcon>{() => <Search />}</ElIcon>} onClick={toQuery}>
+							{() => '查询'}
+						</ElButton>
+						<ElButton type='warning' icon={() => <ElIcon>{() => <Search />}</ElIcon>} onClick={toQueryReset}>
+							{() => '重置'}
+						</ElButton>
+					</div>
 				</div>
+
+				<div class='hr' />
 
 				<div class='marginT'>
 					<ElTable ref='table' data={tableRowData} border>
@@ -97,26 +106,7 @@ export default {
 	},
 	data() {
 		return {
-			tableRowData: [
-				{
-					date: '2016-05-03',
-					name: 'Tom',
-					state: 'California',
-					city: 'Los Angeles',
-					address: 'No. 189, Grove St, Los Angeles',
-					zip: 'CA 90036',
-					tag: 'Home',
-				},
-				{
-					date: '2016-05-04',
-					name: 'Tom',
-					state: 'California',
-					city: 'Los Angeles',
-					address: 'No. 189, Grove St, Los Angeles',
-					zip: 'CA 90036',
-					tag: 'Home',
-				},
-			],
+			tableRowData: [],
 			query: {},
 			pager: {
 				size: 10,
@@ -135,14 +125,24 @@ export default {
 			required: true,
 			default: '',
 		},
+		crud: {
+			type: Object,
+			required: true,
+			default: () => {},
+		},
 	},
 	created() {
 		this.setFormRules();
 	},
 	methods: {
-		async resetFormFields(callback) {
+		/**
+		 *
+		 * @param { string } formName ElForm ref名称
+		 * @param { Function } callback 回调函数
+		 */
+		async resetFormFields(formName, callback) {
 			await nextTick(() => {
-				this.$refs.ruleForm.resetFields();
+				this.$refs[formName].resetFields();
 
 				for (const key in this.currentItem) {
 					if (Object.hasOwnProperty.call(this.currentItem, key)) {
@@ -165,19 +165,24 @@ export default {
 		},
 		toCreate() {
 			this.dialogVisible = true;
-			this.resetFormFields(() => {
+			this.resetFormFields('ruleForm', () => {
 				this.status = formStatus.create;
 			});
 		},
 		toDelete(row) {},
 		toUpdate(row) {
 			this.dialogVisible = true;
-			this.resetFormFields(() => {
+			this.resetFormFields('ruleForm', () => {
 				this.status = formStatus.update;
 				this.currentItem = JSON.parse(JSON.stringify(row));
 			});
 		},
 		toQuery() {},
+		toQueryReset() {
+			this.resetFormFields('queryForm', () => {
+				this.toReload();
+			});
+		},
 		toReload() {},
 		pageCurrentChange() {},
 		pageSizeChange() {},

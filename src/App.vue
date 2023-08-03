@@ -1,11 +1,9 @@
 <template>
 	<el-config-provider :locale="elocale">
 		<router-view v-slot="{ Component }">
-			<transition name="fade-transform" mode="out-in">
-				<keep-alive :include="cachedViews">
-					<component :is="Component" />
-				</keep-alive>
-			</transition>
+			<keep-alive :include="cachedViews">
+				<component :is="Component" />
+			</keep-alive>
 		</router-view>
 	</el-config-provider>
 </template>

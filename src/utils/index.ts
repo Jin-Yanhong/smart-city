@@ -1,3 +1,5 @@
+import { i18n } from '@/i18n';
+
 export function setAssetsBaseUrl() {
 	const cesiumAssetsPath = '/cesium';
 
@@ -36,6 +38,12 @@ export function setStorage(key: string, value: any): void {
 
 export function clearStorage(): void {
 	window.localStorage.clear();
+}
+
+export function i18nTm(mst: string): string {
+	const { te, tm } = i18n.global;
+	let msg = te(mst) ? tm(mst) : '';
+	return msg;
 }
 
 export function envMode(): { mode: string; isDev: boolean; isProd: boolean } {

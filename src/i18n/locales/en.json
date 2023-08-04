@@ -21,5 +21,20 @@
 			"reliefMap": "Relief Map",
 			"spaceModel": "Space Model"
 		}
+	},
+	"msg": {
+		"create": "Create Success",
+		"read": "Refresh Success",
+		"update": "Update Success",
+		"delete": "Delete Success"
+	},
+	"crudBtn": {
+		"create": "Create",
+		"read": "Refresh",
+		"update": "Update",
+		"delete": "Delete",
+		"reset": "Reset",
+		"confirm": "Confirm",
+		"calcel": "Calcel"
 	}
 }

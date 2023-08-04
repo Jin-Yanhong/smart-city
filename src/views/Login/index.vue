@@ -4,7 +4,7 @@
 			<el-card shadow="never">
 				<template #header>
 					<div class="card-header">
-						<span>Welcome to {{ tm(AppName) }}</span>
+						<span>Welcome to {{ i18nTm(AppName) }}</span>
 					</div>
 				</template>
 				<ElForm :model="form" :label-width="labelWidth" label-position="left" ref="loginFormRef" :rules="rules">
@@ -31,12 +31,12 @@ import useUserStore from '@/store/user';
 import { onMounted, reactive, ref } from 'vue';
 import type { FormInstance, FormRules } from 'element-plus';
 import { LocationQuery, RouteLocationNormalizedLoaded, useRoute } from 'vue-router';
-import { i18n } from '@/i18n';
+import { i18nTm } from '@/utils/index';
 
 defineOptions({
 	name: 'Login',
 });
-const { tm } = i18n.global;
+
 const form = reactive<loginFormType>({ userName: 'admin', passWord: 'admin' });
 const AppName = ref<string>('');
 const user = useUserStore();

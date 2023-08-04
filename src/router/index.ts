@@ -1,9 +1,9 @@
 import NProgress from 'nprogress';
 import useUserStore from '@/store/user';
 import { ElMessage } from 'element-plus';
+import { i18nTm } from '@/utils/index';
 import { createRouter, createWebHashHistory, RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 
-import { i18n } from '@/i18n';
 import 'nprogress/nprogress.css';
 
 import { fullScreen } from './FullScreen';
@@ -12,8 +12,6 @@ import { Pages } from './module/Pages';
 import settings from '@/settings';
 
 const whiteList = ['/login'];
-
-const { tm } = i18n.global;
 
 export const routes: Array<RouteRecordRaw> = [
 	{
@@ -104,7 +102,7 @@ router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormali
 router.afterEach((to: RouteLocationNormalized) => {
 	NProgress.done();
 	try {
-		document.title = `${tm('system.appName')} - ${tm(to?.meta?.title as string)}`;
+		document.title = `${i18nTm('system.appName')} - ${i18nTm(to?.meta?.title as string)}`;
 	} catch (error: any) {
 		console.log('[vueI18n]', error.message);
 	}

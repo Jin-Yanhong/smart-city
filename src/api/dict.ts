@@ -5,7 +5,7 @@ const dictCrud = {
 	create: (data: any, callback: requestCallback) => {
 		request(
 			{
-				url: `/data`,
+				url: `/api/dict`,
 				method: `post`,
 				data,
 			},
@@ -15,7 +15,7 @@ const dictCrud = {
 	read: (id: number | string, callback: requestCallback) => {
 		request(
 			{
-				url: `/data/{id}`,
+				url: `/api/dict/{id}`,
 				method: `get`,
 			},
 			callback
@@ -24,17 +24,17 @@ const dictCrud = {
 	update: (data: any, callback: requestCallback) => {
 		request(
 			{
-				url: `/data`,
+				url: `/api/dict`,
 				method: `put`,
 				data,
 			},
 			callback
 		);
 	},
-	delete: (callback: requestCallback) => {
+	delete: (id: number, callback: requestCallback) => {
 		request(
 			{
-				url: `/data/{id}`,
+				url: `/api/dict/${id}`,
 				method: `delete`,
 			},
 			callback
@@ -43,7 +43,7 @@ const dictCrud = {
 	list: (query: crudQueryParams, callback: requestCallback) => {
 		request(
 			{
-				url: `/api/sys/dict`,
+				url: `/api/dict`,
 				method: `get`,
 				params: query,
 			},

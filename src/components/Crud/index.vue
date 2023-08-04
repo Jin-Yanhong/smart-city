@@ -1,8 +1,10 @@
 <script lang="jsx">
 import { h, nextTick } from 'vue';
-import { ElButton, ElPagination, ElTable, ElTableColumn, ElIcon, ElDialog, ElForm } from 'element-plus';
-import { Search, Delete as DelIcon, Edit, Plus } from '@element-plus/icons-vue';
+import { ElButton, ElPagination, ElTable, ElTableColumn, ElIcon, ElDialog, ElForm, ElMessageBox } from 'element-plus';
+import { Search, Delete as DelIcon, Edit, Plus, RefreshLeft } from '@element-plus/icons-vue';
 import { formRules } from './setFormRules';
+import { i18nTm } from '@/utils/index';
+import { curdConst } from './constant';
 
 const formStatus = {
 	update: 'update',
@@ -29,10 +31,10 @@ export default {
 					default: ({ row, $index }) => (
 						<div>
 							<ElButton size='small' type='warning' icon={() => <ElIcon>{() => <Edit />}</ElIcon>} onClick={() => toUpdate(row, $index)}>
-								{() => '更新'}
+								{() => i18nTm('crudBtn.update')}
 							</ElButton>
 							<ElButton size='small' type='danger' icon={() => <ElIcon>{() => <DelIcon />}</ElIcon>} onClick={() => toDelete(row, $index)}>
-								{() => '删除'}
+								{() => i18nTm('crudBtn.delete')}
 							</ElButton>
 						</div>
 					),
@@ -52,16 +54,16 @@ export default {
 					</div>
 					<div>
 						<ElButton type='success' icon={() => <ElIcon>{() => <Plus />}</ElIcon>} onClick={toCreate}>
-							{() => '新增'}
+							{() => i18nTm('crudBtn.create')}
 						</ElButton>
 						<ElButton type='danger' icon={() => <ElIcon>{() => <DelIcon />}</ElIcon>} onClick={toDelete}>
-							{() => '删除'}
+							{() => i18nTm('crudBtn.delete')}
 						</ElButton>
 						<ElButton type='primary' icon={() => <ElIcon>{() => <Search />}</ElIcon>} onClick={toQuery}>
-							{() => '查询'}
+							{() => i18nTm('crudBtn.read')}
 						</ElButton>
-						<ElButton type='warning' icon={() => <ElIcon>{() => <Search />}</ElIcon>} onClick={toQueryReset}>
-							{() => '重置'}
+						<ElButton type='warning' icon={() => <ElIcon>{() => <RefreshLeft />}</ElIcon>} onClick={toQueryReset}>
+							{() => i18nTm('crudBtn.reset')}
 						</ElButton>
 					</div>
 				</div>
@@ -69,7 +71,7 @@ export default {
 				<div class='hr' />
 
 				<div class='marginT'>
-					<ElTable ref='table' data={tableRowData} border>
+					<ElTable ref='table' load={() => this.loading.table} data={tableRowData} border>
 						{() => columnSlots}
 					</ElTable>
 				</div>
@@ -96,10 +98,10 @@ export default {
 						footer: () => (
 							<span>
 								<ElButton size='small' type='' onClick={() => (this.dialogVisible = false)}>
-									{() => '取消'}
+									{() => i18nTm('crudBtn.calcel')}
 								</ElButton>
-								<ElButton size='small' type='primary' onClick={toSubmit}>
-									{() => '确认'}
+								<ElButton size='small' type='primary' loading={this.loading.btn} onClick={toSubmit}>
+									{() => i18nTm('crudBtn.confirm')}
 								</ElButton>
 							</span>
 						),
@@ -114,13 +116,17 @@ export default {
 			query: query,
 			pager: {
 				size: 10,
-				total: 100,
+				total: 0,
 				current: 1,
 			},
 			dialogVisible: false,
 			status: formStatus.create,
 			currentItem: {},
 			formRules: {},
+			loading: {
+				table: false,
+				btn: false,
+			},
 		};
 	},
 	props: {
@@ -174,7 +180,22 @@ export default {
 				this.status = formStatus.create;
 			});
 		},
-		toDelete(row) {},
+		toDelete(row) {
+			ElMessageBox.confirm('proxy will permanently delete the file. Continue?', 'Warning', {
+				confirmButtonText: 'OK',
+				cancelButtonText: 'Cancel',
+				type: 'warning',
+			})
+				.then(() => {
+					this.crud.delete(row._id, res => {
+						this.$message.success(curdConst.message.delete);
+						this.toReload();
+					});
+				})
+				.catch(() => {
+					this.$message.info('Delete canceled');
+				});
+		},
 		toUpdate(row) {
 			this.dialogVisible = true;
 			this.resetFormFields('ruleForm', () => {
@@ -192,17 +213,47 @@ export default {
 			});
 		},
 		toReload() {
+			this.loading.table = true;
 			this.crud.list(this.query, res => {
-				console.log(res);
+				this.loading.table = false;
 				this.tableRowData = res.content;
 				this.pager.total = res.total;
 				this.pager.size = this.query.size;
 				this.pager.current = this.query.page;
 			});
 		},
-		pageCurrentChange() {},
-		pageSizeChange() {},
-		toSubmit() {},
+		pageCurrentChange(current) {
+			this.query.page = current;
+			this.toReload();
+		},
+		pageSizeChange(size) {
+			this.query.size = size;
+			this.toReload();
+		},
+		toSubmit() {
+			this.$refs.ruleForm.validate(valid => {
+				if (valid) {
+					//
+					if (this.status == formStatus.create) {
+						this.crud.create(this.currentItem, res => {
+							this.$message.success(curdConst.message.create);
+							this.toReload();
+							this.dialogVisible = false;
+						});
+						return;
+					}
+
+					if (this.status == formStatus.update) {
+						this.crud.update(this.currentItem.id, this.currentItem, res => {
+							this.$message.success(curdConst.message.update);
+							this.toReload();
+							this.dialogVisible = false;
+						});
+						return;
+					}
+				}
+			});
+		},
 	},
 };
 </script>
